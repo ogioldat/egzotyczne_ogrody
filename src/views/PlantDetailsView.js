@@ -5,20 +5,20 @@ import { getDetailsPlant, getPlantDetailsEmpty, getPlants } from 'redux/reducers
 import fetchPlantsAction from 'redux/actions/plants/fetchPlants';
 import endpoints from 'assets/data/api';
 import { motion } from 'framer-motion';
-import { imageMotion, wrapperMotion } from 'assets/motion';
+import { wrapperMotion } from 'assets/motion';
 import styled from 'styled-components';
 import {
   setCurrentPlant as setCurrentPlantAction,
   setPlantDetails as setPlantDetailsAction,
   setPlantDetailsEmpty as setPlantDetailsEmptyAction,
   toggleModal as toggleModalAction,
-  setCurrentPlantPhoto as setCurrentPlantPhotoAction,
   changePlantPhoto as changePlantPhotoAction,
 } from '../redux/actions/plants/plantActions';
 import { getPending, getCurrentPlantPhoto, getShowModal } from '../redux/reducers/plantsReducer';
 import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
 import PlantDetailsContent from '../components/molecules/PlantDetailsContent/PlantDetailsContent';
 import PhotoModal from '../components/organisms/PhotoModal/PhotoModal';
+import ImagesGrid from '../components/molecules/ImagesGrid/ImagesGrid';
 
 const StyledWrapper = styled(motion.div)`
   height: 100%;
@@ -30,29 +30,6 @@ const StyledWrapper = styled(motion.div)`
   flex-direction: ${ ({ isTabletOrMobile }) => isTabletOrMobile && 'column' };
   padding: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.mobilePadding };
 `;
-
-const StyledImageGrid = styled(motion.div)`
-  display: grid;
-  grid-template-columns: repeat(2, 350px);
-  grid-template-rows: repeat(-1, 200px);
-  width: 35vw;
-  margin: 70px 140px auto 0;
-`;
-
-const StyledImageBlock = styled.div`
-  height: 200px;
-  margin: 10px;
-  box-shadow: ${ ({ theme }) => theme.shadow };
-  cursor: pointer;
-  border-radius: 8px;
-  background: white url('${ ({ path }) => path }') center no-repeat;
-  background-size: cover;
-`;
-
-const StyledFlexWrapper = styled.div`
-  display: flex;
-`;
-
 
 const PlantDetailsView = (
   {
@@ -68,7 +45,6 @@ const PlantDetailsView = (
     currentPlantPhoto,
     toggleModal,
     showModal,
-    setCurrentPlantPhoto,
     changePlantPhoto,
   },
 ) => {
@@ -114,32 +90,15 @@ const PlantDetailsView = (
         />
       }
       <PlantDetailsContent
+        name={ name }
+        images={ images }
+        pending={ pending }
         fact={ fact }
         title={ title }
         description={ description }
       />
       {
-        !pending && (
-          <StyledFlexWrapper>
-            <StyledImageGrid
-              isTabletOrMobile={ isTabletOrMobile }
-              variants={ imageMotion.variants }
-              transition={ imageMotion.transition }
-              key={ name }>
-              {
-                images && images
-                  .map((image, index) => <StyledImageBlock
-                    isTabletOrMobile={ isTabletOrMobile }
-                    onClick={ () => {
-                      setCurrentPlantPhoto(index);
-                      toggleModal(true);
-                    } }
-                    path={ image }
-                    alt={ title + ' zdj' }/>)
-              }
-            </StyledImageGrid>
-          </StyledFlexWrapper>
-        )
+        (!pending && !isTabletOrMobile) && <ImagesGrid name={ name } images={ images } title={ title }/>
       }
     </StyledWrapper>
   );
@@ -157,12 +116,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchPlants: fetchPlantsAction,
-  setCurrentPlant: setCurrentPlantAction,
   setPlantDetails: setPlantDetailsAction,
   setPlantDetailsEmpty: setPlantDetailsEmptyAction,
   toggleModal: toggleModalAction,
-  setCurrentPlantPhoto: setCurrentPlantPhotoAction,
   changePlantPhoto: changePlantPhotoAction,
+  setCurrentPlant: setCurrentPlantAction,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantDetailsView);

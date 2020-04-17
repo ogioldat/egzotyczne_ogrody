@@ -11,12 +11,14 @@ import Heading from '../../atoms/Heading/Heading';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
 import Subtitle from '../../atoms/Subtitle/Subtitle';
 import { routes } from '../../../routes';
+import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import ImagesGrid from '../ImagesGrid/ImagesGrid';
 
 
 const StyledContentWrapper = styled(motion.div)`
   height: 100%;
   min-width: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '800px' };
-  width: 70%;
+  width:  ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '70%' };;
   position: relative;
   display: flex;
   align-items: center;
@@ -57,7 +59,7 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledSubtitle = styled(Subtitle)`
-  font-size: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.fontSize.s };
+  font-size: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.fontSize.xs };
 `;
 
 const StyledOverflowText = styled.div`
@@ -72,8 +74,11 @@ const PlantDetailsContent = (
     isTabletOrMobile,
     fact,
     title,
+    name,
+    images,
     description,
     changePlant,
+    pending
   },
 ) => (
   <StyledContentWrapper
@@ -94,6 +99,11 @@ const PlantDetailsContent = (
         </>
         : <Paragraph>{ description }</Paragraph>
     }
+
+    {
+      (!pending && isTabletOrMobile) && <ImagesGrid name={ name } images={ images } title={ title }/>
+    }
+
     <StyledControls isTabletOrMobile={ isTabletOrMobile }>
       <StyledPlantsCarousel isTabletOrMobile={ isTabletOrMobile }/>
       <StyledButtonWrapper isTabletOrMobile={ isTabletOrMobile }>
@@ -117,8 +127,12 @@ const PlantDetailsContent = (
   </StyledContentWrapper>
 );
 
+const mapStateToProps = state => ({
+  isTabletOrMobile: getIsTabletOrMobile(state)
+});
+
 const mapDispatchToProps = dispatch => ({
   changePlant: direction => dispatch(changePlantAction(direction)),
 });
 
-export default connect(null, mapDispatchToProps)(PlantDetailsContent);
+export default connect(mapStateToProps, mapDispatchToProps)(PlantDetailsContent);
