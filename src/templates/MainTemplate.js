@@ -53,12 +53,13 @@ const MainTemplate = (
   const [targetElement] = useState(body);
 
   useEffect(() => {
-    if (showMenu || loaded) {
+    if (showMenu || !loaded) {
       targetElement.style.overflow = 'hidden';
     } else {
       targetElement.style.overflow = 'visible';
     }
-  }, [showMenu]);
+
+  }, [showMenu, loaded]);
 
   const [showLoader, toggleLoader] = useState(true);
 
