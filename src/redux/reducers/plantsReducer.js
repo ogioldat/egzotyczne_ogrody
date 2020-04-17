@@ -107,8 +107,6 @@ export const plants = (state = initialState, action) => {
     }
 
     case SET_CURRENT_PLANT_PHOTO: {
-      console.log(action.payload )
-
       return {
         ...state,
         currentPlant: {
@@ -143,7 +141,6 @@ export const plants = (state = initialState, action) => {
         ? images.length - 1 : photoIndex - 1  : photoIndex === images.length - 1
         ? 0 : photoIndex + 1;
 
-      console.log('dpa');
       return {
         ...state,
         currentPlant: {

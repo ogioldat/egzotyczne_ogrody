@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 const ArrowControl = styled.img`
   transform: rotate(${ ({ direction }) => direction === 'prev'
-  ? '90deg' : direction === 'next' ? '-90deg' : 0});
-  width: 50px;
-  height: 50px;
+  ? '90deg' : direction === 'next' ? '-90deg' : 0 });
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '6vw' : '50px' };
+  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '6vw' : '50px' };
   background: none;
   filter: brightness(400%);
   cursor: pointer;
@@ -16,7 +16,7 @@ const ArrowControl = styled.img`
   &:hover {
     opacity: .6;
     transform: scale(.9) rotate(${ ({ direction }) => direction === 'prev'
-  ? '90deg' : direction === 'next' ? '-90deg' : 0});
+  ? '90deg' : direction === 'next' ? '-90deg' : 0 });
   }
 `;
 

@@ -1,8 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import arrow from 'assets/icons/arrow_icon.png';
 import ArrowControl from 'components/atoms/ArrowControl/ArrowControl';
 import close from 'assets/icons/close.png';
+import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import { connect } from 'react-redux';
 
 const StyledWrapper = styled.div`
   position: fixed !important;
@@ -11,6 +13,7 @@ const StyledWrapper = styled.div`
   margin: auto;
   padding: 3% 0;
   width: 100%;
+  height: 100vh;
   top: 50%; 
   left: 50%;
   transform: translate(-50%,-50%);
@@ -35,18 +38,25 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledImage = styled.img`
-  height: 90vh;
+  ${({isTabletOrMobile}) => isTabletOrMobile ?
+  css`
+    width: 80vw;
+` 
+  : css`
+    height: 90vh;
+`
+}
 `;
 
 const StyledX = styled.img`
   color: white;
   position: absolute;
-  width: 32px;
+  width: ${({isTabletOrMobile}) => isTabletOrMobile ? '6vw' : '32px'};
   top: 50px;
   padding: 5px;
   box-sizing: content-box;
   cursor:pointer;
-  right: 50px;
+  right: ${({isTabletOrMobile}) => isTabletOrMobile ? '5%' : '50px'};
   transition: transform .5s ${ ({ theme }) => theme.bezier },
     opacity .5s ${ ({ theme }) => theme.bezier };
   
@@ -58,23 +68,31 @@ const StyledX = styled.img`
 
 const StyledPrevArrow = styled(ArrowControl)`
   position: absolute;
-  left: 50px;
+  left: ${({isTabletOrMobile}) => isTabletOrMobile ? '1vw' : '50px'};
 `;
 
-const StyledPrevNext = styled(ArrowControl)`
+const StyledNextArrow = styled(ArrowControl)`
   position: absolute;
-  right: 50px;
+  right: ${({isTabletOrMobile}) => isTabletOrMobile ? '1vw' : '50px'};
 `;
 
 
-const PhotoModal = ({ currentPhoto, changePhoto, toggleModal }) => (
+const PhotoModal = ({ currentPhoto, changePhoto, toggleModal, isTabletOrMobile }) => (
   <StyledWrapper>
-    <StyledX src={ close } onClick={ () => toggleModal(false) }/>
+    <StyledX
+      isTabletOrMobile={ isTabletOrMobile }
+      src={ close }
+      onClick={ () => toggleModal(false) }/>
     <StyledPrevArrow
+      isTabletOrMobile={ isTabletOrMobile }
       src={ arrow }
       onClick={ () => changePhoto('prev') } direction='prev'/>
-    <StyledImage src={ currentPhoto } alt=""/>
-    <StyledPrevNext
+    <StyledImage
+      isTabletOrMobile={ isTabletOrMobile }
+      src={ currentPhoto }
+      alt=""/>
+    <StyledNextArrow
+      isTabletOrMobile={ isTabletOrMobile }
       src={ arrow }
       onClick={ () => changePhoto('next') }
       direction='next'/>
@@ -82,6 +100,8 @@ const PhotoModal = ({ currentPhoto, changePhoto, toggleModal }) => (
 );
 
 
+const mapStateToProps = state => ({
+  isTabletOrMobile: getIsTabletOrMobile(state),
+});
 
-
-export default PhotoModal;
+export default connect(mapStateToProps)(PhotoModal);

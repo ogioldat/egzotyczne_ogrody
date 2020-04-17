@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDetailsPlant, getPlantDetailsEmpty, getPlants } from 'redux/reducers/plantsReducer';
@@ -48,6 +48,17 @@ const PlantDetailsView = (
     changePlantPhoto,
   },
 ) => {
+  const body = document.querySelector('body');
+  const [targetElement] = useState(body);
+
+  useEffect(() => {
+    if (showModal) {
+      targetElement.style.overflow = 'hidden';
+    } else {
+      targetElement.style.overflow = 'visible';
+    }
+  }, [showModal]);
+
   useEffect(() => {
     // if plants state is empty -- download default plant (first object from endpoints.plants)
     const arePlantsEmpty = Object.keys(plants)
