@@ -5,6 +5,7 @@ import { getPlantCategories } from 'redux/reducers/plantsReducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { motion } from 'framer-motion';
+import { PLANTS_DICT } from '../../organisms/PlantsGrid/PlantsGrid';
 import { setCurrentPlant as setCurrentPlantAction } from 'redux/actions/plants/plantActions';
 
 const StyledWrapper = styled.div`
@@ -78,7 +79,7 @@ const PlantsCarousel = ({ plantCategories, setCurrentPlant, isTabletOrMobile }) 
               } }
               active={ plant === activePlant }>
               {
-                plant
+                PLANTS_DICT[plant]
               }
             </StyledSmallCapsText>
           ),

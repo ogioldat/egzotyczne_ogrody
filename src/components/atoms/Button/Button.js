@@ -37,12 +37,12 @@ const StyledRect = styled.div`
   position: absolute;
   bottom: 10px;
   z-index: -1;
-  width: 100%;
+  width: 90%;
   height: 28px;
   transform-origin: left;
   animation: 1.5s .3s forwards ${ ({ theme }) => theme.bezier } ${ ({ theme }) => theme.animation };
   transform: translateX(10%);
-  background-color: ${ ({ theme }) => theme.greyLight };
+  background-color: ${ ({ theme }) => theme.greenLight };
 `;
 
 const StyledUnderline = styled.div`

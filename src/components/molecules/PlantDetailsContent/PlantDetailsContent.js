@@ -42,11 +42,6 @@ const StyledButton = styled(Button)`
   margin: 0 30px;
 `;
 
-const StyledPlantsCarousel = styled(PlantsCarousel)`
-  position: absolute;
-  bottom: 0;
-`;
-
 const StyledButtonWrapper = styled.div`
   width: 100%;
   margin-top: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '2%' : '30px' };
@@ -59,15 +54,19 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledSubtitle = styled(Subtitle)`
-  font-size: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.fontSize.xs };
+  font-size: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.fontSize.xxs };
 `;
 
 const StyledOverflowText = styled.div`
-  height: 30vh;
+  height: 20vh;
   overflow-y: scroll;
   position: relative;
   padding-bottom: 50px;
 `;
+
+const StyledParagraph = styled(Paragraph)`
+  font-size: ${({theme}) => theme.fontSize.xs};
+`
 
 const PlantDetailsContent = (
   {
@@ -94,7 +93,7 @@ const PlantDetailsContent = (
       isTabletOrMobile ?
         <>
           <StyledOverflowText>
-            <Paragraph>{ description }</Paragraph>
+            <StyledParagraph>{ description }</StyledParagraph>
           </StyledOverflowText>
         </>
         : <Paragraph>{ description }</Paragraph>
@@ -105,7 +104,7 @@ const PlantDetailsContent = (
     }
 
     <StyledControls isTabletOrMobile={ isTabletOrMobile }>
-      <StyledPlantsCarousel isTabletOrMobile={ isTabletOrMobile }/>
+      <PlantsCarousel isTabletOrMobile={ isTabletOrMobile }/>
       <StyledButtonWrapper isTabletOrMobile={ isTabletOrMobile }>
         <StyledLink to={ routes.home }>
           <StyledButton

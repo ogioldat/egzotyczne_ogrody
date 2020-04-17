@@ -15,9 +15,12 @@ const StyledImageGrid = styled(motion.div)`
   ${ ({ isTabletOrMobile }) => isTabletOrMobile ?
   css`
     display: flex;
+    background-color: transparent;
+    position: absolute;
+    bottom: 15vh;
     width: 100%;
-    //height: 100%;
     overflow-x: scroll;
+    border-radius: 12px;
 `
   : css`
     display: grid;
@@ -31,9 +34,10 @@ const StyledImageGrid = styled(motion.div)`
 `;
 
 const StyledImageBlock = styled.div`
-  height: 200px;
-  margin: 10px;
-  min-width: 100%;
+  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '30vh' : '200px' };
+  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '0 10px 0 0' : '10px' };;
+  min-width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '50%' : '100%' };
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '20vw' };
   box-shadow: ${ ({ theme, isTabletOrMobile }) => !isTabletOrMobile && theme.shadow };
   cursor: pointer;
   border-radius: 8px;

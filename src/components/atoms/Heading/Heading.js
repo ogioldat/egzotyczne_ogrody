@@ -17,7 +17,7 @@ const StyledHeading = styled.h1`
     default:
       return css`
 
-           margin: 100px 0 50px 0;
+           margin: 50px 0 10px 0;
            font-size: ${ isTabletOrMobile
         ? `calc(3.125vw + ${ theme.fontSize.xl })` : theme.fontSize.heading };
            
@@ -39,7 +39,7 @@ const StyledHeading = styled.h1`
 
     case 'plantDetails':
       return css`
-           font-size: ${ isTabletOrMobile ? theme.fontSize.xl : theme.fontSize.plantDetails }; 
+           font-size: ${ isTabletOrMobile ? theme.fontSize.s : theme.fontSize.plantDetails }; 
            align-self: center;
            margin-bottom: 0;
            
