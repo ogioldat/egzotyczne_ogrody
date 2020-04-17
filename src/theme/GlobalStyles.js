@@ -18,11 +18,12 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
     font-family: Montserrat, sans-serif;
     color: rgb(45, 45, 45);
+    overflow-y: visible;
   }
   
   html {
     font-size: 62.5%;
-    overflow-y:scroll;
+    //overflow-y: scroll;
     
   }
 `;

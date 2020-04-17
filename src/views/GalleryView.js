@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import uniqid from 'uniqid';
 import { bindActionCreators } from 'redux';
-
 import fetchPhotosAction from 'redux/actions/gallery/fetchPhotos';
-import { getPhotos, getPhotosError, getPhotosPending, getShowModal } from 'redux/reducers/galleryReducer';
-
+import {
+  changePhoto as changePhotoAction,
+  toggleModal as toggleModalAction,
+} from 'redux/actions/gallery/galleryActions';
+import {
+  getCurrentPhoto,
+  getPhotos,
+  getPhotosError,
+  getPhotosPending,
+  getShowModal,
+} from 'redux/reducers/galleryReducer';
 import styled, { css } from 'styled-components';
 import GalleryImage from 'components/atoms/GalleryImage/GalleryImage';
 import MasonryLayout from 'react-masonry-layout';
@@ -17,7 +25,12 @@ import { wrapperMotion } from 'assets/motion';
 
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
-import GalleryModal from '../components/organisms/GalleryModal/GalleryModal';
+import PhotoModal from '../components/organisms/PhotoModal/PhotoModal';
+import {
+  changePlantPhoto as changePlantPhotoAction,
+  setCurrentPlant as setCurrentPlantAction, setCurrentPlantPhoto as setCurrentPlantPhotoAction,
+  setPlantDetails as setPlantDetailsAction, setPlantDetailsEmpty as setPlantDetailsEmptyAction,
+} from '../redux/actions/plants/plantActions';
 
 const StyledWrapper = styled(motion.div)`
   position: relative;
@@ -62,79 +75,91 @@ const StyledDarkBox = styled.div`
   background-color: rgba(0,0,0,0.9);
 `;
 
-class GalleryView extends React.Component {
-
-
-  componentDidMount() {
-    const { fetchPhotos } = this.props;
+const GalleryView = (
+  {
+    fetchPhotos,
+    photos,
+    pending,
+    error,
+    showModal,
+    currentPhoto,
+    changePhoto,
+    toggleModal,
+  },
+) => {
+  useEffect(() => {
     fetchPhotos();
-  }
+  }, []);
 
-  render() {
-    const { photos, pending, error, showModal } = this.props;
+  return (
+    <StyledFlex>
+      <StyledWrapper
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        variants={ wrapperMotion.variants }>
+        <StyledTitleWrapper>
+          <StyledLink to={ routes.home }>
+            <Button secondary>strona główna</Button>
+          </StyledLink>
+          <Heading type='plantDetails'>galeria zdjęć</Heading>
+        </StyledTitleWrapper>
+        {
+          showModal && (
+            <>
+              <PhotoModal
+                changePhoto={ changePhoto }
+                toggleModal={ toggleModal }
+                currentPhoto={ currentPhoto }/>
+              <StyledDarkBox/>
+            </>
+          )
+        }
 
-    return (
-      <StyledFlex>
-        <StyledWrapper initial="initial"
-                       animate="enter"
-                       exit="exit"
-                       variants={ wrapperMotion.variants }>
-          <StyledTitleWrapper>
-            <StyledLink to={ routes.home }>
-              <Button secondary>strona główna</Button>
-            </StyledLink>
-            <Heading type='plantDetails'>galeria zdjęć</Heading>
-          </StyledTitleWrapper>
-          {
-            showModal && (
-              <>
-                <GalleryModal/>
-                <StyledDarkBox/>
-              </>
-            )
-          }
+        {
+          error && <div>wystąpił błąd podczas pobierania zdjęć</div>
+        }
 
-          {
-            error && <div>wystąpił błąd podczas pobierania zdjęć</div>
-          }
+        {
+          pending ?
+            <ClipLoader loading={ pending }/>
+            :
+            <MasonryLayout id="masonry-layout" sizes={ [{ columns: 3, gutter: 30 }] }>
+              {
+                photos.map((photo, index) => {
+                  const height = index % 2 === 0 ? 600 : 700;
 
-          {
-
-            pending ?
-              <ClipLoader loading={ pending }/>
-              :
-              <MasonryLayout id="masonry-layout" sizes={ [{ columns: 3, gutter: 30 }] }>
-                {
-                  photos.map((photo, index) => {
-                    const height = index % 2 === 0 ? 600 : 700;
-
-                    return (
-                      <ImageWrapper>
-                        <GalleryImage
-                          key={ uniqid() }
-                          index={index}
-                          height={ height }
-                          image={ photo }/>
-                      </ImageWrapper>
-                    );
-                  })
-                }
-              </MasonryLayout>
-          }
-        </StyledWrapper>
-      </StyledFlex>
-    );
-  }
-}
+                  return (
+                    <ImageWrapper>
+                      <GalleryImage
+                        key={ uniqid() }
+                        index={ index }
+                        height={ height }
+                        image={ photo }/>
+                    </ImageWrapper>
+                  );
+                })
+              }
+            </MasonryLayout>
+        }
+      </StyledWrapper>
+    </StyledFlex>
+  );
+};
 
 const mapStateToProps = state => ({
   photos: getPhotos(state),
   pending: getPhotosPending(state),
   error: getPhotosError(state),
-  showModal: getShowModal(state)
+  showModal: getShowModal(state),
+  currentPhoto: getCurrentPhoto(state),
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ fetchPhotos: fetchPhotosAction }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchPhotos: fetchPhotosAction,
+  changePhoto: changePhotoAction,
+  toggleModal: toggleModalAction,
+}, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryView);

@@ -9,6 +9,7 @@ const StyledWrapper = styled.div`
   z-index: -2;
   bottom: 0;
   right: 0;
+  overflow-y: auto;
 `;
 
 const StyledImage = styled.img`

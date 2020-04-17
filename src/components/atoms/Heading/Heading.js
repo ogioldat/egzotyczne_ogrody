@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 const StyledHeading = styled.h1`
   position: relative;
@@ -10,12 +12,14 @@ const StyledHeading = styled.h1`
   font-weight: ${ ({ theme }) => theme.bold };
   margin: 0;
   
-  ${ ({ type, theme }) => {
+  ${ ({ type, theme, isTabletOrMobile, footer }) => {
   switch (type) {
     default:
       return css`
-           margin: 100px 0 0 0;
-           font-size: ${ theme.fontSize.heading };
+
+           margin: 100px 0 50px 0;
+           font-size: ${ isTabletOrMobile
+        ? `calc(3.125vw + ${ theme.fontSize.xl })` : theme.fontSize.heading };
            
            div {
               background-color: ${ theme.greyLight };
@@ -24,7 +28,7 @@ const StyledHeading = styled.h1`
 
     case 'menu':
       return css`
-           font-size: ${ theme.fontSize.xl }; 
+           font-size: ${ isTabletOrMobile ? theme.fontSize.mobileMenuHeading : theme.fontSize.xl };
            color: ${ ({ reversed }) => reversed && theme.greyLight };
            ${ ({ reversed }) => !reversed && css`
                   div {
@@ -35,7 +39,7 @@ const StyledHeading = styled.h1`
 
     case 'plantDetails':
       return css`
-           font-size: ${ theme.fontSize.plantDetails }; 
+           font-size: ${ isTabletOrMobile ? theme.fontSize.xl : theme.fontSize.plantDetails }; 
            align-self: center;
            margin-bottom: 0;
            
@@ -56,7 +60,9 @@ const StyledHeading = styled.h1`
           `;
   }
 }
-}
+};
+  font-size: ${ ({ footer, isTabletOrMobile, theme }) => 
+  (footer && isTabletOrMobile) &&  theme.fontSize.s   } 
 `;
 
 const StyledRect = styled.div`
@@ -66,11 +72,16 @@ const StyledRect = styled.div`
   z-index: -1;
   width: 100%;
   height: 80%;
-  animation: 1.5s forwards cubic-bezier(0.16, 1, 0.3, 1) ${ ({theme}) => theme.animation };
+  animation: 1.5s forwards ${ ({ theme }) => theme.bezier } ${ ({ theme }) => theme.animation };
 `;
 
-const Heading = ({ children, type, reversed, card }) => (
-  <StyledHeading type={ type } reversed={ reversed } card={ card }>
+const Heading = ({ children, type, reversed, card, isTabletOrMobile, footer }) => (
+  <StyledHeading
+    footer={ footer }
+    isTabletOrMobile={ isTabletOrMobile }
+    type={ type }
+    reversed={ reversed }
+    card={ card }>
     <StyledRect/>
     {
       children
@@ -87,6 +98,10 @@ Heading.defaultProps = {
   type: '',
 };
 
-export default Heading;
+const mapStateToProps = state => ({
+  isTabletOrMobile: getIsTabletOrMobile(state),
+});
+
+export default connect(mapStateToProps)(Heading);
 
 

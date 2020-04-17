@@ -8,12 +8,15 @@ const ArrowControl = styled.img`
   background: none;
   filter: brightness(400%);
   cursor: pointer;
-  padding: 12px;
+  padding: 5px;
   box-sizing: content-box;
-  transition: .3s opacity ease;
+  transition: transform .5s ${ ({ theme }) => theme.bezier },
+    opacity .5s ${ ({ theme }) => theme.bezier };
   
   &:hover {
     opacity: .6;
+    transform: scale(.9) rotate(${ ({ direction }) => direction === 'prev'
+  ? '90deg' : direction === 'next' ? '-90deg' : 0});
   }
 `;
 

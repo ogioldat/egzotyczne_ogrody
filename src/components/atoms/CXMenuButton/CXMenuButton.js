@@ -7,11 +7,7 @@ const CXMenuButton = styled(Button)`
   color: ${ ({ theme }) => theme.inactive };
   opacity: ${({showMenu}) => showMenu && 0};
   
-  &::after {
-    background-color: ${ ({ theme }) => theme.greenLight };
-    width: 85%;
-    left: 15px;
-  }
+
   
   &::before {
     background-color: transparent;

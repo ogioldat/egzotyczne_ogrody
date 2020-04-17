@@ -1,18 +1,20 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import posed from 'react-pose';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { wrapperMotion, imageMotion } from 'assets/motion';
+import { wrapperMotion } from 'assets/motion';
 import { routes } from '../routes';
-
+import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
+import { connect } from 'react-redux';
 
 const StyledFlexWrapper = styled.div`
+  position: relative;
   display: flex;
-  height: 100vh;
+  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '100%' : '100vh' };
+  padding-top: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.mobilePadding };
   justify-content: center;
   align-items: center;
   background-color: ${ ({ theme }) => theme.greyLight };
@@ -30,10 +32,7 @@ const StyledHeading = styled(Heading)`
 `;
 
 const StyledBackButton = styled(Button)`
-  
   color: ${ ({ theme }) => theme.inactive };
-  
-  
   &:hover {
     color: ${ ({ theme }) => theme.greyDark };
   }
@@ -45,26 +44,28 @@ const StyledLink = styled(Link)`
   bottom: 0;
 `;
 
-const StyledTextGrid = styled.div`
-  display: grid;
-  grid-column-gap: 15%;
+const StyledTextGrid = styled.div` 
+   display: ${ ({ policy, isTabletOrMobile }) => (policy || isTabletOrMobile) ? 'flex' : 'grid' };
+   flex-direction: ${ ({ isTabletOrMobile }) => isTabletOrMobile && 'column' };
+   grid-column-gap: 15%;
+   min-height: ${ ({ policy }) => policy && '55vh' };
+   overflow-y: auto;
   
-  ${ ({ title, content }) => {
+  ${ ({ title, content, policy }) => {
   switch (title) {
     case 'lokalizacja': {
       return css`
           grid-template-rows: repeat(${ content.length }, 1fr);
       `;
     }
-    
-    case 'polityka prywatności': {
-      return css`
-          display: flex;
-      `;
-    }
 
     default: {
-      return css`
+      return policy ?
+        css`
+          display: flex;
+          flex-direction: column;
+       `
+        : css`
           grid-auto-flow: column;
           grid-template-rows: repeat(2, 1fr);
           grid-template-columns: repeat(2, 35%fr);
@@ -73,14 +74,16 @@ const StyledTextGrid = styled.div`
   }
 }
 }
+}
 `;
 
 const StyledTextBox = styled.div`
+  padding: 0 ${ ({ policy }) => policy && '5px' };
   margin: 20px 0;
 `;
 
 const StyledPaymentImage = styled.img`
-  position: absolute;
+  position: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && 'absolute' };
   right: 0;
   bottom: 0;
 `;
@@ -95,27 +98,31 @@ const StyledHomeImage = styled.img`
 `;
 
 const StyledP = styled(Paragraph)`
-   font-size: ${({title}) => title === 'polityka prywatności' && '12px'};
+   font-size: ${ ({ title, theme }) => title === 'polityka prywatności' && theme.fontSize.xs };
 `;
 
 const StyledA = styled.a`
   color: ${ ({ theme }) => theme.greyDark };
 `;
 
-const SubpageTemplate = ({ title, content, paymentImage, homeImage }) => (
-  <StyledFlexWrapper>
+const SubpageTemplate = ({ title, content, paymentImage, homeImage, policy, isTabletOrMobile }) => (
+  <StyledFlexWrapper isTabletOrMobile={ isTabletOrMobile }>
     <StyledWrapper initial="initial"
                    animate="enter"
                    exit="exit"
                    variants={ wrapperMotion.variants }>
       <StyledHeading type='plantDetails'>{ title }</StyledHeading>
-      <StyledTextGrid title={ title } content={ content }>
+      <StyledTextGrid
+        isTabletOrMobile={ isTabletOrMobile }
+        title={ title }
+        content={ content }
+        policy={ policy }>
         {
           // eslint-disable-next-line react/prop-types
           content.map(item => (
-            <StyledTextBox >
+            <StyledTextBox policy>
               <Heading type='small'>{ item.headingText }</Heading>
-              <StyledP title={title}>{
+              <StyledP title={ title }>{
                 item.isLink
                   ? <StyledA href={ item.paragraphText }>{ item.paragraphText.replace('https://', '') }</StyledA>
                   : item.paragraphText
@@ -128,7 +135,9 @@ const SubpageTemplate = ({ title, content, paymentImage, homeImage }) => (
         <StyledBackButton secondary>strona główna</StyledBackButton>
       </StyledLink>
       {
-        paymentImage && <StyledPaymentImage src={ paymentImage }/>
+        paymentImage && <StyledPaymentImage
+          isTabletOrMobile={ isTabletOrMobile }
+          src={ paymentImage }/>
       }
       {
         homeImage && <StyledHomeImage src={ homeImage }/>
@@ -138,5 +147,8 @@ const SubpageTemplate = ({ title, content, paymentImage, homeImage }) => (
   </StyledFlexWrapper>
 );
 
+const mapStateToProps = state => ({
+  isTabletOrMobile: getIsTabletOrMobile(state),
+});
 
-export default SubpageTemplate;
+export default connect(mapStateToProps)(SubpageTemplate);

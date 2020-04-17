@@ -8,8 +8,8 @@ function fetchPlants(endpoint, category) {
     axios
       .get(endpoint, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          'Content-Type': 'application/json',
+        },
       })
       .then(res => {
         if (res.error) {
@@ -19,13 +19,24 @@ function fetchPlants(endpoint, category) {
         const parsedPlantsData = { plants: {} };
 
         res.data.forEach(resObj => {
-          const { name, miniature_image, title, fact, image, description } = resObj.acf;
+          const {
+            name,
+            miniature_image,
+            title, fact,
+            image_1,
+            image_2,
+            image_3,
+            image_4,
+            image_5,
+            description,
+          } = resObj.acf;
+
           const properties = {
             name,
             miniatureImage: miniature_image.url,
             title,
             fact,
-            image: image.url,
+            images: [image_1, image_2, image_3, image_4, image_5].map(image => image.url).filter(image => image),
             description,
           };
 

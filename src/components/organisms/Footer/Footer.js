@@ -1,19 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { Link } from 'react-router-dom';
-import { content } from 'data/footerContent';
+import { content } from 'assets/data/footerContent';
 import Heading from '../../atoms/Heading/Heading';
 import { routes } from '../../../routes';
+import { connect } from 'react-redux';
 import PlantsList from '../../molecules/PlantsList/PlantsList';
 import Button from '../../atoms/Button/Button';
 import MenuBlock from '../../molecules/MenuBlock/MenuBlock';
+import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 const StyledOptionBox = styled.div`
-  margin: 15% auto;
+  //margin: 15% auto;
 `;
 
 const StyledWrapper = styled.div`
   background-color: ${ ({ theme }) => theme.greyDark };
+  padding: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && `0 ${ theme.mobilePadding }` };
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,10 +24,20 @@ const StyledWrapper = styled.div`
 
 const StyledGridWrapper = styled.div`
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  
+  ${({isTabletOrMobile}) => isTabletOrMobile ? 
+  css`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+` : 
+  css`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+`}
+  
+  
 `;
-
 
 const StyledCredits = styled.div`
   display: flex;
@@ -33,49 +46,62 @@ const StyledCredits = styled.div`
 `;
 
 const StyledFounder = styled.h2`
-  font-size: ${ ({ theme }) => theme.fontSize.m };
+  font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.fontSize.s : theme.fontSize.m };
   color: ${ ({ theme }) => theme.greyLight }
 `;
 
 const StyledRights = styled.h2`
-  font-size: ${ ({ theme }) => theme.fontSize.s };
+  font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.fontSize.xs : theme.fontSize.s };
   color: ${ ({ theme }) => theme.inactive }
 `;
 
 const StyedAuthor = styled(StyledRights)`
   margin: 5% 0;
+  font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.fontSize.xs : theme.fontSize.s };
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-`;
 
 const StyledP = styled.p`
   font-size: ${ ({ theme }) => theme.fontSize.xxs };
   color: ${ ({ theme }) => theme.inactive }
 `;
 
-const Footer = () => (
-  <StyledWrapper>
-    <StyledGridWrapper>
+const Footer = ({ isTabletOrMobile }) => (
+  <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
+    <StyledGridWrapper isTabletOrMobile={ isTabletOrMobile } >
+      <MenuBlock
+        footer
+        reversed
+        secondary
+        content={ content.contact }
+        isTabletOrMobile={ isTabletOrMobile }
+        title='kontakt'/>
 
-      <MenuBlock reversed secondary content={content.contact} title='kontakt'/>
+      <MenuBlock
+        footer
+        reversed
+        secondary
+        content={ content.info }
+        isTabletOrMobile={ isTabletOrMobile }
+        title='informacje'/>
 
-      <MenuBlock reversed secondary content={content.info} title='informacje'/>
-      <StyledOptionBox>
-        <Heading reversed type='menu'>rośliny</Heading>
-        <PlantsList secondary reversed/>
-      </StyledOptionBox>
+      <MenuBlock>
+        <Heading footer reversed type='menu'>rośliny</Heading>
+        <PlantsList
+          footer
+          isTabletOrMobile={ isTabletOrMobile }
+          secondary
+          reversed/>
+      </MenuBlock>
     </StyledGridWrapper>
     <StyledCredits>
-      <StyledFounder>
+      <StyledFounder isTabletOrMobile={ isTabletOrMobile }>
         Piotr Ogiołda Egzotyczne Ogrody ©
       </StyledFounder>
-      <StyledRights>
+      <StyledRights isTabletOrMobile={ isTabletOrMobile }>
         all rights reserved
         <br/>
-        <StyedAuthor>created and designed <br/> by Tomasz Ogiołda</StyedAuthor>
+        <StyedAuthor isTabletOrMobile={ isTabletOrMobile }>created and designed <br/> by Tomasz Ogiołda</StyedAuthor>
       </StyledRights>
       <StyledP>
         Wszelkie prawa zastrzeżone!
@@ -86,4 +112,8 @@ const Footer = () => (
   </StyledWrapper>
 );
 
-export default Footer;
+const mapStateToProps = state => ({
+  isTabletOrMobile: getIsTabletOrMobile(state),
+});
+
+export default connect(mapStateToProps)(Footer);

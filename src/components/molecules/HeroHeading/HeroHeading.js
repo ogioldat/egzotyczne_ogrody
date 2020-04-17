@@ -4,39 +4,41 @@ import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
 
 const StyledWrapper = styled.div`
-    line-height: 50px;
+    line-height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '1vw' : '50px' };
     display: inline-flex;
-    flex-direction: column;
+    flex-direction: column;  
 `;
 
 const StyledHeroHeading = styled.h1`
   text-transform: capitalize;
   display: inline-block;
   position: relative;
-  font-size: ${ ({ theme }) => theme.fontSize.hero };
+  font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile
+  ? `calc(${ theme.fontSize.heroMobile } + 3.125vw)` : theme.fontSize.hero };
   font-weight: ${ ({ theme }) => theme.bold };
 `;
 
 const StyledRect = styled.div`
   position: absolute;
   width: ${ ({ len }) => `${ len * 10 }%` };
-  height: 130px;
+  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '12vh' : '130px' };
   bottom: -20px;
+
   z-index: -1;
-  left: 60px;
+  left: 2vw;
   background: ${ ({ theme }) => theme.greyLight };
-  animation: 1.5s .3s forwards cubic-bezier(0.16, 1, 0.3, 1) ${  ({theme}) => theme.animation  };
+  animation: 1.5s .3s forwards ${ ({ theme }) => theme.bezier } ${ ({ theme }) => theme.animation };
 `;
 
-const HeroHeading = ({ children }) => (
-  <StyledWrapper>
+const HeroHeading = ({ children, isTabletOrMobile }) => (
+  <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
     {
       children
         // eslint-disable-next-line react/prop-types
         .split(' ')
         .map(word =>
-          <StyledHeroHeading key={ uniqid() }>
-            <StyledRect len={ word.length }/>
+          <StyledHeroHeading isTabletOrMobile={ isTabletOrMobile } key={ uniqid() }>
+            <StyledRect len={ word.length } isTabletOrMobile={ isTabletOrMobile }/>
             {
               word
             }

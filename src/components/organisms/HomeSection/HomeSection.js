@@ -1,62 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { routes } from 'routes';
+import styled, { css } from 'styled-components';
 import { connect } from 'react-redux';
 import MenuView from 'views/MenuView';
 import HeroHeading from 'components/molecules/HeroHeading/HeroHeading';
-import Socials from 'components/atoms/Socials/Socials';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import HeroImage from 'components/molecules/HeroImage/HeroImage';
-import Hamburger from 'components/atoms/Hamburger/Hamburger';
-import Logo from 'assets/logos/website_logo.svg';
+import MenuBar from '../../molecules/MenuBar/MenuBar';
 import { getShowMenu } from 'redux/reducers/menuReducer';
-import { wrapperMotion, buttonMotion } from 'assets/motion';
-import { motion, AnimatePresence } from 'framer-motion';
+import mobileBg from 'assets/images/mobileBg.png';
 import Button from 'components/atoms/Button/Button';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-import CXMenuButton from 'components/atoms/CXMenuButton/CXMenuButton';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  getIsTabletOrMobile,
+} from '../../../redux/reducers/mediaReducer';
 
 
 const StyledWrapper = styled(motion.div)`
   height: 100vh;
   position: relative;
-`;
-
-const StyledMenuBar = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: space-between;
-  align-items: center;
-  height: 80px;
-`;
-
-const StyledLogo = styled.img`
-  height: 70px;
-  padding: 20px;
-  box-sizing: content-box;
-`;
-
-const StyledList = styled.ul`
-  list-style: none;
-  position: ${ ({ showMenu }) => showMenu ? 'fixed' : 'absolute' };
-  align-items: center;
-  display: flex;
-  justify-content: space-evenly;
-  z-index: 100;
-  right: 0;
-  top: 10px;
-  
-  li {
-    padding: 0;
-    margin: 0 30px;
-  }
+  overflow-y: hidden;
 `;
 
 const StyledCenterWrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; 
 `;
 
 const StyledTitleWrapper = styled.div`
@@ -64,106 +34,67 @@ const StyledTitleWrapper = styled.div`
   bottom: 0;
   top: 45%; 
   left: 50%;
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '100vw' };
   transform: translate(-50%,-50%);
+  padding: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.mobilePadding };
   margin: auto;
 `;
 
-const StyledSocials = styled(Socials)`
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
+const StyledParagraph = styled(Paragraph)`
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '100%' : '60%' };
 `;
 
 const StyledAnchorLink = styled(AnchorLink)`
   text-decoration: none;
+  ${ ({ isTabletOrMobile }) => isTabletOrMobile && css`
+    position: absolute;
+    right: 12vw;
+` }
 `;
 
-
-const StyledParagraph = styled(Paragraph)`
-  width: 60%;
+const StyledMobileBg = styled.img`
+  position: absolute;
+  width: 100vw;
+  top: 70%;
 `;
 
-const StyledLink = styled(Link)`
-  display: block;
-  text-decoration: none;
-`;
+const HomeSection = ({ showMenu, isTabletOrMobile }) => (
+  <StyledWrapper>
+    <MenuBar showMenu={ showMenu } isTabletOrMobile={ isTabletOrMobile }/>
 
-const HomeSection = ({ showMenu }) => {
-  return (
-    <StyledWrapper>
-      <StyledMenuBar>
-        <StyledLogo src={ Logo }/>
-        <StyledList showMenu={ showMenu }>
-          <li>
-            <StyledAnchorLink href='#plants'>
-              <Button
-                secondary
-                showMenu={ showMenu }
-                menuOption
-              >rośliny</Button>
-            </StyledAnchorLink>
-          </li>
-          <li>
-            <StyledLink to={ routes.gallery }>
-              <Button
-                secondary
-                showMenu={ showMenu }
-                menuOption
-              >galeria</Button>
-            </StyledLink>
-          </li>
-          <li>
-            <StyledLink to={ routes.aboutUs }>
-              <Button
-                secondary
-                showMenu={ showMenu }
-                menuOption
-              >o nas</Button>
-            </StyledLink>
-          </li>
-          <li>
-            <StyledLink to={ routes.orders }>
-              <Button
-                secondary
-                showMenu={ showMenu }
-                menuOption
-              >wysyłka</Button>
-            </StyledLink>
-          </li>
-          <li>
-            <Hamburger/>
-          </li>
-        </StyledList>
-      </StyledMenuBar>
+    <AnimatePresence>
+      {
+        showMenu && <MenuView/>
+      }
+    </AnimatePresence>
 
-      <AnimatePresence>
-        {
-          showMenu && <MenuView/>
-        }
-      </AnimatePresence>
+    <StyledCenterWrapper>
+      {
+        isTabletOrMobile ? <StyledMobileBg src={ mobileBg }/> : <HeroImage/>
+      }
 
-
-      <StyledCenterWrapper>
-        <HeroImage/>
-        <StyledTitleWrapper>
-          <HeroHeading>Egzotyczne Ogrody</HeroHeading>
-          <StyledParagraph>
-            Tu trzeba dodać tekst Tu trzeba dodać tekst
-            Tu trzeba dodać tekst Tu trzeba dodać tekst
-            Tu trzeba dodać tekst Tu trzeba dodać tekst
-            Tu trzeba dodać tekst Tu trzeba dodać tekst
-            Tu trzeba dodać tekst Tu trzeba dodać tekst
-          </StyledParagraph>
+      <StyledTitleWrapper isTabletOrMobile={ isTabletOrMobile }>
+        <HeroHeading isTabletOrMobile={ isTabletOrMobile }>
+          Egzotyczne Ogrody
+        </HeroHeading>
+        <StyledParagraph isTabletOrMobile={ isTabletOrMobile }>
+          Tu trzeba dodać tekst Tu trzeba dodać tekst
+          Tu trzeba dodać tekst Tu trzeba dodać tekst
+          Tu trzeba dodać tekst
+        </StyledParagraph>
+        <StyledAnchorLink
+          isTabletOrMobile={ isTabletOrMobile }
+          href='#about-us'>
           <Button>poznaj nas</Button>
-        </StyledTitleWrapper>
-      </StyledCenterWrapper>
-    </StyledWrapper>
-  );
-};
+        </StyledAnchorLink>
 
+      </StyledTitleWrapper>
+    </StyledCenterWrapper>
+  </StyledWrapper>
+);
 const mapStateToProps = state => ({
   showMenu: getShowMenu(state),
+  isTabletOrMobile: getIsTabletOrMobile(state),
 });
 
 export default connect(mapStateToProps)(HomeSection);

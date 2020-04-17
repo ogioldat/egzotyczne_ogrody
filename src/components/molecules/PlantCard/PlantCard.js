@@ -6,28 +6,37 @@ import { connect } from 'react-redux';
 import Heading from 'components/atoms/Heading/Heading';
 import { getDetailsPlant } from 'redux/reducers/plantsReducer';
 import { Link } from 'react-router-dom';
+import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
-  width: 400px;
-  height: 500px;
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '100%' : '400px' };
+  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '450px' : '500px' };;
   box-shadow: 0 10px 40px -10px #00000033;
-  margin: 25px 50px;
+  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '10px 0 30px 0' : '25px 50px' };
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   background: white;
-  transition: transform .3s;
+  transition: transform .8s ${ ({ theme }) => theme.bezier };
   text-decoration: none;
   color: ${ ({ theme }) => theme.greyDark };
   cursor: pointer;
   overflow: hidden;
   
-  &::after {
+  &:hover {
+    transform: scale(1.03);
+    
+    * + div {
+      transform: translateY(0);
+    }
+  }
+`;
+
+const StyledBlock = styled.div`
     position: absolute;
     bottom: 0;
-    content: 'CZYTAJ WIĘCEJ';
     width: 100%;
     padding: 10px 0;
     font-size: ${ ({ theme }) => theme.fontSize.xs };
@@ -35,17 +44,8 @@ const StyledWrapper = styled.div`
     color: white;
     text-align: center;
     background-color: ${ ({ theme }) => theme.greenDense };
-    transition: transform .4s;
+    transition: transform .8s ${ ({ theme }) => theme.bezier };
     transform: translateY(100%);
-  }
-  
-  &:hover {
-    transform: scale(1.02);
-    
-    &::after {
-      transform: translateY(0);
-    }
-  }
 `;
 
 const StyledImage = styled.img`
@@ -53,22 +53,26 @@ const StyledImage = styled.img`
   margin: auto;
   position: absolute;
   top: 40px;
-  width: 320px;
-  height: 320px;
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '260px' : '320px' };
+  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '260px' : '320px' };;
   border-radius: 50%;
 `;
 
 
-const PlantCard = ({ miniatureImage, index, title, setCurrentPlant, objKey, currentPlant, category }) => (
+const PlantCard = ({ miniatureImage, index, title, setCurrentPlant, objKey, category, isTabletOrMobile }) => (
   <StyledWrapper
+    isTabletOrMobile={ isTabletOrMobile }
     onClick={ () => {
       setCurrentPlant({ key: objKey, category, index });
     } }
     as={ Link }
     to={ routes.plantDetails }
   >
-    <StyledImage src={ miniatureImage }/>
+    <StyledImage
+      src={ miniatureImage }
+      isTabletOrMobile={ isTabletOrMobile }/>
     <Heading type='small' card>{ title }</Heading>
+    <StyledBlock>CZYTAJ WIĘCEJ</StyledBlock>
   </StyledWrapper>
 );
 
@@ -78,6 +82,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   currentPlant: getDetailsPlant(state),
+  isTabletOrMobile: getIsTabletOrMobile(state),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantCard);

@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import store from 'redux/store/store';
 import { routes } from 'routes';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import posed, { PoseGroup } from 'react-pose';
 import { AnimatePresence } from 'framer-motion';
 import MainTemplate from 'templates/MainTemplate';
 import HomeView from 'views/HomeView';

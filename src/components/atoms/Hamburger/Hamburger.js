@@ -12,10 +12,9 @@ import { motion } from 'framer-motion';
 const StyledWrapper = styled.div`
   width: 35px;
   position: relative;
-  margin-right: 15px;
-  display: block;
+  margin-right: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '15px' };
+  display: flex;
   cursor: pointer;
-  transition: .5s ease-in-out;
   padding: 10px;
   z-index: 9999;
   
@@ -28,37 +27,13 @@ const StyledWrapper = styled.div`
 
 const StyledRect = styled.div`
   width: 100%;
+  background-color: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.greyDark : theme.inactive };
   left: 0;
   display: block;
   border-radius: .3rem;
   position: absolute;
   height: 4px;
-  background-color: ${ ({ theme }) => theme.inactive };
-  transition: .25s ease-out;
-  
-  
-
-  //
-  // &::after {
-  //   content: '';
-  //   position: absolute;
-  //   z-index: -2;
-  //   display: block;
-  //   height: 4px;
-  //   width: 90%;
-  //   left: 0;
-  //   bottom: 0;
-  //   background-color: ${ ({ theme }) => theme.greenDense };
-  // }
-  
-  
-  ${ ({ isActive }) => (
-  isActive && css`
-
-          &::after {
-            display: none;
-          }
-    `) }
+  transition: .5s ${({theme}) => theme.bezier};
   
   &:nth-child(1){
       top: 0;
@@ -95,16 +70,17 @@ const StyledRect = styled.div`
   } 
 `;
 
-const Hamburger = ({ showMenu, toggleMenu }) => {
+const Hamburger = ({ showMenu, toggleMenu, isTabletOrMobile }) => {
 
   return (
     <StyledWrapper
+      isTabletOrMobile={ isTabletOrMobile }
       isActive={ showMenu }
       onClick={ () => toggleMenu() }>
-      <StyledRect isActive={ showMenu }/>
-      <StyledRect isActive={ showMenu }/>
-      <StyledRect isActive={ showMenu }/>
-      <StyledRect isActive={ showMenu }/>
+      <StyledRect isActive={ showMenu } isTabletOrMobile={ isTabletOrMobile }/>
+      <StyledRect isActive={ showMenu } isTabletOrMobile={ isTabletOrMobile }/>
+      <StyledRect isActive={ showMenu } isTabletOrMobile={ isTabletOrMobile }/>
+      <StyledRect isActive={ showMenu } isTabletOrMobile={ isTabletOrMobile }/>
     </StyledWrapper>
   );
 };

@@ -3,7 +3,7 @@ import {
   FETCH_PHOTOS_SUCCESS,
   FETCH_PHOTOS_FAILURE,
   SET_CURRENT_PHOTO,
-  CHANGE_PHOTO,
+  CHANGE_GALLERY_PHOTO,
   TOGGLE_MODAL,
 } from 'redux/actions/gallery/galleryActions';
 
@@ -18,7 +18,7 @@ const initialState = {
   showModal: false,
 };
 
-export const galleryReducer = (state = initialState, action) => {
+export const gallery = (state = initialState, action) => {
   switch (action.type) {
     default: {
       return state;
@@ -64,7 +64,7 @@ export const galleryReducer = (state = initialState, action) => {
       };
     }
 
-    case CHANGE_PHOTO: {
+    case CHANGE_GALLERY_PHOTO: {
       let {
         currentPhoto: {
           index
@@ -79,6 +79,7 @@ export const galleryReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPhoto: {
+          ...state.currentPhoto,
           index
         }
       };
@@ -86,42 +87,8 @@ export const galleryReducer = (state = initialState, action) => {
   }
 };
 
-export const getPhotos = state => state.galleryReducer.photos;
-export const getPhotosPending = state => state.galleryReducer.pending;
-export const getPhotosError = state => state.galleryReducer.error;
-export const getCurrentPhoto = state => state.galleryReducer.photos[state.galleryReducer.currentPhoto.index];
-export const getShowModal = state => state.galleryReducer.showModal;
-
-
-// switch(action.payload.direction){
-//   default: {
-//     return {
-//       ...state
-//     }
-//   }
-//
-//   case('next'):{
-//     const currentIndex = index === allImages.length - 1 ? 0 : index + 1;
-//     console.log(currentIndex)
-//     return {
-//       ...state,
-//       currentImage: {
-//         src: allImages[currentIndex],
-//         index: currentIndex
-//       }
-//     }
-//   }
-//
-//   case('prev'):{
-//     const currentIndex = index === 0 ? allImages.length - 1 : index - 1;
-//     console.log(currentIndex)
-//
-//     return {
-//       ...state,
-//       currentImage: {
-//         src: allImages[currentIndex],
-//         index: currentIndex
-//       }
-//     }
-//   }
-// }
+export const getPhotos = state => state.gallery.photos;
+export const getPhotosPending = state => state.gallery.pending;
+export const getPhotosError = state => state.gallery.error;
+export const getCurrentPhoto = state => state.gallery.photos[state.gallery.currentPhoto.index];
+export const getShowModal = state => state.gallery.showModal;

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import plantsReducer from './plantsReducer';
-import { galleryReducer } from './galleryReducer';
-import { menuReducer } from './menuReducer';
+import { plants } from './plantsReducer';
+import { gallery } from './galleryReducer';
+import { menu } from './menuReducer';
+import { media } from './mediaReducer';
 
-export default combineReducers({ plantsReducer, galleryReducer, menuReducer });
+export default combineReducers({ plants, gallery, menu, media });

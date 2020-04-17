@@ -1,5 +1,5 @@
 import React from 'react';
-import { subpagesData} from 'data/subpagesData';
+import { subpagesData} from 'assets/data/subpagesData';
 import SubpageTemplate from 'templates/SubpageTemplate';
 import { routes } from '../routes';
 
@@ -7,4 +7,4 @@ export const AboutUsView = () => <SubpageTemplate { ...subpagesData[routes.about
 export const OrdersView = () => <SubpageTemplate { ...subpagesData[routes.orders] }/>;
 export const ContactView = () => <SubpageTemplate { ...subpagesData[routes.contact] }/>;
 export const LocationView = () => <SubpageTemplate { ...subpagesData[routes.location] }/>;
-export const PolicyView = () => <SubpageTemplate { ...subpagesData[routes.policy] }/>;
+export const PolicyView = () => <SubpageTemplate policy { ...subpagesData[routes.policy] }/>;

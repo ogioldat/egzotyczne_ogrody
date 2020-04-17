@@ -1,4 +1,3 @@
-import { transition } from '../assets/motion';
 import { keyframes } from 'styled-components';
 
 const slideIn = keyframes`
@@ -12,6 +11,9 @@ const slideIn = keyframes`
   }
 `;
 
+const cubicBezier = [0.16, 1, 0.3, 1];
+const [a, b, c, d] = cubicBezier;
+
 const theme = {
   greenLight: 'rgba(12, 242, 35, 0.2)',
   greenDense: 'rgba(106, 217, 123, 1)',
@@ -20,6 +22,8 @@ const theme = {
   inactive: 'rgba(158, 158, 158, 1)',
   shadow: '0 10px 40px -10px #00000033',
   animation: slideIn,
+  mobilePadding: '5vw',
+  bezier: `cubic-bezier(${ a },${ b },${ c },${ d })`,
   light: 300,
   bold: 700,
   fontSize: {
@@ -31,9 +35,14 @@ const theme = {
     xl: '2.8rem',
     xxl: '4rem',
     hero: '10rem',
+    heroMobile: '4rem',
+    mobileSubtitle: '.5rem',
+    mobileMenuHeading: 'calc(.8rem + 3.125vw)',
+    mobileMenuButton: 'calc(.4rem + 3.125vw)',
+    mobileFooterButton: '.8rem',
     plantDetails: '8rem',
-    heading: '6rem'
-  }
+    heading: '6rem',
+  },
 };
 
 

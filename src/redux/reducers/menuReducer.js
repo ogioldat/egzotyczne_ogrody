@@ -4,7 +4,7 @@ const initialState = {
   showMenu: false,
 };
 
-export const menuReducer = (state = initialState, action) => {
+export const menu = (state = initialState, action) => {
   switch (action.type) {
     default: {
       return state
@@ -18,4 +18,4 @@ export const menuReducer = (state = initialState, action) => {
   }
 };
 
-export const getShowMenu = state => state.menuReducer.showMenu;
+export const getShowMenu = state => state.menu.showMenu;

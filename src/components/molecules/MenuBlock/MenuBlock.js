@@ -6,34 +6,58 @@ import Button from 'components/atoms/Button/Button';
 import { Link } from 'react-router-dom';
 import { routes } from 'routes';
 import Heading from '../../atoms/Heading/Heading';
+import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 
 const StyledWrapper = styled.div`
-  margin: 15% auto;
+  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '6% 0' : '15% auto' };
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '30vw' };
 `;
 
 const StyledLink = styled(Link)`
   color: inherit;
-  text-decoration: none;
+  text-decoration: none; 
 `;
 
-const MenuBlock = ({ title, content, toggleMenu, reversed, menu }) => (
-  <StyledWrapper>
-    <Heading reversed={reversed} type='menu'>{ title }</Heading>
+const MenuBlock = (
+  {
+    title,
+    content = [],
+    toggleMenu,
+    reversed,
+    menu,
+    isTabletOrMobile,
+    footer,
+    children = null,
+  },
+) => (
+  <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
+    <Heading
+      footer={ footer }
+      isTabletOrMobile={ isTabletOrMobile }
+      reversed={ reversed }
+      type='menu'>
+      {
+        title
+      }
+    </Heading>
     {
-      content.map(obj => (
+      children || content.map(obj => (
         <StyledLink to={ obj.link || routes.home }>
-        <Button
-          reversed={reversed}
-          secondary
-          onClick={ () => menu && toggleMenu() }>
+          <Button
+            menu={ menu }
+            footer={ footer }
+            isTabletOrMobile={ isTabletOrMobile }
+            reversed={ reversed }
+            secondary
+            onClick={ () => menu && toggleMenu(false) }>
 
             {
               obj.label
             }
 
-        </Button>
-      </StyledLink>
+          </Button>
+        </StyledLink>
       ))
     }
 
@@ -41,7 +65,11 @@ const MenuBlock = ({ title, content, toggleMenu, reversed, menu }) => (
 );
 
 const mapDispatchToProps = dispatch => ({
-  toggleMenu: () => dispatch(toggleMenuAction()),
+  toggleMenu: bool => dispatch(toggleMenuAction(bool)),
 });
 
-export default connect(null, mapDispatchToProps)(MenuBlock);
+const mapStateToProps = state => ({
+  isTabletOrMobile: getIsTabletOrMobile(state),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuBlock);

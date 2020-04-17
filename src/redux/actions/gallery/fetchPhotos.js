@@ -1,4 +1,4 @@
-import endpoints from 'data/api';
+import endpoints from 'assets/data/api';
 import axios from 'axios';
 import { fetchPhotosPending, fetchPhotosFailure, fetchPhotosSuccess } from './galleryActions';
 
