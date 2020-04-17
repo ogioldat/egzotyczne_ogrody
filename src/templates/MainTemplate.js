@@ -15,6 +15,8 @@ import {
 } from 'redux/actions/mediaActions';
 import { getShowMenu } from '../redux/reducers/menuReducer';
 import mediaQueries from '../mediaQueries';
+import { AnimatePresence } from 'framer-motion';
+import LoadingScreen from 'components/organisms/LoadingScreen/LoadingScreen';
 
 const MainTemplate = (
   {
@@ -53,11 +55,22 @@ const MainTemplate = (
     }
   }, [showMenu]);
 
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   return (
     <>
-      <GlobalStyle/>
+      <AnimatePresence>
+        {
+          loaded && <GlobalStyle/>
+        }
+      </AnimatePresence>
       <ThemeProvider theme={ theme }>
         <>
+          <LoadingScreen/>
           {
             children
           }
@@ -80,7 +93,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  showMenu: getShowMenu(state)
+  showMenu: getShowMenu(state),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MainTemplate));
