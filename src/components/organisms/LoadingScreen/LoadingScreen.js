@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import loader from 'assets/loaders/loader.gif';
+import { motion } from 'framer-motion';
+import { loaderDelay } from '../../../assets/motion';
+import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import { connect } from 'react-redux';
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled(motion.div)`
   position: fixed;
   width: 100vw;
   display: flex;
@@ -13,10 +17,26 @@ const StyledWrapper = styled.div`
   background-color: ${ ({ theme }) => theme.greyLight };
 `;
 
-const LoadingScreen = () => (
-  <StyledWrapper>
-    <img src={ loader } alt='loading'/>
+const StyledImg = styled.img`
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '100vw' };
+`;
+
+const LoadingScreen = ({ isTabletOrMobile }) => (
+  <StyledWrapper
+    initial="initial"
+    animate="enter"
+    exit="exit"
+    transition={ loaderDelay.transition }
+    variants={ loaderDelay.variants }>
+    <StyledImg
+      isTabletOrMobile={ isTabletOrMobile }
+      src={ loader }
+      alt='loading'/>
   </StyledWrapper>
 );
 
-export default LoadingScreen;
+const mapStateToProps = state => ({
+  isTabletOrMobile: getIsTabletOrMobile(state),
+});
+
+export default connect(mapStateToProps)(LoadingScreen);

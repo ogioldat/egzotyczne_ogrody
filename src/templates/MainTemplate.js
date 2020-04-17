@@ -29,12 +29,17 @@ const MainTemplate = (
     setPortrait,
   },
 ) => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   const isDesktopOrLaptop = useMediaQuery(mediaQueries.isDesktopOrLaptop);
   const isBigScreen = useMediaQuery(mediaQueries.isBigScreen);
   const isTabletOrMobile = useMediaQuery(mediaQueries.isTabletOrMobile);
   const isTabletOrMobileDevice = useMediaQuery(mediaQueries.isTabletOrMobileDevice);
   const isPortrait = useMediaQuery(mediaQueries.isPortrait);
-
 
   useEffect(() => {
     setIsDesktopOrLaptop(isDesktopOrLaptop);
@@ -48,33 +53,34 @@ const MainTemplate = (
   const [targetElement] = useState(body);
 
   useEffect(() => {
-    if (showMenu) {
+    if (showMenu || loaded) {
       targetElement.style.overflow = 'hidden';
     } else {
       targetElement.style.overflow = 'visible';
     }
   }, [showMenu]);
 
-  const [loaded, setLoaded] = useState(false);
+  const [showLoader, toggleLoader] = useState(true);
 
   useEffect(() => {
-    setLoaded(true);
+    const timer = setTimeout(() => {
+      toggleLoader(false);
+    }, 4000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
-      <AnimatePresence>
-        {
-          loaded && <GlobalStyle/>
-        }
-      </AnimatePresence>
+      <GlobalStyle/>
       <ThemeProvider theme={ theme }>
-        <>
-          <LoadingScreen/>
+        <AnimatePresence>
+          {
+            showLoader && <LoadingScreen />
+          }
+        </AnimatePresence>
           {
             children
           }
-        </>
       </ThemeProvider>
     </>
   );

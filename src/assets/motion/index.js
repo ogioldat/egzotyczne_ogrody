@@ -64,4 +64,19 @@ export const textMotion = {
   transition,
 };
 
+export const loaderDelay = {
+  variants: {
+    enter: {
+      opacity: 1,
+    },
+    exit: {
+      y: '-100%',
+      opacity: 1,
+      transition
+    },
+  },
+  transition: {
+    duration: .5
+  },
+};
 
