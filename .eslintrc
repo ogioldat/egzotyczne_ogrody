@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "react-redux"
+  ],
+  "ignorePatterns": ["node_modules/", "src/redux/"],
+  "extends": [
+    "airbnb",
+    "prettier",
+    "prettier/react",
+    "plugin:react-redux/recommended"
+  ],
+  "parser": "babel-eslint",
+  "env": {
+    "jest": true
+  },
+  "globals": {
+    "window": true,
+    "document": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js"
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extintions": [".js",".jsx",".ts",".tsx"]
+      }
+    }
+  }
+}
