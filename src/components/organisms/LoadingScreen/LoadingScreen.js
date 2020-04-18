@@ -15,6 +15,7 @@ const StyledWrapper = styled(motion.div)`
   height: 100%;
   z-index: 200000;
   background-color: rgb(235,235,235);
+  box-shadow: ${ ({ theme }) => theme.shadow };
 `;
 
 const StyledImg = styled.img`

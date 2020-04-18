@@ -68,7 +68,7 @@ const MainTemplate = (
   useEffect(() => {
     const timer = setTimeout(() => {
       toggleLoader(false);
-    }, 4000);
+    }, 3500);
     return () => clearTimeout(timer);
   }, []);
 

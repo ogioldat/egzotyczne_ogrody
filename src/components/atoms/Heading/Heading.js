@@ -48,6 +48,17 @@ const StyledHeading = styled.h1`
            }
            `;
 
+    case 'subpage':
+      return css`
+           font-size: ${ isTabletOrMobile ? theme.fontSize.xxl : theme.fontSize.plantDetails }; 
+           align-self: center;
+           margin-bottom: 0;
+           
+           div {
+            background-color: ${ theme.greenLight };
+           }
+           `;  
+
     case 'small':
       return css`
           font-size: ${ theme.fontSize.m };

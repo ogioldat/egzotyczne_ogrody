@@ -34,7 +34,6 @@ const StyledControlWrapper = styled.div`
   width: 100vw;
   height: 80vh;
 
-
   ${ ({ isTabletOrMobile }) => isTabletOrMobile ?
   css`
     display: flex;

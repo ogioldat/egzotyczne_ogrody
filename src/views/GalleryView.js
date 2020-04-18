@@ -26,16 +26,13 @@ import { wrapperMotion } from 'assets/motion';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import PhotoModal from '../components/organisms/PhotoModal/PhotoModal';
-import {
-  changePlantPhoto as changePlantPhotoAction,
-  setCurrentPlant as setCurrentPlantAction, setCurrentPlantPhoto as setCurrentPlantPhotoAction,
-  setPlantDetails as setPlantDetailsAction, setPlantDetailsEmpty as setPlantDetailsEmptyAction,
-} from '../redux/actions/plants/plantActions';
+import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
 
 const StyledWrapper = styled(motion.div)`
   position: relative;
   min-height: 100vh;
-  padding: 2% 0;
+  padding: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile ? theme.mobilePadding : '2% 0' };
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,6 +50,7 @@ const StyledFlex = styled.div`
 const StyledLink = styled(Link)`
   position: absolute;
   left: 0;
+  bottom: ${ ({ isTabletOrMobile }) => isTabletOrMobile && 0 };
   text-decoration: none;
 `;
 
@@ -85,6 +83,7 @@ const GalleryView = (
     currentPhoto,
     changePhoto,
     toggleModal,
+    isTabletOrMobile,
   },
 ) => {
   useEffect(() => {
@@ -94,15 +93,16 @@ const GalleryView = (
   return (
     <StyledFlex>
       <StyledWrapper
+        isTabletOrMobile={ isTabletOrMobile }
         initial="initial"
         animate="enter"
         exit="exit"
         variants={ wrapperMotion.variants }>
         <StyledTitleWrapper>
-          <StyledLink to={ routes.home }>
+          <StyledLink to={ routes.home } isTabletOrMobile={ isTabletOrMobile }>
             <Button secondary>strona główna</Button>
           </StyledLink>
-          <Heading type='plantDetails'>galeria zdjęć</Heading>
+          <Heading type='subpage'>galeria zdjęć</Heading>
         </StyledTitleWrapper>
         {
           showModal && (
@@ -124,14 +124,21 @@ const GalleryView = (
           pending ?
             <ClipLoader loading={ pending }/>
             :
-            <MasonryLayout id="masonry-layout" sizes={ [{ columns: 3, gutter: 30 }] }>
+            <MasonryLayout id="masonry-layout" sizes={ [{ columns: 3, gutter: isTabletOrMobile ? 6 : 30 }] }>
               {
                 photos.map((photo, index) => {
-                  const height = index % 2 === 0 ? 600 : 700;
+                  let height;
+
+                  if (isTabletOrMobile) {
+                    height = index % 2 === 0 ? '20vh' : '25vh';
+                  } else {
+                    height = index % 2 === 0 ? '600px' : '700px';
+                  }
 
                   return (
                     <ImageWrapper>
                       <GalleryImage
+                        isTabletOrMobile={ isTabletOrMobile }
                         key={ uniqid() }
                         index={ index }
                         height={ height }
@@ -153,6 +160,7 @@ const mapStateToProps = state => ({
   error: getPhotosError(state),
   showModal: getShowModal(state),
   currentPhoto: getCurrentPhoto(state),
+  isTabletOrMobile: getIsTabletOrMobile(state),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

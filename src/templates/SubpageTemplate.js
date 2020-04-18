@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 const StyledFlexWrapper = styled.div`
   position: relative;
   display: flex;
+  min-height: 100vh;
   height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '100%' : '100vh' };
   padding-top: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.mobilePadding };
   justify-content: center;
@@ -32,6 +33,7 @@ const StyledHeading = styled(Heading)`
 `;
 
 const StyledBackButton = styled(Button)`
+  position: relative;
   color: ${ ({ theme }) => theme.inactive };
   &:hover {
     color: ${ ({ theme }) => theme.greyDark };
@@ -39,7 +41,7 @@ const StyledBackButton = styled(Button)`
 `;
 
 const StyledLink = styled(Link)`
-  position: absolute;
+  position: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && 'absolute' };
   text-decoration: none;
   bottom: 0;
 `;
@@ -111,7 +113,7 @@ const SubpageTemplate = ({ title, content, paymentImage, homeImage, policy, isTa
                    animate="enter"
                    exit="exit"
                    variants={ wrapperMotion.variants }>
-      <StyledHeading type='plantDetails'>{ title }</StyledHeading>
+      <StyledHeading type='subpage'>{ title }</StyledHeading>
       <StyledTextGrid
         isTabletOrMobile={ isTabletOrMobile }
         title={ title }
@@ -131,9 +133,6 @@ const SubpageTemplate = ({ title, content, paymentImage, homeImage, policy, isTa
           ))
         }
       </StyledTextGrid>
-      <StyledLink to={ routes.home }>
-        <StyledBackButton secondary>strona główna</StyledBackButton>
-      </StyledLink>
       {
         paymentImage && <StyledPaymentImage
           isTabletOrMobile={ isTabletOrMobile }
@@ -142,6 +141,10 @@ const SubpageTemplate = ({ title, content, paymentImage, homeImage, policy, isTa
       {
         homeImage && <StyledHomeImage src={ homeImage }/>
       }
+
+      <StyledLink to={ routes.home } isTabletOrMobile={ isTabletOrMobile }>
+        <StyledBackButton secondary>strona główna</StyledBackButton>
+      </StyledLink>
 
     </StyledWrapper>
   </StyledFlexWrapper>

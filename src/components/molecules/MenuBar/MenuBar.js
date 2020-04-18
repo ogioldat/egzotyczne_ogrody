@@ -27,6 +27,7 @@ const StyledMenuBar = styled.div`
 
 const StyledLogo = styled.img`
   height: 100%;
+  margin-top: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? 0 : '20px' };
   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '60vw' };
   padding: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '20px' };;
   box-sizing: content-box;
@@ -41,7 +42,7 @@ const StyledList = styled.ul`
   justify-content: space-evenly;
   z-index: 100;
   right: 0;
-  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile && 0 };
+  margin: 0;
   top: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? 0 : '10px' };
   
   li {

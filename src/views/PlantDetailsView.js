@@ -60,7 +60,8 @@ const PlantDetailsView = (
   }, [showModal]);
 
   useEffect(() => {
-    // if plants state is empty -- download default plant (first object from endpoints.plants)
+    // if plants state is empty -- download default plant
+    // (first object from endpoints.plants)
     const arePlantsEmpty = Object.keys(plants)
       .map(plantKey => !!Object.keys(plants[plantKey]).length)
       .every(el => el === false);
