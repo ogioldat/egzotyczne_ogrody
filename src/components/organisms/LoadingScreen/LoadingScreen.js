@@ -24,6 +24,7 @@ const StyledImg = styled.img`
 
 const LoadingScreen = ({ isTabletOrMobile, showLoader }) => {
   const [gif, setGif] = useState(null);
+
   useEffect(() => {
     if (showLoader) {
       setGif(loader);

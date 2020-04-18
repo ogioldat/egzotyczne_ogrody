@@ -65,22 +65,36 @@ const MainTemplate = (
     }
   }, [showLoader]);
 
+  const [animationPlayed, toggleAnimationPlayed] = useState(false);
+
   useEffect(() => {
-    const timer = setTimeout(() => {
+    toggleAnimationPlayed(!!sessionStorage.getItem('loadingAnimation'));
+
+    if (animationPlayed) {
       toggleLoader(false);
-    }, 3500);
-    return () => clearTimeout(timer);
+    } else {
+      sessionStorage.setItem('loadingAnimation', 'played');
+
+      const timer = setTimeout(() => {
+        toggleLoader(false);
+      }, 3500);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   return (
     <>
       <GlobalStyle/>
       <ThemeProvider theme={ theme }>
-        <AnimatePresence>
-          {
-            showLoader && <LoadingScreen showLoader={ showLoader }/>
-          }
-        </AnimatePresence>
+        {
+          !animationPlayed && (
+            <AnimatePresence>
+              {
+                showLoader && <LoadingScreen showLoader={ showLoader }/>
+              }
+            </AnimatePresence>
+          )
+        }
         {
           children
         }
