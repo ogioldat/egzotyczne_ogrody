@@ -29,12 +29,6 @@ const MainTemplate = (
     setPortrait,
   },
 ) => {
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
-
   const isDesktopOrLaptop = useMediaQuery(mediaQueries.isDesktopOrLaptop);
   const isBigScreen = useMediaQuery(mediaQueries.isBigScreen);
   const isTabletOrMobile = useMediaQuery(mediaQueries.isTabletOrMobile);
@@ -53,15 +47,23 @@ const MainTemplate = (
   const [targetElement] = useState(body);
 
   useEffect(() => {
-    if (showMenu || !loaded) {
+    if (showMenu) {
       targetElement.style.overflow = 'hidden';
     } else {
       targetElement.style.overflow = 'visible';
     }
 
-  }, [showMenu, loaded]);
+  }, [showMenu]);
 
   const [showLoader, toggleLoader] = useState(true);
+
+  useEffect(() => {
+    if (showLoader) {
+      targetElement.style.overflow = 'hidden';
+    } else {
+      targetElement.style.overflow = 'visible';
+    }
+  }, [showLoader]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -76,12 +78,12 @@ const MainTemplate = (
       <ThemeProvider theme={ theme }>
         <AnimatePresence>
           {
-            showLoader && <LoadingScreen />
+            // showLoader && <LoadingScreen/>
           }
         </AnimatePresence>
-          {
-            children
-          }
+        {
+          children
+        }
       </ThemeProvider>
     </>
   );

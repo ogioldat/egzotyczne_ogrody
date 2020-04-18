@@ -12,9 +12,9 @@ const StyledWrapper = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   z-index: 200000;
-  background-color: ${ ({ theme }) => theme.greyLight };
+  background-color: rgb(235,235,235);
 `;
 
 const StyledImg = styled.img`

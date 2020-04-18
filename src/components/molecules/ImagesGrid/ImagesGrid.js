@@ -26,7 +26,8 @@ const StyledImageGrid = styled(motion.div)`
     display: grid;
     grid-template-columns: repeat(2, 350px);
     grid-template-rows: repeat(-1, 200px);
-    width: 35vw;
+    grid-gap: 20px;
+    //width: 35vw;
 ` };
   
   
@@ -35,7 +36,7 @@ const StyledImageGrid = styled(motion.div)`
 
 const StyledImageBlock = styled.div`
   height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '30vh' : '200px' };
-  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '0 10px 0 0' : '10px' };;
+  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '0 10px 0 0'};
   min-width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '50%' : '100%' };
   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '20vw' };
   box-shadow: ${ ({ theme, isTabletOrMobile }) => !isTabletOrMobile && theme.shadow };
