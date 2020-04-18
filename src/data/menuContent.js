@@ -4,29 +4,29 @@ export const content = {
   info: [
     {
       label: 'wysyłka',
-      link:routes.orders
+      link: routes.orders,
     },
     {
       label: 'lokalizacja',
-      link: routes.location
+      link: routes.location,
     },
     {
       label: 'o nas',
-      link: routes.aboutUs
+      link: routes.aboutUs,
     },
     {
       label: 'kontakt',
-      link: routes.contact
+      link: routes.contact,
     },
     {
       label: 'polityka prywatności',
-      link: routes.policy
-    }
+      link: routes.policy,
+    },
   ],
   gallery: [
     {
       label: 'zobacz zdjęcia',
-      link: routes.gallery
-    }
-  ]
+      link: routes.gallery,
+    },
+  ],
 };

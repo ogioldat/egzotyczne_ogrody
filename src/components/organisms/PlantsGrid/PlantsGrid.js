@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import * as PropTypes from 'prop-types';
+import  PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchPlantsAction from 'redux/actions/plants/fetchPlants';
 import { bindActionCreators } from 'redux';
@@ -9,7 +9,6 @@ import PlantCard from 'components/molecules/PlantCard/PlantCard';
 import Heading from 'components/atoms/Heading/Heading';
 import { setPlantDetails as setPlantDetailsAction } from 'redux/actions/plants/plantActions';
 import { getIsDesktopOrLaptop, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
-
 
 export const PLANTS_DICT = {
   bamboos: 'bambusy',
@@ -76,7 +75,15 @@ const mapStateToProps = state => ({
   plants: getPlants(state),
   isDesktopOrLaptop: getIsDesktopOrLaptop(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
-
 });
+
+PlantsGrid.propTypes = {
+  isTabletOrMobile: PropTypes.bool.isRequired,
+  fetchPlants: PropTypes.func.isRequired,
+  endpoint: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  setPlantDetails: PropTypes.func.isRequired,
+  plants: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantsGrid);

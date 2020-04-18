@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
 import endpoints from 'assets/data/api';
 import Heading from 'components/atoms/Heading/Heading';
 import PlantsGrid from 'components/organisms/PlantsGrid/PlantsGrid';
 import { connect } from 'react-redux';
-import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import { getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -13,12 +14,11 @@ const StyledWrapper = styled.div`
   align-items: center;
 `;
 
-
 const OurPlants = ({ isTabletOrMobile }) => (
   <StyledWrapper id='plants' isTabletOrMobile={ isTabletOrMobile }>
     <Heading isTabletOrMobile={ isTabletOrMobile }>nasze rośliny</Heading>
     {
-      Object.keys(endpoints.plants).map((key, index) => {
+      Object.keys(endpoints.plants).map((key) => {
         const { category, address } = endpoints.plants[key];
 
         return (
@@ -36,5 +36,9 @@ const OurPlants = ({ isTabletOrMobile }) => (
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
+
+OurPlants.propTypes = {
+  isTabletOrMobile: PropTypes.bool.isRequired
+};
 
 export default connect(mapStateToProps)(OurPlants);

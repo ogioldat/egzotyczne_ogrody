@@ -1,20 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MenuView from 'views/MenuView';
 import HeroHeading from 'components/molecules/HeroHeading/HeroHeading';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import HeroImage from 'components/molecules/HeroImage/HeroImage';
-import MenuBar from '../../molecules/MenuBar/MenuBar';
 import { getShowMenu } from 'redux/reducers/menuReducer';
 import mobileBg from 'assets/images/mobileBg.png';
 import Button from 'components/atoms/Button/Button';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  getIsTabletOrMobile,
-} from '../../../redux/reducers/mediaReducer';
+import MenuBar from 'components/molecules/MenuBar/MenuBar';
+import { getIsTabletOrMobile, } from 'redux/reducers/mediaReducer';
 
 
 const StyledWrapper = styled(motion.div)`
@@ -96,5 +94,10 @@ const mapStateToProps = state => ({
   showMenu: getShowMenu(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
+
+HomeSection.propTypes = {
+  showMenu: PropTypes.func.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired
+};
 
 export default connect(mapStateToProps)(HomeSection);

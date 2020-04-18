@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from "framer-motion"
 import fb from 'assets/icons/fb.png'
 import messenger from 'assets/icons/messenger.png'
 import mail from 'assets/icons/mail.png'

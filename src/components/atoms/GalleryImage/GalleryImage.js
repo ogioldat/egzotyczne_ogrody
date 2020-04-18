@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   setCurrentPhoto as setCurrentPhotoAction, toggleModal as toggleModalAction,
@@ -35,5 +36,17 @@ const mapDispatchToProps = dispatch => ({
   setCurrentPhoto: index => dispatch(setCurrentPhotoAction(index)),
   toggleModal: bool => dispatch(toggleModalAction(bool)),
 });
+
+GalleryImage.propTypes = {
+  photos: PropTypes.arrayOf(PropTypes.string).isRequired,
+  height: PropTypes.string.isRequired,
+  setCurrentPhoto: PropTypes.func.isRequired,
+  index: PropTypes.number,
+  toggleModal: PropTypes.func.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+};
+GalleryImage.defaultProps = {
+  index: 0
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryImage);

@@ -1,15 +1,16 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { imageMotion } from 'assets/motion';
-import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
 import {
   setCurrentPlant as setCurrentPlantAction,
   setCurrentPlantPhoto as setCurrentPlantPhotoAction,
   toggleModal as toggleModalAction,
-} from '../../../redux/actions/plants/plantActions';
-import { connect } from 'react-redux';
+} from 'redux/actions/plants/plantActions';
 
 const StyledImageGrid = styled(motion.div)`
   ${ ({ isTabletOrMobile }) => isTabletOrMobile ?
@@ -75,5 +76,15 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   toggleModal: toggleModalAction,
   setCurrentPlantPhoto: setCurrentPlantPhotoAction,
 }, dispatch);
+
+ImagesGrid.propTypes = {
+  setCurrentPlantPhoto: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  title: PropTypes.string.isRequired,
+};
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImagesGrid);

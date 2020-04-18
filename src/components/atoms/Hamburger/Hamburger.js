@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import { toggleMenu as toggleMenuAction } from 'redux/actions/menuActions';
 import { getShowMenu } from 'redux/reducers/menuReducer';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { buttonMotion } from 'assets/motion';
-import { motion } from 'framer-motion';
-
 
 const StyledWrapper = styled.div`
   width: 35px;
@@ -66,7 +62,6 @@ const StyledRect = styled.div`
           width: 0;
           left: 50%;
     `) }
-    
   } 
 `;
 
@@ -93,5 +88,10 @@ const mapDispatchToProps = dispatch => ({
   toggleMenu: () => dispatch(toggleMenuAction()),
 });
 
+Hamburger.propTypes = {
+  showMenu: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Hamburger);

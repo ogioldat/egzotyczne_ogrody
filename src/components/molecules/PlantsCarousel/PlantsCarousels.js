@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import SmallCapsText from 'components/atoms/SmallCapsText/SmallCapsText';
 import { getPlantCategories } from 'redux/reducers/plantsReducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { setCurrentPlant as setCurrentPlantAction } from 'redux/actions/plants/plantActions';
 import { motion } from 'framer-motion';
 import { PLANTS_DICT } from '../../organisms/PlantsGrid/PlantsGrid';
-import { setCurrentPlant as setCurrentPlantAction } from 'redux/actions/plants/plantActions';
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -96,5 +97,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   setCurrentPlant: setCurrentPlantAction,
 }, dispatch);
+
+PlantsCarousel.propTypes = {
+  plantCategories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setCurrentPlant: PropTypes.func.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantsCarousel);

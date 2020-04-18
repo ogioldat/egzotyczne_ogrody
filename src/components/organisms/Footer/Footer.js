@@ -1,18 +1,13 @@
 import React from 'react';
 import styled, {css} from 'styled-components';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { content } from 'assets/data/footerContent';
 import Heading from '../../atoms/Heading/Heading';
-import { routes } from '../../../routes';
-import { connect } from 'react-redux';
 import PlantsList from '../../molecules/PlantsList/PlantsList';
-import Button from '../../atoms/Button/Button';
 import MenuBlock from '../../molecules/MenuBlock/MenuBlock';
 import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
-const StyledOptionBox = styled.div`
-  //margin: 15% auto;
-`;
 
 const StyledWrapper = styled.div`
   background-color: ${ ({ theme }) => theme.greyDark };
@@ -34,9 +29,7 @@ const StyledGridWrapper = styled.div`
   css`
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
-`}
-  
-  
+`};
 `;
 
 const StyledCredits = styled.div`
@@ -55,11 +48,10 @@ const StyledRights = styled.h2`
   color: ${ ({ theme }) => theme.inactive }
 `;
 
-const StyedAuthor = styled(StyledRights)`
+const StyledAuthor = styled(StyledRights)`
   margin: 5% 0;
   font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.fontSize.xs : theme.fontSize.s };
 `;
-
 
 const StyledP = styled.p`
   font-size: ${ ({ theme }) => theme.fontSize.xxs };
@@ -101,7 +93,7 @@ const Footer = ({ isTabletOrMobile }) => (
       <StyledRights isTabletOrMobile={ isTabletOrMobile }>
         all rights reserved
         <br/>
-        <StyedAuthor isTabletOrMobile={ isTabletOrMobile }>created and designed <br/> by Tomasz Ogiołda</StyedAuthor>
+        <StyledAuthor isTabletOrMobile={ isTabletOrMobile }>created and designed <br/> by Tomasz Ogiołda</StyledAuthor>
       </StyledRights>
       <StyledP>
         Wszelkie prawa zastrzeżone!
@@ -115,5 +107,9 @@ const Footer = ({ isTabletOrMobile }) => (
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
+
+Footer.propTypes = {
+  isTabletOrMobile: PropTypes.bool.isRequired
+};
 
 export default connect(mapStateToProps)(Footer);

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Paragraph from '../Paragraph/Paragraph';
 
 const StyledWrapper = styled.p`
@@ -20,5 +21,10 @@ const ParagraphCard = ({ children, isTabletOrMobile }) => (
     </Paragraph>
   </StyledWrapper>
 );
+
+ParagraphCard.propTypes = {
+  children: PropTypes.string.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired
+};
 
 export default ParagraphCard;

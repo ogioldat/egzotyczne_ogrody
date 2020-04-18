@@ -1,18 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import bambooBG from 'assets/images/bamboo.png';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { routes } from '../../../routes';
-import ParagraphCard from '../../atoms/ParagraphCard/ParagraphCard';
-import {
-  getIsDesktopOrLaptop,
-  getIsTabletOrMobile,
-} from '../../../redux/reducers/mediaReducer';
-import Subtitle from '../../atoms/Subtitle/Subtitle';
-
+import { routes } from 'routes';
+import ParagraphCard from 'components/atoms/ParagraphCard/ParagraphCard';
+import { getIsTabletOrMobile, } from 'redux/reducers/mediaReducer';
+import Subtitle from 'components/atoms/Subtitle/Subtitle';
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -43,8 +40,7 @@ const StyledSubtitle = styled(Subtitle)`
   && `calc(3.125vw + ${ theme.fontSize.mobileSubtitle })`};
 `;
 
-
-const AboutUs = ({ isDesktopOrLaptop, isTabletOrMobile }) => (
+const AboutUs = ({ isTabletOrMobile }) => (
   <StyledWrapper id='about-us'>
     <StyledBackground src={ bambooBG }
                       isTabletOrMobile={ isTabletOrMobile }/>
@@ -70,8 +66,11 @@ const AboutUs = ({ isDesktopOrLaptop, isTabletOrMobile }) => (
 );
 
 const mapStateToProps = state => ({
-  isDesktopOrLaptop: getIsDesktopOrLaptop(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
+
+AboutUs.propTypes = {
+  isTabletOrMobile: PropTypes.bool.isRequired
+};
 
 export default connect(mapStateToProps)(AboutUs);

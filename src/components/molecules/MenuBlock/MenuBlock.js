@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { toggleMenu as toggleMenuAction } from 'redux/actions/menuActions';
 import { connect } from 'react-redux';
 import Button from 'components/atoms/Button/Button';
@@ -71,5 +72,26 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
+
+MenuBlock.propTypes = {
+  title: PropTypes.string.isRequired,
+  content: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
+  })).isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+  reversed: PropTypes.bool,
+  menu: PropTypes.bool,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+  footer: PropTypes.bool,
+  children: PropTypes.element,
+};
+
+MenuBlock.defaultProps = {
+  reversed: false,
+  menu: false,
+  footer: false,
+  children: null
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBlock);

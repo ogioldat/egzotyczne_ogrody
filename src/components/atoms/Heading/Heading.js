@@ -103,10 +103,17 @@ const Heading = ({ children, type, reversed, card, isTabletOrMobile, footer }) =
 Heading.propTypes = {
   children: PropTypes.string.isRequired,
   type: PropTypes.string,
+  reversed: PropTypes.bool,
+  card: PropTypes.bool,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+  footer: PropTypes.bool,
 };
 
 Heading.defaultProps = {
   type: '',
+  reversed: false,
+  card: false,
+  footer: false
 };
 
 const mapStateToProps = state => ({

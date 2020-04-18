@@ -48,13 +48,9 @@ const HeroHeading = ({ children, isTabletOrMobile }) => (
 );
 
 HeroHeading.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.string.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired
 };
-
-HeroHeading.defaultProps = {
-  children: '',
-};
-
 
 export default HeroHeading;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { routes } from 'routes';
 import { setCurrentPlant as setCurrentPlantAction } from 'redux/actions/plants/plantActions';
 import { connect } from 'react-redux';
@@ -59,7 +60,17 @@ const StyledImage = styled.img`
 `;
 
 
-const PlantCard = ({ miniatureImage, index, title, setCurrentPlant, objKey, category, isTabletOrMobile }) => (
+const PlantCard = (
+  {
+    miniatureImage,
+    index,
+    title,
+    setCurrentPlant,
+    objKey,
+    category,
+    isTabletOrMobile,
+  },
+) => (
   <StyledWrapper
     isTabletOrMobile={ isTabletOrMobile }
     onClick={ () => {
@@ -84,5 +95,15 @@ const mapStateToProps = state => ({
   currentPlant: getDetailsPlant(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
+
+PlantCard.propTypes = {
+  miniatureImage: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  setCurrentPlant: PropTypes.func.isRequired,
+  objKey: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantCard);

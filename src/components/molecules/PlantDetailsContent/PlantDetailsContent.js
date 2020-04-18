@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { textMotion } from 'assets/motion';
 import { Link } from 'react-router-dom';
@@ -66,7 +67,7 @@ const StyledOverflowText = styled.div`
 
 const StyledParagraph = styled(Paragraph)`
   font-size: ${({theme}) => theme.fontSize.xs};
-`
+`;
 
 const PlantDetailsContent = (
   {
@@ -133,5 +134,16 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   changePlant: direction => dispatch(changePlantAction(direction)),
 });
+
+PlantDetailsContent.propTypes = {
+  isTabletOrMobile: PropTypes.bool.isRequired,
+  fact: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  description: PropTypes.string.isRequired,
+  changePlant: PropTypes.func.isRequired,
+  pending: PropTypes.bool.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantDetailsContent);

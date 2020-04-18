@@ -1,5 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import fb from 'assets/icons/fb.png';
 import messenger from 'assets/icons/messenger.png';
 import mail from 'assets/icons/mail.png';
@@ -64,5 +65,9 @@ const CXMenuSocials = ({ isTabletOrMobile }) => (
     }
   </StyledWrapper>
 );
+
+CXMenuSocials.propTypes = {
+  isTabletOrMobile: PropTypes.bool.isRequired
+};
 
 export default CXMenuSocials;

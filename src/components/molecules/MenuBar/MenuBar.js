@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import { routes } from 'routes';
 import Hamburger from 'components/atoms/Hamburger/Hamburger';
 import { connect } from 'react-redux';
@@ -115,5 +116,10 @@ const MenuBar = ({ showMenu, isTabletOrMobile }) => (
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
+
+MenuBar.propTypes = {
+  showMenu: PropTypes.bool.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+};
 
 export default connect(mapStateToProps)(MenuBar);

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import loader from 'assets/loaders/loader.gif';
 import { motion } from 'framer-motion';
-import { loaderDelay } from '../../../assets/motion';
-import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
-import { connect } from 'react-redux';
+import { loaderDelay } from 'assets/motion';
+import { getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
 
 const StyledWrapper = styled(motion.div)`
   position: fixed;
@@ -50,5 +51,10 @@ const LoadingScreen = ({ isTabletOrMobile, showLoader }) => {
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
+
+LoadingScreen.propTypes = {
+  isTabletOrMobile: PropTypes.bool.isRequired,
+  showLoader: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps)(LoadingScreen);
