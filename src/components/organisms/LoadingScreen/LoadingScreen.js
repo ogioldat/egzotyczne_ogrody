@@ -42,7 +42,7 @@ const LoadingScreen = ({ isTabletOrMobile, showLoader }) => {
       <StyledImg
         isTabletOrMobile={ isTabletOrMobile }
         src={ gif }
-        alt='loading'/>
+        alt=''/>
 
     </StyledWrapper>
   );

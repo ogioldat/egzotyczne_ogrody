@@ -42,11 +42,10 @@ const StyledSmallCapsText = styled(SmallCapsText)`
 `;
 
 const StyledFocusBox = styled(motion.div)`
-  height: 70%;
+  height: 10%;
   width: 15%;
   position: absolute;
-  bottom: 0;
-  top: 0;
+  bottom: 20%;
   margin: auto;
   left: ${ ({ shift }) => `${ ((shift * 2) + 1) * 2.5 }% ` };
   transform: translateX(${ ({ shift }) => shift * 100 }%);
