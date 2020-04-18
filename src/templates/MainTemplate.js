@@ -60,10 +60,10 @@ const MainTemplate = (
   useEffect(() => {
     if (showLoader) {
       targetElement.style.overflow = 'hidden';
-    } else {
-      targetElement.style.overflow = 'visible';
-    }
+    } else targetElement.style.overflow = 'visible';
+
   }, [showLoader]);
+
 
   const [animationPlayed, toggleAnimationPlayed] = useState(false);
 
@@ -80,7 +80,8 @@ const MainTemplate = (
       }, 3500);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [animationPlayed]);
+
 
   return (
     <>
