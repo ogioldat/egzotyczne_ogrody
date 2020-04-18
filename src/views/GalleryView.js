@@ -50,7 +50,7 @@ const StyledFlex = styled.div`
 const StyledLink = styled(Link)`
   position: absolute;
   left: 0;
-  bottom: ${ ({ isTabletOrMobile }) => isTabletOrMobile && 0 };
+  bottom: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '10vh' };
   text-decoration: none;
 `;
 

@@ -78,7 +78,7 @@ const MainTemplate = (
       <ThemeProvider theme={ theme }>
         <AnimatePresence>
           {
-            // showLoader && <LoadingScreen/>
+            showLoader && <LoadingScreen showLoader={ showLoader }/>
           }
         </AnimatePresence>
         {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import loader from 'assets/loaders/loader.gif';
 import { motion } from 'framer-motion';
@@ -22,19 +22,29 @@ const StyledImg = styled.img`
   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '100vw' };
 `;
 
-const LoadingScreen = ({ isTabletOrMobile }) => (
-  <StyledWrapper
-    initial="initial"
-    animate="enter"
-    exit="exit"
-    transition={ loaderDelay.transition }
-    variants={ loaderDelay.variants }>
-    <StyledImg
-      isTabletOrMobile={ isTabletOrMobile }
-      src={ loader }
-      alt='loading'/>
-  </StyledWrapper>
-);
+const LoadingScreen = ({ isTabletOrMobile, showLoader }) => {
+  const [gif, setGif] = useState(null);
+  useEffect(() => {
+    if (showLoader) {
+      setGif(loader);
+    } else setGif(null);
+  }, [showLoader]);
+
+  return (
+    <StyledWrapper
+      initial="initial"
+      animate="enter"
+      exit="exit"
+      transition={ loaderDelay.transition }
+      variants={ loaderDelay.variants }>
+      <StyledImg
+        isTabletOrMobile={ isTabletOrMobile }
+        src={ gif }
+        alt='loading'/>
+
+    </StyledWrapper>
+  );
+};
 
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),

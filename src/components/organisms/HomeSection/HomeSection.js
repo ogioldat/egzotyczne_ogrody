@@ -55,7 +55,7 @@ const StyledAnchorLink = styled(AnchorLink)`
 const StyledMobileBg = styled.img`
   position: absolute;
   width: 100vw;
-  top: 70%;
+  bottom: -5%;
 `;
 
 const HomeSection = ({ showMenu, isTabletOrMobile }) => (
