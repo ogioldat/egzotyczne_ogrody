@@ -136,10 +136,9 @@ const GalleryView = (
                   }
 
                   return (
-                    <ImageWrapper>
+                    <ImageWrapper key={ uniqid() }>
                       <GalleryImage
                         isTabletOrMobile={ isTabletOrMobile }
-                        key={ uniqid() }
                         index={ index }
                         height={ height }
                         image={ photo }/>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import uniqid from 'uniqid';
 import PropTypes from 'prop-types';
 import { toggleMenu as toggleMenuAction } from 'redux/actions/menuActions';
 import { connect } from 'react-redux';
@@ -44,7 +45,9 @@ const MenuBlock = (
     </Heading>
     {
       children || content.map(obj => (
-        <StyledLink to={ obj.link || routes.home }>
+        <StyledLink
+          key={ uniqid() }
+          to={ obj.link || routes.home }>
           <Button
             menu={ menu }
             footer={ footer }
@@ -74,24 +77,26 @@ const mapStateToProps = state => ({
 });
 
 MenuBlock.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   content: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
-  })).isRequired,
+  })),
   toggleMenu: PropTypes.func.isRequired,
   reversed: PropTypes.bool,
   menu: PropTypes.bool,
   isTabletOrMobile: PropTypes.bool.isRequired,
   footer: PropTypes.bool,
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
 };
 
 MenuBlock.defaultProps = {
+  title: '',
+  content: [],
   reversed: false,
   menu: false,
   footer: false,
-  children: null
+  children: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBlock);

@@ -12,7 +12,7 @@ const StyledHeading = styled.h1`
   font-weight: ${ ({ theme }) => theme.bold };
   margin: 0;
   
-  ${ ({ type, theme, isTabletOrMobile, footer }) => {
+  ${ ({ type, theme, isTabletOrMobile }) => {
   switch (type) {
     default:
       return css`
@@ -57,7 +57,7 @@ const StyledHeading = styled.h1`
            div {
             background-color: ${ theme.greenLight };
            }
-           `;  
+           `;
 
     case 'small':
       return css`
@@ -72,8 +72,8 @@ const StyledHeading = styled.h1`
   }
 }
 };
-  font-size: ${ ({ footer, isTabletOrMobile, theme }) => 
-  (footer && isTabletOrMobile) &&  theme.fontSize.s   } 
+  font-size: ${ ({ footer, isTabletOrMobile, theme }) =>
+  (footer && isTabletOrMobile) && theme.fontSize.s } 
 `;
 
 const StyledRect = styled.div`
@@ -101,7 +101,7 @@ const Heading = ({ children, type, reversed, card, isTabletOrMobile, footer }) =
 );
 
 Heading.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.string,
   type: PropTypes.string,
   reversed: PropTypes.bool,
   card: PropTypes.bool,
@@ -110,10 +110,11 @@ Heading.propTypes = {
 };
 
 Heading.defaultProps = {
+  children: null,
   type: '',
   reversed: false,
   card: false,
-  footer: false
+  footer: false,
 };
 
 const mapStateToProps = state => ({

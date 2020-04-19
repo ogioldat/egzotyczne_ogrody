@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDetailsPlant, getPlantDetailsEmpty, getPlants } from 'redux/reducers/plantsReducer';
@@ -48,8 +48,7 @@ const PlantDetailsView = (
     changePlantPhoto,
   },
 ) => {
-  const body = document.querySelector('body');
-  const [targetElement] = useState(body);
+  const targetElement = document.querySelector('body');
 
   useEffect(() => {
     if (showModal) {

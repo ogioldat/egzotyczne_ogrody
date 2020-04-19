@@ -1,4 +1,7 @@
 import React from 'react';
+import uniqid from 'uniqid';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
@@ -8,7 +11,6 @@ import { motion } from 'framer-motion';
 import { wrapperMotion } from 'assets/motion';
 import { routes } from '../routes';
 import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
-import { connect } from 'react-redux';
 
 const StyledFlexWrapper = styled.div`
   position: relative;
@@ -28,10 +30,6 @@ const StyledWrapper = styled(motion.div)`
   width: 90%;
 `;
 
-const StyledHeading = styled(Heading)`
-  
-`;
-
 const StyledBackButton = styled(Button)`
   position: relative;
   color: ${ ({ theme }) => theme.inactive };
@@ -41,8 +39,12 @@ const StyledBackButton = styled(Button)`
 `;
 
 const StyledLink = styled(Link)`
-  position: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && 'absolute' };
   text-decoration: none;
+  
+`;
+
+const LinkWrapper = styled.div`
+  position: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && 'absolute' };
   bottom: 0;
 `;
 
@@ -107,13 +109,23 @@ const StyledA = styled.a`
   color: ${ ({ theme }) => theme.greyDark };
 `;
 
-const SubpageTemplate = ({ title, content, paymentImage, homeImage, policy, isTabletOrMobile }) => (
+const SubpageTemplate = (
+  {
+    title,
+    content,
+    paymentImage,
+    homeImage,
+    policy,
+    isTabletOrMobile,
+  },
+) => (
   <StyledFlexWrapper isTabletOrMobile={ isTabletOrMobile }>
-    <StyledWrapper initial="initial"
-                   animate="enter"
-                   exit="exit"
-                   variants={ wrapperMotion.variants }>
-      <StyledHeading type='subpage'>{ title }</StyledHeading>
+    <StyledWrapper
+      initial="initial"
+      animate="enter"
+      exit="exit"
+      variants={ wrapperMotion.variants }>
+      <Heading type='subpage'>{ title }</Heading>
       <StyledTextGrid
         isTabletOrMobile={ isTabletOrMobile }
         title={ title }
@@ -122,7 +134,7 @@ const SubpageTemplate = ({ title, content, paymentImage, homeImage, policy, isTa
         {
           // eslint-disable-next-line react/prop-types
           content.map(item => (
-            <StyledTextBox policy>
+            <StyledTextBox policy={ policy } key={ uniqid() }>
               <Heading type='small'>{ item.headingText }</Heading>
               <StyledP title={ title }>{
                 item.isLink
@@ -134,18 +146,17 @@ const SubpageTemplate = ({ title, content, paymentImage, homeImage, policy, isTa
         }
       </StyledTextGrid>
       {
-        paymentImage && <StyledPaymentImage
-          isTabletOrMobile={ isTabletOrMobile }
-          src={ paymentImage }/>
+        paymentImage && <StyledPaymentImage isTabletOrMobile={ isTabletOrMobile } src={ paymentImage }/>
       }
+
       {
         homeImage && <StyledHomeImage src={ homeImage }/>
       }
-
-      <StyledLink to={ routes.home } isTabletOrMobile={ isTabletOrMobile }>
-        <StyledBackButton secondary>strona główna</StyledBackButton>
-      </StyledLink>
-
+      <LinkWrapper isTabletOrMobile={ isTabletOrMobile }>
+        <StyledLink to={ routes.home }>
+          <StyledBackButton secondary>strona główna</StyledBackButton>
+        </StyledLink>
+      </LinkWrapper>
     </StyledWrapper>
   </StyledFlexWrapper>
 );
@@ -153,5 +164,22 @@ const SubpageTemplate = ({ title, content, paymentImage, homeImage, policy, isTa
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
+
+SubpageTemplate.propTypes = {
+  title: PropTypes.string,
+  content: PropTypes.arrayOf(PropTypes.object),
+  paymentImage: PropTypes.string,
+  homeImage: PropTypes.string,
+  policy: PropTypes.bool,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+};
+
+SubpageTemplate.defaultProps = {
+  title: '',
+  content: [],
+  paymentImage: '',
+  homeImage: '',
+  policy: false,
+};
 
 export default connect(mapStateToProps)(SubpageTemplate);

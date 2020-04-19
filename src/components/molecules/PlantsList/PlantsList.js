@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import uniqid from 'uniqid';
 import Button from 'components/atoms/Button/Button';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { PLANTS_DICT } from '../../organisms/PlantsGrid/PlantsGrid';
@@ -28,6 +29,7 @@ const PlantsList = (
       Object.keys(plants).map(key => {
         return (
           <StyledAnchorLink
+            key={ uniqid() }
             onClick={ () => reversed || toggleMenu() }
             href={ `#${ key }` }>
             <Button
@@ -56,7 +58,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 PlantsList.propTypes = {
-  plants: PropTypes.arrayOf(PropTypes.string).isRequired,
+  plants: PropTypes.objectOf(PropTypes.object).isRequired,
   reversed: PropTypes.bool,
   toggleMenu: PropTypes.func.isRequired,
   footer: PropTypes.bool,

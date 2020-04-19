@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     font-family: Montserrat, sans-serif;
     touch-action: manipulation;
+    scroll-behavior: smooth;
   }
   
   *::selection {

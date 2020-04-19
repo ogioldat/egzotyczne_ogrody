@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import uniqid from 'uniqid';
 import { motion } from 'framer-motion';
 import { imageMotion } from 'assets/motion';
 import { bindActionCreators } from 'redux';
@@ -37,7 +38,7 @@ const StyledImageGrid = styled(motion.div)`
 
 const StyledImageBlock = styled.div`
   height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '30vh' : '200px' };
-  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '0 10px 0 0'};
+  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '0 10px 0 0' };
   min-width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '50%' : '100%' };
   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '20vw' };
   box-shadow: ${ ({ theme, isTabletOrMobile }) => !isTabletOrMobile && theme.shadow };
@@ -56,6 +57,7 @@ const ImagesGrid = ({ setCurrentPlantPhoto, toggleModal, isTabletOrMobile, name,
     {
       images && images
         .map((image, index) => <StyledImageBlock
+          key={ uniqid() }
           isTabletOrMobile={ isTabletOrMobile }
           onClick={ () => {
             setCurrentPlantPhoto(index);
@@ -81,9 +83,15 @@ ImagesGrid.propTypes = {
   setCurrentPlantPhoto: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   isTabletOrMobile: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  images: PropTypes.arrayOf(PropTypes.string).isRequired,
-  title: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  images: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string,
+};
+
+ImagesGrid.defaultProps = {
+  images: [],
+  title: '',
+  name: '',
 };
 
 

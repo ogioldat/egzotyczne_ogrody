@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Paragraph from '../Paragraph/Paragraph';
 
-const StyledWrapper = styled.p`
+const StyledWrapper = styled.div`
   display: block;
   border-radius: 12px;
   background-color: white;

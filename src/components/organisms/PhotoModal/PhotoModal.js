@@ -1,10 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { connect } from 'react-redux';
 import arrow from 'assets/icons/arrow_icon.png';
 import ArrowControl from 'components/atoms/ArrowControl/ArrowControl';
 import close from 'assets/icons/close.png';
 import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
-import { connect } from 'react-redux';
 
 const StyledWrapper = styled.div`
   position: fixed !important;
@@ -16,7 +16,6 @@ const StyledWrapper = styled.div`
   height: 100vh;
   top: 0; 
   left: 0;  
-  border-radius: .3rem;
   box-shadow: 0 10px 40px -10px #00000033;
   display: flex;
   justify-content: space-evenly;

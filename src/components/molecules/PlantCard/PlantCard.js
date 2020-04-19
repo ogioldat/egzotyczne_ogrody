@@ -59,6 +59,10 @@ const StyledImage = styled.img`
   border-radius: 50%;
 `;
 
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+`;
 
 const PlantCard = (
   {
@@ -71,20 +75,19 @@ const PlantCard = (
     isTabletOrMobile,
   },
 ) => (
-  <StyledWrapper
-    isTabletOrMobile={ isTabletOrMobile }
-    onClick={ () => {
-      setCurrentPlant({ key: objKey, category, index });
-    } }
-    as={ Link }
-    to={ routes.plantDetails }
-  >
-    <StyledImage
-      src={ miniatureImage }
-      isTabletOrMobile={ isTabletOrMobile }/>
-    <Heading type='small' card>{ title }</Heading>
-    <StyledBlock>CZYTAJ WIĘCEJ</StyledBlock>
-  </StyledWrapper>
+  <StyledLink to={ routes.plantDetails }>
+    <StyledWrapper
+      isTabletOrMobile={ isTabletOrMobile }
+      onClick={ () => {
+        setCurrentPlant({ key: objKey, category, index });
+      } }>
+      <StyledImage
+        src={ miniatureImage }
+        isTabletOrMobile={ isTabletOrMobile }/>
+      <Heading type='small' card>{ title }</Heading>
+      <StyledBlock>CZYTAJ WIĘCEJ</StyledBlock>
+    </StyledWrapper>
+  </StyledLink>
 );
 
 const mapDispatchToProps = dispatch => ({

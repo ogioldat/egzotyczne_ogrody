@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import Heading from 'components/atoms/Heading/Heading';
-import CXMenuButton from 'components/atoms/CXMenuButton/CXMenuButton';
 import CXMenuSocials from 'components/atoms/CXMenuSocials/CXMenuSocials';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { wrapperMotion, buttonMotion } from 'assets/motion';
+import { wrapperMotion } from 'assets/motion';
 import { connect } from 'react-redux';
-import Button from 'components/atoms/Button/Button';
 import { getPlants } from '../redux/reducers/plantsReducer';
-import { routes } from '../routes';
 import PlantsList from '../components/molecules/PlantsList/PlantsList';
 import MenuBlock from '../components/molecules/MenuBlock/MenuBlock';
 import { content } from '../assets/data/menuContent';
@@ -52,9 +48,6 @@ const StyledControlWrapper = styled.div`
 `;
 
 
-const StyledCXMenuSocials = styled(CXMenuSocials)`
-  //height: 10vh;
-`;
 
 const MenuView = ({ isTabletOrMobile }) => {
 
@@ -80,7 +73,7 @@ const MenuView = ({ isTabletOrMobile }) => {
           title='galeria'
           content={ content.gallery }/>
 
-        <StyledCXMenuSocials isTabletOrMobile={ isTabletOrMobile }/>
+        <CXMenuSocials isTabletOrMobile={ isTabletOrMobile }/>
       </StyledControlWrapper>
 
     </StyledWrapper>

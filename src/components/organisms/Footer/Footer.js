@@ -36,21 +36,24 @@ const StyledCredits = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-`;
+`
 
 const StyledFounder = styled.h2`
+  margin-bottom: 0;
   font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.fontSize.s : theme.fontSize.m };
   color: ${ ({ theme }) => theme.greyLight }
 `;
 
 const StyledRights = styled.h2`
+  margin: 2% 0 0 0;
   font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.fontSize.xs : theme.fontSize.s };
   color: ${ ({ theme }) => theme.inactive }
 `;
 
 const StyledAuthor = styled(StyledRights)`
-  margin: 5% 0;
-  font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.fontSize.xs : theme.fontSize.s };
+  margin: 0;
+  color: ${ ({ theme }) => theme.inactive };
+  font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.fontSize.xxs : theme.fontSize.xs };
 `;
 
 const StyledP = styled.p`
@@ -92,9 +95,8 @@ const Footer = ({ isTabletOrMobile }) => (
       </StyledFounder>
       <StyledRights isTabletOrMobile={ isTabletOrMobile }>
         all rights reserved
-        <br/>
-        <StyledAuthor isTabletOrMobile={ isTabletOrMobile }>created and designed <br/> by Tomasz Ogiołda</StyledAuthor>
       </StyledRights>
+      <StyledAuthor isTabletOrMobile={ isTabletOrMobile }>created and designed <br/> by Tomasz Ogiołda</StyledAuthor>
       <StyledP>
         Wszelkie prawa zastrzeżone!
         Zdjęcia są własnością firmy Egzotyczne Ogrody

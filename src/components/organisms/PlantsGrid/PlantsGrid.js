@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import  PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchPlantsAction from 'redux/actions/plants/fetchPlants';
 import { bindActionCreators } from 'redux';
+import uniqid from 'uniqid';
 import { getPlants } from 'redux/reducers/plantsReducer';
 import PlantCard from 'components/molecules/PlantCard/PlantCard';
 import Heading from 'components/atoms/Heading/Heading';
@@ -52,6 +53,7 @@ const PlantsGrid = (
           Object.keys(currentPlants).map((key, index) => {
             return (
               <PlantCard
+                key={ uniqid() }
                 objKey={ key }
                 index={ index }
                 category={ category }
@@ -83,7 +85,7 @@ PlantsGrid.propTypes = {
   endpoint: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   setPlantDetails: PropTypes.func.isRequired,
-  plants: PropTypes.arrayOf(PropTypes.string).isRequired,
+  plants: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantsGrid);

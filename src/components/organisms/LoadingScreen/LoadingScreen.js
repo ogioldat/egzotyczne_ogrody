@@ -54,7 +54,7 @@ const mapStateToProps = state => ({
 
 LoadingScreen.propTypes = {
   isTabletOrMobile: PropTypes.bool.isRequired,
-  showLoader: PropTypes.func.isRequired,
+  showLoader: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(LoadingScreen);

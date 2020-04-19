@@ -137,13 +137,22 @@ const mapDispatchToProps = dispatch => ({
 
 PlantDetailsContent.propTypes = {
   isTabletOrMobile: PropTypes.bool.isRequired,
-  fact: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  images: PropTypes.arrayOf(PropTypes.string).isRequired,
-  description: PropTypes.string.isRequired,
+  fact: PropTypes.string,
+  title: PropTypes.string,
+  name: PropTypes.string,
+  images: PropTypes.arrayOf(PropTypes.string),
+  description: PropTypes.string,
   changePlant: PropTypes.func.isRequired,
-  pending: PropTypes.bool.isRequired,
+  pending: PropTypes.bool,
+};
+
+PlantDetailsContent.defaultProps = {
+  pending: false,
+  images: [],
+  description: '',
+  name: '',
+  fact: '',
+  title: ''
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantDetailsContent);

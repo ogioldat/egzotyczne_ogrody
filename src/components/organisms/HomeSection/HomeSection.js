@@ -81,6 +81,7 @@ const HomeSection = ({ showMenu, isTabletOrMobile }) => (
           Tu trzeba dodać tekst
         </StyledParagraph>
         <StyledAnchorLink
+          as='a'
           isTabletOrMobile={ isTabletOrMobile }
           href='#about-us'>
           <Button>poznaj nas</Button>
@@ -96,7 +97,7 @@ const mapStateToProps = state => ({
 });
 
 HomeSection.propTypes = {
-  showMenu: PropTypes.func.isRequired,
+  showMenu: PropTypes.bool.isRequired,
   isTabletOrMobile: PropTypes.bool.isRequired
 };
 
