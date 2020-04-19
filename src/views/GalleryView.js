@@ -23,7 +23,6 @@ import Button from 'components/atoms/Button/Button';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { motion } from 'framer-motion';
 import { wrapperMotion } from 'assets/motion';
-
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import PhotoModal from '../components/organisms/PhotoModal/PhotoModal';
@@ -140,7 +139,6 @@ const GalleryView = (
                   } else {
                     height = index % 2 === 0 ? '600px' : '700px';
                   }
-
                   return (
                     <ImageWrapper key={ uniqid() }>
                       <GalleryImage
