@@ -13,10 +13,10 @@ import {
   setTabletOrMobileDevice as setTabletOrMobileDeviceAction,
   setPortrait as setPortraitAction,
 } from 'redux/actions/mediaActions';
-import { getShowMenu } from '../redux/reducers/menuReducer';
-import mediaQueries from '../mediaQueries';
 import { AnimatePresence } from 'framer-motion';
 import LoadingScreen from 'components/organisms/LoadingScreen/LoadingScreen';
+import { getShowMenu } from '../redux/reducers/menuReducer';
+import mediaQueries from '../mediaQueries';
 
 const MainTemplate = (
   {
@@ -105,8 +105,15 @@ const MainTemplate = (
 };
 
 MainTemplate.propTypes = {
+  showMenu: PropTypes.bool.isRequired,
   children: PropTypes.element.isRequired,
+  setIsDesktopOrLaptop: PropTypes.func.isRequired,
+  setIsBigScreen: PropTypes.func.isRequired,
+  setTabletOrMobile: PropTypes.func.isRequired,
+  setTabletOrMobileDevice: PropTypes.func.isRequired,
+  setPortrait: PropTypes.func.isRequired,
 };
+
 
 const mapDispatchToProps = dispatch => ({
   setIsDesktopOrLaptop: bool => dispatch(setIsDesktopOrLaptopAction(bool)),

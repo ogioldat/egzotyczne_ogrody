@@ -11,12 +11,6 @@ import { AboutUsView, OrdersView,
   ContactView, LocationView, PolicyView } from 'views/Subpages';
 import PlantDetailsView from './PlantDetailsView';
 
-const transition = {
-  duration: 400,
-  ease: 'linear',
-};
-
-
 const Root = () => (
   <Provider store={ store }>
     <Router>

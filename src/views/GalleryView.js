@@ -48,9 +48,6 @@ const StyledFlex = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  position: absolute;
-  left: 0;
-  bottom: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '10vh' };
   text-decoration: none;
 `;
 
@@ -71,6 +68,12 @@ const StyledDarkBox = styled.div`
   z-index: 10;
   width: 100vw;
   background-color: rgba(0,0,0,0.9);
+`;
+
+const LinkWrapper = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '10vh' };
 `;
 
 const GalleryView = (
@@ -99,9 +102,11 @@ const GalleryView = (
         exit="exit"
         variants={ wrapperMotion.variants }>
         <StyledTitleWrapper>
-          <StyledLink to={ routes.home } isTabletOrMobile={ isTabletOrMobile }>
-            <Button secondary>strona główna</Button>
-          </StyledLink>
+          <LinkWrapper isTabletOrMobile={ isTabletOrMobile }>
+            <StyledLink to={ routes.home }>
+              <Button secondary>strona główna</Button>
+            </StyledLink>
+          </LinkWrapper>
           <Heading type='subpage'>galeria zdjęć</Heading>
         </StyledTitleWrapper>
         {

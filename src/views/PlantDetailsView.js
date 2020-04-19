@@ -73,7 +73,7 @@ const PlantDetailsView = (
 
       setPlantDetails(true);
     }
-  }, []);
+  }, [plants]);
 
   const { name, fact, title, images, description } = currentPlant || {};
 

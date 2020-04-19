@@ -39,7 +39,7 @@ const PlantsGrid = (
   useEffect(() => {
     setPlantDetails(false);
     fetchPlants(endpoint, category);
-  }, []);
+  }, [endpoint, category]);
 
   const currentPlants = plants[category] || {};
 
