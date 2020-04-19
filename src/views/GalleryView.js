@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
 import { bindActionCreators } from 'redux';
 import fetchPhotosAction from 'redux/actions/gallery/fetchPhotos';
@@ -173,5 +174,23 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   toggleModal: toggleModalAction,
 }, dispatch);
 
+GalleryView.propTypes = {
+  fetchPhotos: PropTypes.func.isRequired,
+  photos: PropTypes.arrayOf(PropTypes.string),
+  pending: PropTypes.bool,
+  error: PropTypes.bool,
+  showModal: PropTypes.bool.isRequired,
+  currentPhoto: PropTypes.string,
+  changePhoto: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+};
+
+GalleryView.defaultProps = {
+  photos: [],
+  pending: false,
+  error: false,
+  currentPhoto: null
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryView);
