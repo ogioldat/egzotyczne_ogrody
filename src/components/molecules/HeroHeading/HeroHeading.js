@@ -23,7 +23,7 @@ const StyledRect = styled.div`
   width: ${ ({ len }) => `${ len * 10 }%` };
   height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '12vh' : '130px' };
   bottom: -20px;
-
+  box-shadow: ${ ({ theme }) => theme.shadow };
   z-index: -1;
   left: 2vw;
   background: ${ ({ theme }) => theme.greyLight };
@@ -49,7 +49,7 @@ const HeroHeading = ({ children, isTabletOrMobile }) => (
 
 HeroHeading.propTypes = {
   children: PropTypes.string.isRequired,
-  isTabletOrMobile: PropTypes.bool.isRequired
+  isTabletOrMobile: PropTypes.bool.isRequired,
 };
 
 export default HeroHeading;

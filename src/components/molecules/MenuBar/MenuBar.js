@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { routes } from 'routes';
 import Hamburger from 'components/atoms/Hamburger/Hamburger';
@@ -11,26 +11,20 @@ import Button from '../../atoms/Button/Button';
 import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 const StyledMenuBar = styled.div`
-  margin: ${({ theme, isTabletOrMobile}) => isTabletOrMobile && theme.mobilePadding};
+  margin: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile && theme.mobilePadding };
   box-sizing: content-box;
   position: relative;
   height: 60px;
-   ${ ({ isTabletOrMobile }) => isTabletOrMobile ?
-  css`display: flex`
-  : css`
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-` };
-
+  display: flex;
+  border-bottom: 1.5px solid ${ ({ theme }) => theme.greyLight };
+  padding: 10px;
   justify-content: space-between;
   align-items: center;
 `;
 
 const StyledLogo = styled.img`
   height: 100%;
-  margin-top: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? 0 : '20px' };
   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '60vw' };
-  padding: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '20px' };;
   box-sizing: content-box;
 `;
 
@@ -38,13 +32,13 @@ const StyledList = styled.ul`
   height: 100%;
   list-style: none;
   position: absolute;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: space-evenly;
   z-index: 100;
   right: 0;
   margin: 0;
-  top: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? 0 : '10px' };
+  // top: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? 0 : '10px' };
   
   li {
     padding: 0;
