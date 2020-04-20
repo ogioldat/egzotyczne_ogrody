@@ -82,7 +82,6 @@ const MainTemplate = (
       }, 3500);
       return () => clearTimeout(timer);
     }
-    return null;
   }, [animationPlayed]);
 
   const { pathname } = useLocation();

@@ -45,9 +45,7 @@ const PlantsGrid = (
   const currentPlants = plants[category] || {};
 
   return (
-    <div
-      isTabletOrMobile={ isTabletOrMobile }
-      id={ category }>
+    <div id={ category }>
       <Heading type='menu'>{ PLANTS_DICT[category] }</Heading>
       <StyledGridWrapper isTabletOrMobile={ isTabletOrMobile } isBigScreen={ isBigScreen }>
         {
@@ -83,6 +81,7 @@ const mapStateToProps = state => ({
 
 PlantsGrid.propTypes = {
   isTabletOrMobile: PropTypes.bool.isRequired,
+  isBigScreen: PropTypes.bool.isRequired,
   fetchPlants: PropTypes.func.isRequired,
   endpoint: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,

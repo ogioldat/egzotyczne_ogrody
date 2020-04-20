@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDetailsPlant, getPlantDetailsEmpty, getPlants } from 'redux/reducers/plantsReducer';
@@ -133,5 +134,35 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   changePlantPhoto: changePlantPhotoAction,
   setCurrentPlant: setCurrentPlantAction,
 }, dispatch);
+
+PlantDetailsView.propTypes = {
+  currentPlant: PropTypes.shape({
+    name: PropTypes.string,
+    miniatureImage: PropTypes.string,
+    title: PropTypes.string,
+    fact: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string,
+  }),
+  setPlantDetailsEmpty: PropTypes.func.isRequired,
+  plants: PropTypes.objectOf(PropTypes.object),
+  pending: PropTypes.bool.isRequired,
+  setCurrentPlant: PropTypes.func.isRequired,
+  plantDetailsEmpty: PropTypes.bool,
+  fetchPlants: PropTypes.func.isRequired,
+  setPlantDetails: PropTypes.func.isRequired,
+  isTabletOrMobile: PropTypes.bool.isRequired,
+  currentPlantPhoto: PropTypes.string,
+  toggleModal: PropTypes.func.isRequired,
+  showModal: PropTypes.bool.isRequired,
+  changePlantPhoto: PropTypes.func.isRequired,
+};
+
+PlantDetailsView.defaultProps = {
+  plants: {},
+  currentPlant: {},
+  currentPlantPhoto: '',
+  plantDetailsEmpty: true,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantDetailsView);
