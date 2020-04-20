@@ -34,13 +34,12 @@ const StyledMobileBg = styled.img`
 
 const StyledHeroImage = styled.img`
   height: 100%;
-  justify-self: center;
 `;
 
 
 const StyledTitleWrapper = styled.div`
   display: flex;
-  margin: 0 0 0 8%;
+  margin: -10% 0 0 8%;
 `;
 
 const HomeSection = ({ showMenu, isTabletOrMobile }) => (

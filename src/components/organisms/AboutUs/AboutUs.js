@@ -19,12 +19,13 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledBackground = styled.img`
-  height: 80vh;
+  width: 50%;
   display: ${ ({ isTabletOrMobile }) => isTabletOrMobile && 'none' };
 `;
 
 const StyledContentWrapper = styled.div`
   display: flex;
+  margin-right: 5%;
   flex-direction: column;
   align-items: center;
   width: 100%;

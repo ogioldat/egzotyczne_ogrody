@@ -25,9 +25,6 @@ const StyledGridWrapper = styled.div`
   padding: 20px 0 100px 0;
 `;
 
-const StyledWrapper = styled.div`
-  width: 100%;
-`;
 
 const PlantsGrid = (
   {
@@ -48,7 +45,7 @@ const PlantsGrid = (
   const currentPlants = plants[category] || {};
 
   return (
-    <StyledWrapper
+    <div
       isTabletOrMobile={ isTabletOrMobile }
       id={ category }>
       <Heading type='menu'>{ PLANTS_DICT[category] }</Heading>
@@ -67,7 +64,7 @@ const PlantsGrid = (
           })
         }
       </StyledGridWrapper>
-    </StyledWrapper>
+    </div>
   );
 };
 
