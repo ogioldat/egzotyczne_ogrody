@@ -16,8 +16,8 @@ const StyledMenuBar = styled.div`
   position: relative;
   height: 60px;
   display: flex;
-  border-bottom: 1.5px solid ${ ({ theme }) => theme.greyLight };
-  padding: 10px;
+  border-bottom: ${ ({ theme, isTabletOrMobile }) => !isTabletOrMobile && `1.5px solid ${ theme.greyLight }` };
+  padding: ${ ({ isTabletOrMenu }) => !isTabletOrMenu && '15px' };
   justify-content: space-between;
   align-items: center;
 `;

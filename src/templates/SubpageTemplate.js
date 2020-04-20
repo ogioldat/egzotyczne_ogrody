@@ -94,11 +94,19 @@ const StyledPaymentImage = styled.img`
 
 const StyledHomeImage = styled.img`
   height: 70%;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
+  ${({isTabletOrMobile}) => isTabletOrMobile ? 
+  css`
+    position: relative;
+    width: 100%;
+` 
+  : css` 
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+`}
+  
 `;
 
 const StyledP = styled(Paragraph)`
@@ -150,7 +158,7 @@ const SubpageTemplate = (
       }
 
       {
-        homeImage && <StyledHomeImage src={ homeImage }/>
+        homeImage && <StyledHomeImage isTabletOrMobile={ isTabletOrMobile } src={ homeImage }/>
       }
       <LinkWrapper isTabletOrMobile={ isTabletOrMobile }>
         <StyledLink to={ routes.home }>

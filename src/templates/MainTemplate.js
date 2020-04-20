@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { routes } from '../routes';
 import GlobalStyle from 'theme/GlobalStyles';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -80,7 +82,16 @@ const MainTemplate = (
       }, 3500);
       return () => clearTimeout(timer);
     }
+    return null;
   }, [animationPlayed]);
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if(pathname !== routes.home){
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
 
 
   return (

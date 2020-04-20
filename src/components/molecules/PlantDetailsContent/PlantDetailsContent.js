@@ -45,7 +45,6 @@ const StyledButton = styled(Button)`
 
 const StyledButtonWrapper = styled.div`
   width: 100%;
-  margin-top: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '2%' : '30px' };
   display: flex;
   justify-content: space-evenly;
 `;
