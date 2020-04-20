@@ -20,8 +20,10 @@ const StyledWrapper = styled(motion.div)`
 
 const StyledCenterWrapper = styled.div`
   display: flex;
+  position: relative;
+  height: calc(100vh - 60px);
   justify-content: space-between;
-  align-items: flex-start; 
+  align-items: center; 
 `;
 
 const StyledMobileBg = styled.img`
@@ -32,14 +34,13 @@ const StyledMobileBg = styled.img`
 
 const StyledHeroImage = styled.img`
   height: 100%;
+  justify-self: center;
 `;
+
 
 const StyledTitleWrapper = styled.div`
   display: flex;
-  width: 100%;
-  margin: auto 0 20% 0;
-  justify-content: center;
-  align-items: center;
+  margin: 0 0 0 8%;
 `;
 
 const HomeSection = ({ showMenu, isTabletOrMobile }) => (
@@ -61,6 +62,7 @@ const HomeSection = ({ showMenu, isTabletOrMobile }) => (
         isTabletOrMobile ?
           <StyledMobileBg src={ mobileBg }/>
           : <StyledHeroImage alt='' src={ heroImage }/>
+
       }
     </StyledCenterWrapper>
   </StyledWrapper>

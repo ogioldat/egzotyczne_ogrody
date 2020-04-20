@@ -34,7 +34,7 @@ const theme = {
     l: '2.4rem',
     xl: '2.8rem',
     xxl: '4rem',
-    hero: '10rem',
+    hero: 'calc(4rem + 3.125vw)',
     heroMobile: '4rem',
     mobileSubtitle: '.5rem',
     mobileMenuHeading: 'calc(.8rem + 3.125vw)',

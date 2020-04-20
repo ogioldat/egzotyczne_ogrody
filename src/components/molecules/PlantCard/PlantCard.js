@@ -10,8 +10,7 @@ import { Link } from 'react-router-dom';
 import { getIsBigScreen, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
-  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '100%' : '100%' };
-  max-width: 500px;
+  min-width: 100%;
   height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '450px' : isBigScreen ? '500px' : '400px' };;
   box-shadow: 0 10px 40px -10px #00000033;
   // margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '10px 0 30px 0' : '25px 50px' };
