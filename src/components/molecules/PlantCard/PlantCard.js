@@ -7,13 +7,14 @@ import { connect } from 'react-redux';
 import Heading from 'components/atoms/Heading/Heading';
 import { getDetailsPlant } from 'redux/reducers/plantsReducer';
 import { Link } from 'react-router-dom';
-import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import { getIsBigScreen, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
-  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '100%' : '400px' };
-  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '450px' : '500px' };;
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '100%' : '100%' };
+  max-width: 500px;
+  height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '450px' : isBigScreen ? '500px' : '400px' };;
   box-shadow: 0 10px 40px -10px #00000033;
-  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '10px 0 30px 0' : '25px 50px' };
+  // margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '10px 0 30px 0' : '25px 50px' };
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -54,8 +55,8 @@ const StyledImage = styled.img`
   margin: auto;
   position: absolute;
   top: 40px;
-  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '260px' : '320px' };
-  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '260px' : '320px' };;
+  width: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '260px' : isBigScreen ? '300px' : '250px' };
+  height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '260px' : isBigScreen ? '300px' : '250px' };
   border-radius: 50%;
 `;
 
@@ -73,15 +74,18 @@ const PlantCard = (
     objKey,
     category,
     isTabletOrMobile,
+    isBigScreen,
   },
 ) => (
   <StyledLink to={ routes.plantDetails }>
     <StyledWrapper
+      isBigScreen={ isBigScreen }
       isTabletOrMobile={ isTabletOrMobile }
       onClick={ () => {
         setCurrentPlant({ key: objKey, category, index });
       } }>
       <StyledImage
+        isBigScreen={ isBigScreen }
         src={ miniatureImage }
         isTabletOrMobile={ isTabletOrMobile }/>
       <Heading type='small' card>{ title }</Heading>
@@ -97,6 +101,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   currentPlant: getDetailsPlant(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
+  isBigScreen: getIsBigScreen(state),
 });
 
 PlantCard.propTypes = {

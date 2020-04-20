@@ -9,7 +9,7 @@ import { getPlants } from 'redux/reducers/plantsReducer';
 import PlantCard from 'components/molecules/PlantCard/PlantCard';
 import Heading from 'components/atoms/Heading/Heading';
 import { setPlantDetails as setPlantDetailsAction } from 'redux/actions/plants/plantActions';
-import { getIsDesktopOrLaptop, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import { getIsBigScreen, getIsDesktopOrLaptop, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 export const PLANTS_DICT = {
   bamboos: 'bambusy',
@@ -18,12 +18,15 @@ export const PLANTS_DICT = {
 
 const StyledGridWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(${ ({ isTabletOrMobile }) => isTabletOrMobile ? -1 : 3 }, 1fr);
+  grid-template-columns: repeat(${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile 
+  ? '-1, 1fr' : isBigScreen ? '3, 400px' : '3, 300px'});
+  justify-content: center;
+  grid-gap: 50px;
   padding: 20px 0 100px 0;
 `;
 
 const StyledWrapper = styled.div`
-   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '100%' };
+  width: 100%;
 `;
 
 const PlantsGrid = (
@@ -34,6 +37,7 @@ const PlantsGrid = (
     category,
     setPlantDetails,
     plants,
+    isBigScreen
   },
 ) => {
   useEffect(() => {
@@ -48,7 +52,7 @@ const PlantsGrid = (
       isTabletOrMobile={ isTabletOrMobile }
       id={ category }>
       <Heading type='menu'>{ PLANTS_DICT[category] }</Heading>
-      <StyledGridWrapper isTabletOrMobile={ isTabletOrMobile }>
+      <StyledGridWrapper isTabletOrMobile={ isTabletOrMobile } isBigScreen={ isBigScreen }>
         {
           Object.keys(currentPlants).map((key, index) => {
             return (
@@ -76,6 +80,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 const mapStateToProps = state => ({
   plants: getPlants(state),
   isDesktopOrLaptop: getIsDesktopOrLaptop(state),
+  isBigScreen: getIsBigScreen(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
 
