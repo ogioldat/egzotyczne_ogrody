@@ -21,10 +21,6 @@ const StyledHeading = styled.h1`
            margin: 50px 0 10px 0;
            font-size: ${ isTabletOrMobile
         ? `calc(3.125vw + ${ theme.fontSize.xl })` : theme.fontSize.heading };
-           
-           div {
-              background-color: ${ theme.greyLight };
-           }
            `;
 
     case 'menu':
@@ -32,9 +28,6 @@ const StyledHeading = styled.h1`
            font-size: ${ isTabletOrMobile ? theme.fontSize.mobileMenuHeading : theme.fontSize.xl };
            color: ${ ({ reversed }) => reversed && theme.greyLight };
            ${ ({ reversed }) => !reversed && css`
-                  div {
-                    background-color: ${ theme.greenLight };
-                  }
               ` }
            `;
 
@@ -43,10 +36,6 @@ const StyledHeading = styled.h1`
            font-size: ${ isTabletOrMobile ? theme.fontSize.s : theme.fontSize.plantDetails }; 
            align-self: center;
            margin-bottom: 0;
-           
-           div {
-            background-color: ${ theme.greenLight };
-           }
            `;
 
     case 'subpage':
@@ -54,10 +43,6 @@ const StyledHeading = styled.h1`
            font-size: ${ isTabletOrMobile ? theme.fontSize.xxl : theme.fontSize.plantDetails }; 
            align-self: center;
            margin-bottom: 0;
-           
-           div {
-            background-color: ${ theme.greenLight };
-           }
            `;
 
     case 'small':
@@ -65,10 +50,6 @@ const StyledHeading = styled.h1`
           font-size: ${ theme.fontSize.m };
           top: ${ ({ card }) => card && '80%' };
           margin-bottom: 10px;
-          
-          div {
-            background-color: ${ theme.greyLight };
-          }
           `;
   }
 }
@@ -84,6 +65,7 @@ const StyledRect = styled.div`
   z-index: -1;
   width: 100%;
   height: 80%;
+  ${ ({ reversed, type, theme }) => !reversed && css`background-color: ${ ['menu', 'plantDetails'].some(el => el === type) ? theme.greenLight : theme.greyLight }` };
   box-shadow: ${ ({ theme }) => theme.shadow };
   animation: 1.5s forwards ${ ({ theme }) => theme.bezier } ${ ({ theme }) => theme.animation };
 `;
@@ -95,7 +77,7 @@ const Heading = ({ children, type, reversed, card, isTabletOrMobile, footer }) =
     type={ type }
     reversed={ reversed }
     card={ card }>
-    <StyledRect/>
+    <StyledRect type={ type } reversed={ reversed }/>
     {
       children
     }
