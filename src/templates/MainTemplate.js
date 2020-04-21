@@ -79,7 +79,7 @@ const MainTemplate = (
 
       const timer = setTimeout(() => {
         toggleLoader(false);
-      }, 3500);
+      }, 4000);
       return () => clearTimeout(timer);
     }
   }, [animationPlayed]);

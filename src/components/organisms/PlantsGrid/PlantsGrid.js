@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchPlantsAction from 'redux/actions/plants/fetchPlants';
@@ -8,6 +8,7 @@ import uniqid from 'uniqid';
 import { getPlants } from 'redux/reducers/plantsReducer';
 import PlantCard from 'components/molecules/PlantCard/PlantCard';
 import Heading from 'components/atoms/Heading/Heading';
+import Line from '../../atoms/Line/Line';
 import { setPlantDetails as setPlantDetailsAction } from 'redux/actions/plants/plantActions';
 import { getIsBigScreen, getIsDesktopOrLaptop, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
@@ -16,20 +17,30 @@ export const PLANTS_DICT = {
   bananas: 'bananowce',
 };
 
+const StyledWrapper = styled.div`
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '100%' } ;
+`;
+
 const StyledGridWrapper = styled.div`
+  ${ ({ isTabletOrMobile }) => isTabletOrMobile ?
+  css`
+  display: flex;
+ 
+  flex-direction: column;
+`
+  : css`
   display: grid;
-  grid-template-columns: repeat(${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile 
-  ? '-1, 1fr' : isBigScreen ? '3, 400px' : '3, 300px'});
+  grid-template-columns: repeat(${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile
+    ? '-1, 1fr' : isBigScreen ? '3, 400px' : '3, 300px' });
+`
+};
+
+  
   justify-content: center;
   grid-gap: 50px;
   padding: 20px 0 100px 0;
 `;
 
-const StyledLine = styled.div`
-  width: 100%;
-  height: 1.5px;
-  background-color: ${({theme}) => theme.greyLight};
-`;
 
 const PlantsGrid = (
   {
@@ -39,7 +50,7 @@ const PlantsGrid = (
     category,
     setPlantDetails,
     plants,
-    isBigScreen
+    isBigScreen,
   },
 ) => {
   useEffect(() => {
@@ -50,9 +61,9 @@ const PlantsGrid = (
   const currentPlants = plants[category] || {};
 
   return (
-    <div id={ category }>
+    <StyledWrapper id={ category } isTabletOrMobile={ isTabletOrMobile }>
       <Heading type='menu'>{ PLANTS_DICT[category] }</Heading>
-      <StyledLine/>
+      <Line/>
       <StyledGridWrapper isTabletOrMobile={ isTabletOrMobile } isBigScreen={ isBigScreen }>
         {
           Object.keys(currentPlants).map((key, index) => {
@@ -68,7 +79,7 @@ const PlantsGrid = (
           })
         }
       </StyledGridWrapper>
-    </div>
+    </StyledWrapper>
   );
 };
 

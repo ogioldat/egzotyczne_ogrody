@@ -39,7 +39,7 @@ const StyledHeroImage = styled.img`
 
 const StyledTitleWrapper = styled.div`
   display: flex;
-  margin: -10% 0 0 8%;
+  margin: ${({isTabletOrMobile}) => isTabletOrMobile ? '0 0 auto 0' : ' -10% 0 0 8%'};
 `;
 
 const HomeSection = ({ showMenu, isTabletOrMobile }) => (
@@ -53,7 +53,7 @@ const HomeSection = ({ showMenu, isTabletOrMobile }) => (
     </AnimatePresence>
 
     <StyledCenterWrapper>
-      <StyledTitleWrapper>
+      <StyledTitleWrapper  isTabletOrMobile={ isTabletOrMobile }>
         <HeroTitle/>
       </StyledTitleWrapper>
 

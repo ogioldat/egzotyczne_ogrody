@@ -13,7 +13,7 @@ const StyledWrapper = styled.div`
   min-width: 100%;
   height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '450px' : isBigScreen ? '500px' : '400px' };;
   box-shadow: 0 10px 40px -10px #00000033;
-  // margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '10px 0 30px 0' : '25px 50px' };
+  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '10px 0 30px 0' };
   border-radius: 12px;
   display: flex;
   flex-direction: column;

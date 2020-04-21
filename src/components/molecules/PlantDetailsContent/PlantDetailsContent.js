@@ -15,7 +15,6 @@ import { routes } from '../../../routes';
 import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 import ImagesGrid from '../ImagesGrid/ImagesGrid';
 
-
 const StyledContentWrapper = styled(motion.div)`
   height: 100%;
   min-width: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '800px' };
