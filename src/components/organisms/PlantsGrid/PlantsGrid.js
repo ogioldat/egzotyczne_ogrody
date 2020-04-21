@@ -25,6 +25,11 @@ const StyledGridWrapper = styled.div`
   padding: 20px 0 100px 0;
 `;
 
+const StyledLine = styled.div`
+  width: 100%;
+  height: 1.5px;
+  background-color: ${({theme}) => theme.greyLight};
+`;
 
 const PlantsGrid = (
   {
@@ -47,6 +52,7 @@ const PlantsGrid = (
   return (
     <div id={ category }>
       <Heading type='menu'>{ PLANTS_DICT[category] }</Heading>
+      <StyledLine/>
       <StyledGridWrapper isTabletOrMobile={ isTabletOrMobile } isBigScreen={ isBigScreen }>
         {
           Object.keys(currentPlants).map((key, index) => {

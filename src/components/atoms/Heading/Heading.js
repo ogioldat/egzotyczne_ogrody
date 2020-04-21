@@ -11,6 +11,7 @@ const StyledHeading = styled.h1`
   z-index: 2;
   font-weight: ${ ({ theme }) => theme.bold };
   margin: 0;
+
   
   ${ ({ type, theme, isTabletOrMobile }) => {
   switch (type) {
@@ -83,6 +84,7 @@ const StyledRect = styled.div`
   z-index: -1;
   width: 100%;
   height: 80%;
+  box-shadow: ${ ({ theme }) => theme.shadow };
   animation: 1.5s forwards ${ ({ theme }) => theme.bezier } ${ ({ theme }) => theme.animation };
 `;
 
