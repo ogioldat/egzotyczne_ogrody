@@ -65,7 +65,7 @@ const StyledRect = styled.div`
   z-index: -1;
   width: 100%;
   height: 80%;
-  ${ ({ reversed, type, theme }) => !reversed && css`background-color: ${ ['menu', 'plantDetails'].some(el => el === type) ? theme.greenLight : theme.greyLight }` };
+  ${ ({ reversed, type, theme }) => !reversed && css`background-color: ${ ['menu', 'plantDetails', 'subpage'].some(el => el === type) ? theme.greenLight : theme.greyLight }` };
   box-shadow: ${ ({ theme }) => theme.shadow };
   animation: 1.5s forwards ${ ({ theme }) => theme.bezier } ${ ({ theme }) => theme.animation };
 `;
