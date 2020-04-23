@@ -93,6 +93,7 @@ const mapStateToProps = state => ({
   plantCategories: getPlantCategories(state),
 });
 
+// eslint-disable-next-line react-redux/mapDispatchToProps-returns-object
 const mapDispatchToProps = dispatch => bindActionCreators({
   setCurrentPlant: setCurrentPlantAction,
 }, dispatch);

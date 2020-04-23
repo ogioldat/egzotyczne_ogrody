@@ -73,6 +73,7 @@ const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
 
+// eslint-disable-next-line react-redux/mapDispatchToProps-returns-object
 const mapDispatchToProps = dispatch => bindActionCreators({
   setCurrentPlant: setCurrentPlantAction,
   toggleModal: toggleModalAction,

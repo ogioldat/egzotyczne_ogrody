@@ -126,6 +126,7 @@ const mapStateToProps = state => ({
   showModal: getShowModal(state),
 });
 
+// eslint-disable-next-line react-redux/mapDispatchToProps-returns-object
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchPlants: fetchPlantsAction,
   setPlantDetails: setPlantDetailsAction,
