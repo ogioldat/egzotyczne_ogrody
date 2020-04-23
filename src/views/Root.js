@@ -27,7 +27,6 @@ const Root = () => (
               <Route path={ routes.location } component={ LocationView }/>
               <Route path={ routes.gallery } component={ GalleryView }/>
               <Route path={ routes.policy } component={ PolicyView }/>
-
             </Switch>
           </MainTemplate>
         </AnimatePresence>
