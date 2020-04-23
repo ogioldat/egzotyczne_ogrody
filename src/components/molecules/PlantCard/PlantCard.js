@@ -111,6 +111,7 @@ PlantCard.propTypes = {
   objKey: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   isTabletOrMobile: PropTypes.bool.isRequired,
+  isBigScreen: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantCard);
