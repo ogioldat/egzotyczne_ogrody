@@ -32,6 +32,8 @@ const LoadingScreen = ({ isTabletOrMobile, showLoader }) => {
     } else setGif(null);
   }, [showLoader]);
 
+  // "postbuild": "react-snap",
+  
   return (
     <StyledWrapper
       initial="initial"

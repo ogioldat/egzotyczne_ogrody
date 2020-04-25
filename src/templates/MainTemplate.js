@@ -105,6 +105,7 @@ const MainTemplate = (
               }
             </AnimatePresence>
           )
+
         }
         {
           children
