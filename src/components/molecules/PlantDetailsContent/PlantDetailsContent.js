@@ -12,7 +12,7 @@ import Heading from '../../atoms/Heading/Heading';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
 import Subtitle from '../../atoms/Subtitle/Subtitle';
 import { routes } from '../../../routes';
-import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import { getIsBigScreen, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 import ImagesGrid from '../ImagesGrid/ImagesGrid';
 
 const StyledContentWrapper = styled.div`
@@ -53,18 +53,19 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledSubtitle = styled(Subtitle)`
-  font-size: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.fontSize.xxs };
+  font-size: ${ ({ isTabletOrMobile, theme, isBigScreen }) => isTabletOrMobile
+  ? theme.fontSize.xxs : !isBigScreen && theme.fontSize.s };
 `;
 
 const StyledOverflowText = styled.div`
-  height: 20vh;
-  overflow-y: scroll;
+  //height: 20vh;
+  //overflow-y: scroll;
   position: relative;
   padding-bottom: 50px;
 `;
 
 const StyledParagraph = styled(Paragraph)`
-  font-size: ${({theme}) => theme.fontSize.xs};
+  font-size: ${ ({ theme }) => theme.fontSize.xs };
 `;
 
 const PlantDetailsContent = (
@@ -76,14 +77,15 @@ const PlantDetailsContent = (
     images,
     description,
     changePlant,
-    pending
+    pending,
+    isBigScreen,
   },
 ) => (
   <StyledContentWrapper isTabletOrMobile={ isTabletOrMobile }>
     <Heading type='plantDetails'>{ title }</Heading>
-    <StyledSubtitle isTabletOrMobile={ isTabletOrMobile }>{ fact }</StyledSubtitle>
+    <StyledSubtitle isBigScreen={ isBigScreen } isTabletOrMobile={ isTabletOrMobile }>{ fact }</StyledSubtitle>
     {
-      isTabletOrMobile ?
+      isTabletOrMobile || !isBigScreen ?
         <>
           <StyledOverflowText>
             <StyledParagraph>{ description }</StyledParagraph>
@@ -120,7 +122,8 @@ const PlantDetailsContent = (
 );
 
 const mapStateToProps = state => ({
-  isTabletOrMobile: getIsTabletOrMobile(state)
+  isTabletOrMobile: getIsTabletOrMobile(state),
+  isBigScreen: getIsBigScreen(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -144,7 +147,7 @@ PlantDetailsContent.defaultProps = {
   description: '',
   name: '',
   fact: '',
-  title: ''
+  title: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantDetailsContent);

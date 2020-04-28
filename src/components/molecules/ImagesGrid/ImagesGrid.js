@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { imageMotion } from 'assets/motion';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
+import { getIsTabletOrMobile, getIsBigScreen } from 'redux/reducers/mediaReducer';
 import {
   setCurrentPlant as setCurrentPlantAction,
   setCurrentPlantPhoto as setCurrentPlantPhotoAction,
@@ -14,7 +14,7 @@ import {
 } from 'redux/actions/plants/plantActions';
 
 const StyledImageGrid = styled(motion.div)`
-  ${ ({ isTabletOrMobile }) => isTabletOrMobile ?
+  ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ?
   css`
     display: flex;
     background-color: transparent;
@@ -24,32 +24,60 @@ const StyledImageGrid = styled(motion.div)`
     overflow-x: scroll;
     border-radius: 12px;
 `
-  : css`
+  :
+  isBigScreen ?
+    css`
     display: grid;
     grid-template-columns: repeat(2, 350px);
     grid-template-rows: repeat(-1, 200px);
     grid-gap: 20px;
-    //width: 35vw;
+`
+    :
+    css`
+    display: flex;
+    flex-direction: column;
+    //display: grid;
+    //grid-template-columns: repeat(1, 350px);
+    //grid-template-rows: repeat(-1, 200px);
+    //grid-gap: 20px;
+    overflow-y: scroll;
+    width: 100%;
+    height: 70%;
+    border-radius: 8px;
 ` };
+ 
   
   
   margin: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '70px 140px auto 0' };
 `;
 
 const StyledImageBlock = styled.div`
-  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '30vh' : '200px' };
-  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '0 10px 0 0' };
+  height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '30vh' : isBigScreen ? '200px' : '250px' };
+  min-height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '30vh' : isBigScreen ? '200px' : '220px' };
+  margin: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '0 10px 0 0' : !isBigScreen && '0 0 20px 0' };
+  
   min-width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '50%' : '100%' };
   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '20vw' };
-  box-shadow: ${ ({ theme, isTabletOrMobile }) => !isTabletOrMobile && theme.shadow };
+  box-shadow: ${ ({ theme, isTabletOrMobile,isBigScreen }) => (!isTabletOrMobile && isBigScreen) && theme.shadow };
   cursor: pointer;
   border-radius: 8px;
   background: white url('${ ({ path }) => path }') center no-repeat;
   background-size: cover;
 `;
 
-const ImagesGrid = ({ setCurrentPlantPhoto, toggleModal, isTabletOrMobile, name, images, title }) => (
+const ImagesGrid = (
+  {
+    setCurrentPlantPhoto,
+    toggleModal,
+    isTabletOrMobile,
+    name,
+    images,
+    title,
+    isBigScreen,
+  },
+) => (
   <StyledImageGrid
+    isBigScreen={ isBigScreen }
     isTabletOrMobile={ isTabletOrMobile }
     variants={ imageMotion.variants }
     transition={ imageMotion.transition }
@@ -58,6 +86,7 @@ const ImagesGrid = ({ setCurrentPlantPhoto, toggleModal, isTabletOrMobile, name,
       images && images
         .map((image, index) => <StyledImageBlock
           key={ uniqid() }
+          isBigScreen={ isBigScreen }
           isTabletOrMobile={ isTabletOrMobile }
           onClick={ () => {
             setCurrentPlantPhoto(index);
@@ -71,6 +100,7 @@ const ImagesGrid = ({ setCurrentPlantPhoto, toggleModal, isTabletOrMobile, name,
 
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
+  isBigScreen: getIsBigScreen(state),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { setCurrentPlant as setCurrentPlantAction } from 'redux/actions/plants/plantActions';
 import { motion } from 'framer-motion';
 import { PLANTS_DICT } from '../../organisms/PlantsGrid/PlantsGrid';
+import { getIsBigScreen, getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -26,12 +27,13 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledSmallCapsText = styled(SmallCapsText)`
-  margin: 10px 20px;  
+  margin: 5% 10%;  
   cursor: pointer;
   display: flex; 
   user-select: none;
   justify-content: center;
-  font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.fontSize.xs : theme.fontSize.m };
+  font-size: ${ ({ theme, isTabletOrMobile, isBigScreen }) => isTabletOrMobile 
+  ? theme.fontSize.xs : isBigScreen ? theme.fontSize.m: theme.fontSize.s };
   z-index: 2;
   font-weight: ${ ({ active }) => active && 'bolder' };
   transition: 1s transform ${ ({ theme }) => theme.bezier };
@@ -57,7 +59,7 @@ const StyledFocusBox = styled(motion.div)`
   border-radius: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '8px' : '12px' } ;
 `;
 
-const PlantsCarousel = ({ plantCategories, setCurrentPlant, isTabletOrMobile }) => {
+const PlantsCarousel = ({ plantCategories, setCurrentPlant, isTabletOrMobile, isBigScreen }) => {
   const [activePlant, setActive] = useState(plantCategories[0]);
   const currentIndex = plantCategories.indexOf(activePlant);
 
@@ -71,6 +73,7 @@ const PlantsCarousel = ({ plantCategories, setCurrentPlant, isTabletOrMobile }) 
       {
         plantCategories.map(plant => (
             <StyledSmallCapsText
+              isBigScreen={ isBigScreen }
               isTabletOrMobile={ isTabletOrMobile }
               key={ plant }
               onClick={ () => {
@@ -91,6 +94,8 @@ const PlantsCarousel = ({ plantCategories, setCurrentPlant, isTabletOrMobile }) 
 
 const mapStateToProps = state => ({
   plantCategories: getPlantCategories(state),
+  isBigScreen: getIsBigScreen(state),
+  isTabletOrMobile: getIsTabletOrMobile(state),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

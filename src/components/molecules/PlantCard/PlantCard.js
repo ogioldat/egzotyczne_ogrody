@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import Heading from 'components/atoms/Heading/Heading';
 import { getDetailsPlant } from 'redux/reducers/plantsReducer';
 import { Link } from 'react-router-dom';
-import { getIsBigScreen, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import { getIsBigScreen, getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
   min-width: 100%;
