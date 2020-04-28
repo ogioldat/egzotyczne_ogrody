@@ -16,7 +16,6 @@ import {
   setPortrait as setPortraitAction,
 } from 'redux/actions/mediaActions';
 import { AnimatePresence } from 'framer-motion';
-import LoadingScreen from 'components/organisms/LoadingScreen/LoadingScreen';
 import { getShowMenu } from '../redux/reducers/menuReducer';
 import mediaQueries from '../mediaQueries';
 
@@ -57,33 +56,6 @@ const MainTemplate = (
 
   }, [showMenu]);
 
-  const [showLoader, toggleLoader] = useState(true);
-
-  useEffect(() => {
-    if (showLoader) {
-      targetElement.style.overflow = 'hidden';
-    } else targetElement.style.overflow = 'visible';
-
-  }, [showLoader]);
-
-
-  const [animationPlayed, toggleAnimationPlayed] = useState(false);
-
-  useEffect(() => {
-    toggleAnimationPlayed(!!sessionStorage.getItem('loadingAnimation'));
-
-    if (animationPlayed) {
-      toggleLoader(false);
-    } else {
-      sessionStorage.setItem('loadingAnimation', 'played');
-
-      const timer = setTimeout(() => {
-        toggleLoader(false);
-      }, 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [animationPlayed]);
-
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -97,16 +69,6 @@ const MainTemplate = (
     <>
       <GlobalStyle/>
       <ThemeProvider theme={ theme }>
-        {
-          !animationPlayed && (
-            <AnimatePresence>
-              {
-                showLoader && <LoadingScreen showLoader={ showLoader }/>
-              }
-            </AnimatePresence>
-          )
-
-        }
         {
           children
         }

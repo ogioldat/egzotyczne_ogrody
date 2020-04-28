@@ -15,7 +15,7 @@ import { routes } from '../../../routes';
 import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 import ImagesGrid from '../ImagesGrid/ImagesGrid';
 
-const StyledContentWrapper = styled(motion.div)`
+const StyledContentWrapper = styled.div`
   height: 100%;
   min-width: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '800px' };
   width:  ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '70%' };;
@@ -79,13 +79,7 @@ const PlantDetailsContent = (
     pending
   },
 ) => (
-  <StyledContentWrapper
-    isTabletOrMobile={ isTabletOrMobile }
-    variants={ textMotion.variants }
-    transition={ textMotion.transition }
-    initial="exit"
-    animate="enter"
-    exit="exit">
+  <StyledContentWrapper isTabletOrMobile={ isTabletOrMobile }>
     <Heading type='plantDetails'>{ title }</Heading>
     <StyledSubtitle isTabletOrMobile={ isTabletOrMobile }>{ fact }</StyledSubtitle>
     {
