@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
-import bananaAboutUs from 'assets/images/bananaAboutUs.JPG';
+import bananaAboutUs from 'assets/images/bananaAboutUs.jpg';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { routes } from 'routes';

@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { wrapperMotion } from 'assets/motion';
 import { routes } from '../routes';
-import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
+import { getIsTabletOrMobile, getIsBigScreen } from '../redux/reducers/mediaReducer';
 
 const StyledFlexWrapper = styled.div`
   position: relative;
@@ -110,7 +110,8 @@ const StyledHomeImage = styled.img`
 `;
 
 const StyledP = styled(Paragraph)`
-   font-size: ${ ({ title, theme }) => title === 'polityka prywatności' && theme.fontSize.xs };
+   font-size: ${ ({ title, theme, isBigScreen }) => title === 'polityka prywatności' 
+  ? theme.fontSize.xs : isBigScreen ? theme.fontSize.s : theme.fontSize.xs};
 `;
 
 const StyledA = styled.a`
@@ -125,6 +126,7 @@ const SubpageTemplate = (
     homeImage,
     policy,
     isTabletOrMobile,
+    isBigScreen
   },
 ) => (
   <StyledFlexWrapper isTabletOrMobile={ isTabletOrMobile }>
@@ -144,7 +146,7 @@ const SubpageTemplate = (
           content.map(item => (
             <StyledTextBox policy={ policy } key={ uniqid() }>
               <Heading type='small'>{ item.headingText }</Heading>
-              <StyledP title={ title }>{
+              <StyledP isBigScreen={isBigScreen} title={ title }>{
                 item.isLink
                   ? <StyledA href={ item.paragraphText }>{ item.paragraphText.replace('https://', '') }</StyledA>
                   : item.paragraphText
@@ -171,6 +173,7 @@ const SubpageTemplate = (
 
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
+  isBigScreen: getIsBigScreen(state)
 });
 
 SubpageTemplate.propTypes = {

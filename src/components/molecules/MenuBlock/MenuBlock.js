@@ -55,7 +55,6 @@ const MenuBlock = (
             reversed={ reversed }
             secondary
             onClick={ () => menu && toggleMenu(false) }>
-
             {
               obj.label
             }

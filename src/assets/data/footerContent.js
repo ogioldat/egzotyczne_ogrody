@@ -31,6 +31,10 @@ export const content = {
     {
       label: 'wysyłka',
       link: routes.orders
+    },
+    {
+      label: 'polityka prywatności',
+      link: routes.policy
     }
   ]
 };

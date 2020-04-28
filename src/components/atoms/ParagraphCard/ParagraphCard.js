@@ -14,7 +14,7 @@ const StyledWrapper = styled.div`
 
 const StyledP = styled(Paragraph)`
    font-size: ${({theme}) => theme.fontSize.m};
-`
+`;
 
 const ParagraphCard = ({ children, isTabletOrMobile }) => (
   <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
