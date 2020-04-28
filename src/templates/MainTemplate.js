@@ -15,7 +15,6 @@ import {
   setTabletOrMobileDevice as setTabletOrMobileDeviceAction,
   setPortrait as setPortraitAction,
 } from 'redux/actions/mediaActions';
-import { AnimatePresence } from 'framer-motion';
 import { getShowMenu } from '../redux/reducers/menuReducer';
 import mediaQueries from '../mediaQueries';
 

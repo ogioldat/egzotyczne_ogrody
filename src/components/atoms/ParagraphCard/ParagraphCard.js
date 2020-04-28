@@ -7,18 +7,22 @@ const StyledWrapper = styled.div`
   display: block;
   border-radius: 12px;
   background-color: white;
-  width: ${({isTabletOrMobile}) => isTabletOrMobile ? '100%' : '400px'};
+  width: ${({isTabletOrMobile}) => isTabletOrMobile ? '100%' : '450px'};
   padding: 30px;
   box-shadow: 0 10px 40px -10px #00000033;
 `;
 
+const StyledP = styled(Paragraph)`
+   font-size: ${({theme}) => theme.fontSize.m};
+`
+
 const ParagraphCard = ({ children, isTabletOrMobile }) => (
   <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
-    <Paragraph>
+    <StyledP>
       {
         children
       }
-    </Paragraph>
+    </StyledP>
   </StyledWrapper>
 );
 

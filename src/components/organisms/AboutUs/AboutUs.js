@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
-import bambooBG from 'assets/images/bamboo.png';
+import bananaAboutUs from 'assets/images/bananaAboutUs.JPG';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { routes } from 'routes';
@@ -25,7 +25,6 @@ const StyledBackground = styled.img`
 
 const StyledContentWrapper = styled.div`
   display: flex;
-  margin-right: 5%;
   flex-direction: column;
   align-items: center;
   width: 100%;
@@ -43,7 +42,7 @@ const StyledSubtitle = styled(Subtitle)`
 
 const AboutUs = ({ isTabletOrMobile }) => (
   <StyledWrapper id='about-us'>
-    <StyledBackground src={ bambooBG }
+    <StyledBackground src={ bananaAboutUs }
                       isTabletOrMobile={ isTabletOrMobile }/>
     <StyledContentWrapper>
       <Heading>O nas</Heading>

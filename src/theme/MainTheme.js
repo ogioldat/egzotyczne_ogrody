@@ -40,7 +40,7 @@ const theme = {
     mobileMenuHeading: 'calc(.8rem + 3.125vw)',
     mobileMenuButton: 'calc(.4rem + 3.125vw)',
     mobileFooterButton: '.8rem',
-    plantDetails: '8rem',
+    plantDetails: 'calc(1.5rem + 3.125vw)',
     heading: '6rem',
   },
 };
