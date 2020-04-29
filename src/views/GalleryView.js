@@ -116,7 +116,7 @@ const GalleryView = (
         }
 
         {
-          error && <div>wystąpił błąd podczas pobierania zdjęć</div>
+          error && <div>Nie udało się pobrać zdjęć 😭</div>
         }
 
         {

@@ -1,7 +1,7 @@
 const apiAdress = 'http://192.168.0.159/wordpress/wp-json/';
 
 const endpoints = {
-  galleryImages: `${ apiAdress }wp/v2/gallery`,
+  galleryImages: `${ apiAdress }wp/v2/gallery?per_page=100`,
   plants: {
     bananas: {
       category: 'bananas',
