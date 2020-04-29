@@ -37,7 +37,7 @@ const StyledWrapper = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   height: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   ${ ({ isModalVisible }) => isModalVisible && css`filter: brightness(10%)` }
 `;
 
@@ -70,7 +70,7 @@ const ImageWrapper = styled(motion.div)`
 
 const LinkWrapper = styled.div`
   position: absolute;
-  left: ${({isTabletOrMobile}) => isTabletOrMobile ? '5vw' : 0};
+  left: 0;
   bottom: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '0' };
 `;
 
