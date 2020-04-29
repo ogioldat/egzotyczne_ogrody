@@ -35,13 +35,13 @@ const MainTemplate = (
   const isTabletOrMobileDevice = useMediaQuery(mediaQueries.isTabletOrMobileDevice);
   const isPortrait = useMediaQuery(mediaQueries.isPortrait);
 
-  useEffect(() => {
-    setIsDesktopOrLaptop(isDesktopOrLaptop);
-    setIsBigScreen(isBigScreen);
-    setTabletOrMobile(isTabletOrMobile);
-    setTabletOrMobileDevice(isTabletOrMobileDevice);
-    setPortrait(isPortrait);
-  });
+  // useEffect(() => {
+  //   setIsDesktopOrLaptop(isDesktopOrLaptop);
+  //   setIsBigScreen(isBigScreen);
+  //   setTabletOrMobile(isTabletOrMobile);
+  //   setTabletOrMobileDevice(isTabletOrMobileDevice);
+  //   setPortrait(isPortrait);
+  // });
 
   const body = document.querySelector('body');
   const [targetElement] = useState(body);

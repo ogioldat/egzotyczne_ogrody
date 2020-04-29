@@ -59,7 +59,7 @@ const StyledImageBlock = styled.div`
   min-width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '50%' : '100%' };
   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '20vw' };
   box-shadow: ${ ({ theme, isTabletOrMobile,isBigScreen }) => (!isTabletOrMobile && isBigScreen) && theme.shadow };
-  cursor: pointer;
+  cursor: zoom-in;
   border-radius: 8px;
   background: white url('${ ({ path }) => path }') center no-repeat;
   background-size: cover;

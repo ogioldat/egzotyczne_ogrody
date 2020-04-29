@@ -1,4 +1,4 @@
-const apiAdress = 'http://192.168.0.159//wordpress/wp-json/';
+const apiAdress = 'http://192.168.0.159/wordpress/wp-json/';
 
 const endpoints = {
   galleryImages: `${ apiAdress }wp/v2/gallery`,

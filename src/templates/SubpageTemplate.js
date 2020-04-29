@@ -93,7 +93,7 @@ const StyledTextBox = styled.div`
 
 const StyledPaymentImage = styled.img`
   position: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && 'absolute' };
-  right: 0;
+  right: 6%;
   bottom: 0;
 `;
 

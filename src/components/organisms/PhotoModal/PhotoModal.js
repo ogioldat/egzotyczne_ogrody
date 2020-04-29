@@ -80,7 +80,8 @@ const PhotoModal = ({ currentPhoto, changePhoto, toggleModal, isTabletOrMobile }
     <StyledX
       isTabletOrMobile={ isTabletOrMobile }
       src={ close }
-      onClick={ () => toggleModal(false) }/>
+      onClick={ () => toggleModal(false) }
+    />
     <StyledPrevArrow
       isTabletOrMobile={ isTabletOrMobile }
       src={ arrow }

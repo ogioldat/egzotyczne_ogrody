@@ -19,7 +19,7 @@ function fetchPhotos() {
         return photoUrls
       })
       .catch(err => {
-        dispatch(fetchPhotosFailure(err))
+        dispatch(fetchPhotosFailure(true))
       })
   };
 }

@@ -57,7 +57,7 @@ const StyledTitleWrapper = styled.div`
 `;
 
 const ImageWrapper = styled(motion.div)`
-  cursor: pointer;
+  cursor: zoom-in;
 `;
 
 const StyledDarkBox = styled.div`
@@ -116,7 +116,7 @@ const GalleryView = (
                 changePhoto={ changePhoto }
                 toggleModal={ toggleModal }
                 currentPhoto={ currentPhoto }/>
-              <StyledDarkBox/>
+              {/*<StyledDarkBox/>*/}
             </>
           )
         }
