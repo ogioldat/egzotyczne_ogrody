@@ -58,8 +58,8 @@ const StyledSubtitle = styled(Subtitle)`
 `;
 
 const StyledOverflowText = styled.div`
-  //height: 20vh;
-  //overflow-y: scroll;
+  height: 20vh;
+  overflow-y: scroll;
   position: relative;
   padding-bottom: 50px;
 `;
@@ -85,13 +85,16 @@ const PlantDetailsContent = (
     <Heading type='plantDetails'>{ title }</Heading>
     <StyledSubtitle isBigScreen={ isBigScreen } isTabletOrMobile={ isTabletOrMobile }>{ fact }</StyledSubtitle>
     {
-      isTabletOrMobile || !isBigScreen ?
+      isTabletOrMobile ?
         <>
           <StyledOverflowText>
             <StyledParagraph>{ description }</StyledParagraph>
           </StyledOverflowText>
         </>
-        : <Paragraph>{ description }</Paragraph>
+        : !isBigScreen
+        ? <StyledParagraph>{ description }</StyledParagraph>
+        :
+         <Paragraph>{ description }</Paragraph>
     }
 
     {
