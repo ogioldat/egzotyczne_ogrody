@@ -9,7 +9,7 @@ import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 const StyledWrapper = styled.div`
   position: fixed !important;
   z-index: 2000;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.85);
   margin: auto;
   padding: 3% 0;
   width: 100vw;

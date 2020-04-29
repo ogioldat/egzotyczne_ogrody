@@ -7,7 +7,7 @@ import fetchPhotosAction from 'redux/actions/gallery/fetchPhotos';
 import {
   changePhoto as changePhotoAction,
   toggleModal as toggleModalAction,
-  setCurrentPhoto as setCurrentPhotoAction
+  setCurrentPhoto as setCurrentPhotoAction,
 } from 'redux/actions/gallery/galleryActions';
 import {
   getCurrentPhoto,
@@ -27,7 +27,7 @@ import { wrapperMotion } from 'assets/motion';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import PhotoModal from '../components/organisms/PhotoModal/PhotoModal';
-import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
+import { getIsBigScreen, getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
 
 const StyledWrapper = styled(motion.div)`
   position: relative;
@@ -54,6 +54,7 @@ const StyledLink = styled(Link)`
 
 const StyledTitleWrapper = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -61,21 +62,12 @@ const ImageWrapper = styled(motion.div)`
   cursor: zoom-in;
 `;
 
-const StyledDarkBox = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  z-index: 10;
-  width: 100vw;
-  background-color: rgba(0,0,0,0.9);
-`;
-
 const LinkWrapper = styled.div`
   position: absolute;
   left: 0;
   bottom: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '10vh' };
 `;
+
 
 const GalleryView = (
   {
@@ -88,7 +80,8 @@ const GalleryView = (
     changePhoto,
     toggleModal,
     isTabletOrMobile,
-    setCurrentPhoto
+    setCurrentPhoto,
+    isBigScreen
   },
 ) => {
   useEffect(() => {
@@ -118,7 +111,6 @@ const GalleryView = (
                 changePhoto={ changePhoto }
                 toggleModal={ toggleModal }
                 currentPhoto={ currentPhoto }/>
-              {/*<StyledDarkBox/>*/}
             </>
           )
         }
@@ -131,22 +123,24 @@ const GalleryView = (
           pending ?
             <ClipLoader loading={ pending }/>
             :
-            <MasonryLayout id="masonry-layout" sizes={ [{ columns: 3, gutter: isTabletOrMobile ? 6 : 20 }] }>
+            <MasonryLayout id="masonry-layout" sizes={ [{ columns: 3, gutter: isTabletOrMobile ? 6 : isBigScreen ? 10 : 20 }] }>
               {
                 photos.map((photo, index) => {
                   let height;
 
                   if (isTabletOrMobile) {
-                    height = index % 2 === 0 ? '20vh' : '25vh';
-                  } else {
+                    height = index % 2 === 0 ? '18vh' : '22vh';
+                  } else if (isBigScreen) {
                     height = index % 2 === 0 ? '600px' : '700px';
+                  } else {
+                    height = index % 2 === 0 ? '400px' : '500px';
                   }
                   return (
                     <ImageWrapper
-                      onClick={() => {
+                      onClick={ () => {
                         setCurrentPhoto(index);
                         toggleModal(true);
-                      }}>
+                      } }>
                       <GalleryImage
                         isTabletOrMobile={ isTabletOrMobile }
                         index={ index }
@@ -170,6 +164,7 @@ const mapStateToProps = state => ({
   showModal: getShowModal(state),
   currentPhoto: getCurrentPhoto(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
+  isBigScreen: getIsBigScreen(state)
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -195,7 +190,7 @@ GalleryView.defaultProps = {
   photos: [],
   pending: false,
   error: false,
-  currentPhoto: null
+  currentPhoto: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryView);
