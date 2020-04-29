@@ -37,7 +37,7 @@ const StyledWrapper = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   height: 100%;
-  min-height: 100%;
+  min-height: ${({pending, error}) => (pending && error) && '100vh'};
   ${ ({ isModalVisible }) => isModalVisible && css`filter: brightness(10%)` }
 `;
 
@@ -62,6 +62,7 @@ const StyledTitleWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: ${ ({ pending, error }) => (pending && error) && '80vw' } ;
 `;
 
 const ImageWrapper = styled(motion.div)`
@@ -99,14 +100,16 @@ const GalleryView = (
   }, []);
 
   return (
-    <StyledFlex isTabletOrMobile={ isTabletOrMobile }>
+    <StyledFlex isTabletOrMobile={ isTabletOrMobile } >
       <StyledWrapper
+        pending={ pending }
+        error={ error }
         isTabletOrMobile={ isTabletOrMobile }
         initial="initial"
         animate="enter"
         exit="exit"
         variants={ wrapperMotion.variants }>
-        <StyledTitleWrapper>
+        <StyledTitleWrapper pending={ pending } error={ error }>
           <LinkWrapper isTabletOrMobile={ isTabletOrMobile }>
             <StyledLink to={ routes.home }>
               <Button secondary>strona główna</Button>
