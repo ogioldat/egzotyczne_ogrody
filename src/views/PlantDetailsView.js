@@ -24,7 +24,7 @@ import ImagesGrid from '../components/molecules/ImagesGrid/ImagesGrid';
 const StyledWrapper = styled(motion.div)`
   height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed;
   background-color: ${ ({ theme }) => theme.greyLight };
   display: flex;
   justify-content: space-between;

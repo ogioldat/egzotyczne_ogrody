@@ -48,9 +48,15 @@ const MainTemplate = (
 
   useEffect(() => {
     if (showMenu) {
-      targetElement.style.overflow = 'hidden';
+      targetElement.style.overflowY = 'hidden';
+      // if (isDesktopOrLaptop) {
+      //   targetElement.style.position = 'fixed';
+      // }
     } else {
-      targetElement.style.overflow = 'visible';
+      targetElement.style.overflowY = 'visible';
+      // if (isDesktopOrLaptop) {
+      //   targetElement.style.position = 'relative';
+      // }
     }
 
   }, [showMenu]);
@@ -58,9 +64,21 @@ const MainTemplate = (
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if(pathname !== routes.home){
+    if (pathname !== routes.home) {
       window.scrollTo(0, 0);
     }
+
+    // targetElement.style.overflowY = 'hidden';
+
+
+    if (isTabletOrMobile) {
+      if (pathname === (routes.gallery || routes.plantDetails)) {
+        targetElement.style.overflow = 'hidden';
+      } else {
+        targetElement.style.overflow = 'visible';
+      }
+    }
+
   }, [pathname]);
 
 
