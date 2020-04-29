@@ -9,7 +9,7 @@ import { getPhotos } from 'redux/reducers/galleryReducer';
 import { getIsBigScreen } from '../../../redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
- width: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '28vw' : isBigScreen ? '400px' : '350px' };
+ width: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '40vw' : isBigScreen ? '400px' : '350px' };
  background: transparent url('${ ({ src }) => src }') no-repeat center;
  background-size: cover;
  height: ${ ({ height }) => height };

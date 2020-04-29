@@ -31,20 +31,26 @@ import { getIsBigScreen, getIsTabletOrMobile } from '../redux/reducers/mediaRedu
 
 const StyledWrapper = styled(motion.div)`
   position: relative;
-  min-height: 100vh;
   padding: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile ? theme.mobilePadding : '2% 0' };
-  
+  background-color: ${ ({ theme }) => theme.greyLight };
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
+  min-height: 100vh;
   ${ ({ isModalVisible }) => isModalVisible && css`filter: brightness(10%)` }
 `;
 
-
 const StyledFlex = styled.div`
   display: flex;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  width: 100%;
   justify-content: center;
   align-items: center;
+  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '100%' };
+  flex-direction: column;
   background-color: ${ ({ theme }) => theme.greyLight };
 `;
 
@@ -64,10 +70,14 @@ const ImageWrapper = styled(motion.div)`
 
 const LinkWrapper = styled.div`
   position: absolute;
-  left: 0;
-  bottom: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '10vh' };
+  left: ${({isTabletOrMobile}) => isTabletOrMobile ? '5vw' : 0};
+  bottom: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '0' };
 `;
 
+const StyledOverflowWrapper = styled.div`
+  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '60vh' };
+  overflow-y: ${ ({ isTabletOrMobile }) => isTabletOrMobile && 'scroll' };
+`;
 
 const GalleryView = (
   {
@@ -81,7 +91,7 @@ const GalleryView = (
     toggleModal,
     isTabletOrMobile,
     setCurrentPhoto,
-    isBigScreen
+    isBigScreen,
   },
 ) => {
   useEffect(() => {
@@ -89,7 +99,7 @@ const GalleryView = (
   }, []);
 
   return (
-    <StyledFlex>
+    <StyledFlex isTabletOrMobile={ isTabletOrMobile }>
       <StyledWrapper
         isTabletOrMobile={ isTabletOrMobile }
         initial="initial"
@@ -119,39 +129,45 @@ const GalleryView = (
           error && <div>Nie udało się pobrać zdjęć 😭</div>
         }
 
-        {
-          pending ?
-            <ClipLoader loading={ pending }/>
-            :
-            <MasonryLayout id="masonry-layout" sizes={ [{ columns: 3, gutter: isTabletOrMobile ? 6 : isBigScreen ? 10 : 20 }] }>
-              {
-                photos.map((photo, index) => {
-                  let height;
+        <StyledOverflowWrapper isTabletOrMobile={ isTabletOrMobile }>
+          {
+            pending ?
+              <ClipLoader loading={ pending }/>
+              :
+              <MasonryLayout id="masonry-layout" sizes={ [
+                {
+                  columns: isTabletOrMobile ? 2 : 3,
+                  gutter: isTabletOrMobile ? 6 : isBigScreen ? 10 : 20,
+                }] }>
+                {
+                  photos.map((photo, index) => {
+                    let height;
 
-                  if (isTabletOrMobile) {
-                    height = index % 2 === 0 ? '18vh' : '22vh';
-                  } else if (isBigScreen) {
-                    height = index % 2 === 0 ? '600px' : '700px';
-                  } else {
-                    height = index % 2 === 0 ? '400px' : '500px';
-                  }
-                  return (
-                    <ImageWrapper
-                      onClick={ () => {
-                        setCurrentPhoto(index);
-                        toggleModal(true);
-                      } }>
-                      <GalleryImage
-                        isTabletOrMobile={ isTabletOrMobile }
-                        index={ index }
-                        height={ height }
-                        image={ photo }/>
-                    </ImageWrapper>
-                  );
-                })
-              }
-            </MasonryLayout>
-        }
+                    if (isTabletOrMobile) {
+                      height = index % 2 === 0 ? '30vh' : '35vh';
+                    } else if (isBigScreen) {
+                      height = index % 2 === 0 ? '500px' : '600px';
+                    } else {
+                      height = index % 2 === 0 ? '400px' : '500px';
+                    }
+                    return (
+                      <ImageWrapper
+                        onClick={ () => {
+                          setCurrentPhoto(index);
+                          toggleModal(true);
+                        } }>
+                        <GalleryImage
+                          isTabletOrMobile={ isTabletOrMobile }
+                          index={ index }
+                          height={ height }
+                          image={ photo }/>
+                      </ImageWrapper>
+                    );
+                  })
+                }
+              </MasonryLayout>
+          }
+        </StyledOverflowWrapper>
       </StyledWrapper>
     </StyledFlex>
   );
@@ -164,7 +180,7 @@ const mapStateToProps = state => ({
   showModal: getShowModal(state),
   currentPhoto: getCurrentPhoto(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
-  isBigScreen: getIsBigScreen(state)
+  isBigScreen: getIsBigScreen(state),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
