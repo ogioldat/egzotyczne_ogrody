@@ -13,7 +13,7 @@ const StyledHeading = styled.h1`
   margin: 0;
 
   
-  ${ ({ type, theme, isTabletOrMobile }) => {
+  ${ ({ type, theme, isTabletOrMobile, len }) => {
   switch (type) {
     default:
       return css`
@@ -33,7 +33,8 @@ const StyledHeading = styled.h1`
 
     case 'plantDetails':
       return css`
-           font-size: ${ isTabletOrMobile ? theme.fontSize.s : theme.fontSize.plantDetails }; 
+           font-size: ${ isTabletOrMobile 
+        ? theme.fontSize.s : len > 20 ? theme.fontSize.plantDetailsLong : theme.fontSize.plantDetails }; 
            align-self: center;
            margin-bottom: 0;
            `;
@@ -72,12 +73,13 @@ const StyledRect = styled.div`
 
 const Heading = ({ children, type, reversed, card, isTabletOrMobile, footer }) => (
   <StyledHeading
+    len={typeof children === 'string' && children.length}
     footer={ footer }
     isTabletOrMobile={ isTabletOrMobile }
     type={ type }
     reversed={ reversed }
     card={ card }>
-    <StyledRect type={ type } reversed={ reversed }/>
+    <StyledRect  type={ type } reversed={ reversed }/>
     {
       children
     }

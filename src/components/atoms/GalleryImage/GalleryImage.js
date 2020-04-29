@@ -6,9 +6,10 @@ import {
   setCurrentPhoto as setCurrentPhotoAction, toggleModal as toggleModalAction,
 } from 'redux/actions/gallery/galleryActions';
 import { getPhotos } from 'redux/reducers/galleryReducer';
+import { getIsBigScreen } from '../../../redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
- width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '25vw' : '500px' };
+ width: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '25vw' : isBigScreen ? '500px' : '400px' };
  background: transparent url('${ ({ src }) => src }') no-repeat center;
  background-size: cover;
  height: ${ ({ height }) => height };
@@ -17,8 +18,19 @@ const StyledWrapper = styled.div`
  z-index: 100;
 `;
 
-const GalleryImage = ({ photos, height, setCurrentPhoto, index, toggleModal, isTabletOrMobile }) => (
+const GalleryImage = (
+  {
+    photos,
+    height,
+    setCurrentPhoto,
+    index,
+    toggleModal,
+    isTabletOrMobile,
+    isBigScreen,
+  },
+) => (
   <StyledWrapper
+    isBigScreen={isBigScreen}
     isTabletOrMobile={ isTabletOrMobile }
     src={ photos[index] }
     height={ height }
@@ -30,6 +42,7 @@ const GalleryImage = ({ photos, height, setCurrentPhoto, index, toggleModal, isT
 
 const mapStateToProps = state => ({
   photos: getPhotos(state),
+  isBigScreen: getIsBigScreen(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -46,7 +59,7 @@ GalleryImage.propTypes = {
   isTabletOrMobile: PropTypes.bool.isRequired,
 };
 GalleryImage.defaultProps = {
-  index: 0
+  index: 0,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryImage);

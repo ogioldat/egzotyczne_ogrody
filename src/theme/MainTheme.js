@@ -41,6 +41,7 @@ const theme = {
     mobileMenuButton: 'calc(.4rem + 3.125vw)',
     mobileFooterButton: '.8rem',
     plantDetails: 'calc(1.5rem + 3.125vw)',
+    plantDetailsLong: 'calc(.7rem + 3.125vw)',
     heading: '6rem',
   },
 };

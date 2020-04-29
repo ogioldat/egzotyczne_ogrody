@@ -62,14 +62,19 @@ const StyledTextGrid = styled.div`
           grid-template-rows: repeat(${ content.length }, 1fr);
       `;
     }
-
-    default: {
-      return policy ?
-        css`
+    
+    case 'polityka prywatności': {
+      return css`
+          height: 40vh;
+          padding: 0 5px 50px 0;
+          overflow-y: scroll;
           display: flex;
           flex-direction: column;
        `
-        : css`
+    }
+
+    default: {
+      return css`
           grid-auto-flow: column;
           grid-template-rows: repeat(2, 1fr);
           grid-template-columns: repeat(2, 35%fr);

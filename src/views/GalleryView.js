@@ -129,7 +129,7 @@ const GalleryView = (
           pending ?
             <ClipLoader loading={ pending }/>
             :
-            <MasonryLayout id="masonry-layout" sizes={ [{ columns: 3, gutter: isTabletOrMobile ? 6 : 30 }] }>
+            <MasonryLayout id="masonry-layout" sizes={ [{ columns: 3, gutter: isTabletOrMobile ? 6 : 20 }] }>
               {
                 photos.map((photo, index) => {
                   let height;
