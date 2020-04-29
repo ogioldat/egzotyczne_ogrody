@@ -9,7 +9,7 @@ import { getPhotos } from 'redux/reducers/galleryReducer';
 import { getIsBigScreen } from '../../../redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
- width: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '25vw' : isBigScreen ? '500px' : '400px' };
+ width: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '500px' : '400px' };
  background: transparent url('${ ({ src }) => src }') no-repeat center;
  background-size: cover;
  height: ${ ({ height }) => height };
@@ -33,11 +33,7 @@ const GalleryImage = (
     isBigScreen={isBigScreen}
     isTabletOrMobile={ isTabletOrMobile }
     src={ photos[index] }
-    height={ height }
-    onClick={ () => {
-      setCurrentPhoto(index);
-      toggleModal(true);
-    } }/>
+    height={ height }/>
 );
 
 const mapStateToProps = state => ({

@@ -7,6 +7,7 @@ import fetchPhotosAction from 'redux/actions/gallery/fetchPhotos';
 import {
   changePhoto as changePhotoAction,
   toggleModal as toggleModalAction,
+  setCurrentPhoto as setCurrentPhotoAction
 } from 'redux/actions/gallery/galleryActions';
 import {
   getCurrentPhoto,
@@ -87,6 +88,7 @@ const GalleryView = (
     changePhoto,
     toggleModal,
     isTabletOrMobile,
+    setCurrentPhoto
   },
 ) => {
   useEffect(() => {
@@ -140,7 +142,11 @@ const GalleryView = (
                     height = index % 2 === 0 ? '600px' : '700px';
                   }
                   return (
-                    <ImageWrapper key={ uniqid() }>
+                    <ImageWrapper
+                      onClick={() => {
+                        setCurrentPhoto(index);
+                        toggleModal(true);
+                      }}>
                       <GalleryImage
                         isTabletOrMobile={ isTabletOrMobile }
                         index={ index }
@@ -170,6 +176,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   fetchPhotos: fetchPhotosAction,
   changePhoto: changePhotoAction,
   toggleModal: toggleModalAction,
+  setCurrentPhoto: setCurrentPhotoAction,
 }, dispatch);
 
 GalleryView.propTypes = {
