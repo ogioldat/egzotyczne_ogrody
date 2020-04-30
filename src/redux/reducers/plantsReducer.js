@@ -169,7 +169,7 @@ export const getDetailsPlant = state => {
   return plantCategoryObj[state.plants.currentPlant.key];
 };
 export const getPlantCategories = state => Object.keys(state.plants.plants);
-export const getCurrentCategory = state => state.plants.currentPlant.category
+export const getCurrentCategory = state => state.plants.currentPlant.category;
 export const getCurrentPlantPhoto = state => {
   const currentPlants = state.plants.plants[state.plants.currentPlant.category];
   const currentPlant = currentPlants[state.plants.currentPlant.key];

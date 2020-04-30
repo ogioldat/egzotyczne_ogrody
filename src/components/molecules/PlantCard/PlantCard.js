@@ -11,7 +11,7 @@ import { getIsBigScreen, getIsTabletOrMobile } from 'redux/reducers/mediaReducer
 
 const StyledWrapper = styled.div`
   min-width: 100%;
-  height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '450px' : isBigScreen ? '500px' : '400px' };;
+  height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '200px' : isBigScreen ? '500px' : '400px' };;
   box-shadow: 0 10px 40px -10px #00000033;
   margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '10px 0 30px 0' };
   border-radius: 12px;
@@ -53,9 +53,9 @@ const StyledImage = styled.div`
   box-shadow: 0 10px 40px -10px #00000022;
   margin: auto;
   position: absolute;
-  top: 40px;
-  width: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '260px' : isBigScreen ? '300px' : '250px' };
-  height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '260px' : isBigScreen ? '300px' : '250px' };
+  top: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '20px' : '40px' };
+  width: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '120px' : isBigScreen ? '300px' : '250px' };
+  height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '120px' : isBigScreen ? '300px' : '250px' };
   background: white url("${ ({ src }) => src }") center no-repeat;
   background-size: cover;
   border-radius: 50%;
@@ -89,8 +89,13 @@ const PlantCard = (
         isBigScreen={ isBigScreen }
         src={ miniatureImage }
         isTabletOrMobile={ isTabletOrMobile }/>
-      <Heading type='small' card>{ title }</Heading>
-      <StyledBlock>CZYTAJ WIĘCEJ</StyledBlock>
+      <Heading
+        isTabletOrMobile={ isTabletOrMobile }
+        type='small'
+        card>{ title }</Heading>
+      {
+        !isTabletOrMobile && <StyledBlock>CZYTAJ WIĘCEJ</StyledBlock>
+      }
     </StyledWrapper>
   </StyledLink>
 );

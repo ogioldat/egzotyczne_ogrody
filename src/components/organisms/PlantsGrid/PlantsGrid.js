@@ -17,7 +17,7 @@ export const PLANTS_DICT = {
   bananas: 'bananowce',
   grasses: 'trawy',
   waterPlants: 'wodne',
-  others: 'inne'
+  others: 'inne',
 };
 
 const StyledWrapper = styled.div`
@@ -27,20 +27,19 @@ const StyledWrapper = styled.div`
 const StyledGridWrapper = styled.div`
   ${ ({ isTabletOrMobile }) => isTabletOrMobile ?
   css`
-  display: flex;
- 
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2vw;
 `
   : css`
   display: grid;
-  grid-template-columns: repeat(${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile
-    ? '-1, 1fr' : isBigScreen ? '3, 400px' : '3, 300px' });
+  grid-template-columns: repeat(${ ({ isBigScreen }) => isBigScreen 
+    ? '3, 400px' : '3, 300px' });
+  grid-gap: 50px;
 `
 };
-
   
   justify-content: center;
-  grid-gap: 50px;
   padding: 20px 0 100px 0;
 `;
 
