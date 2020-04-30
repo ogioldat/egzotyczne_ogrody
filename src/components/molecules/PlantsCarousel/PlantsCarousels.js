@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import SmallCapsText from 'components/atoms/SmallCapsText/SmallCapsText';
-import { getPlantCategories } from 'redux/reducers/plantsReducer';
+import { getPlantCategories, getCurrentCategory } from 'redux/reducers/plantsReducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { getIsBigScreen, getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
 import { setCurrentPlant as setCurrentPlantAction } from 'redux/actions/plants/plantActions';
 import { motion } from 'framer-motion';
 import { PLANTS_DICT } from '../../organisms/PlantsGrid/PlantsGrid';
-import { getIsBigScreen, getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -33,8 +33,8 @@ const StyledSmallCapsText = styled(SmallCapsText)`
   display: flex; 
   user-select: none;
   justify-content: center;
-  font-size: ${ ({ theme, isTabletOrMobile, isBigScreen }) => isTabletOrMobile 
-  ? theme.fontSize.xs : isBigScreen ? theme.fontSize.m: theme.fontSize.s };
+  font-size: ${ ({ theme, isTabletOrMobile, isBigScreen }) => isTabletOrMobile
+  ? theme.fontSize.xs : isBigScreen ? theme.fontSize.m : theme.fontSize.s };
   z-index: 2;
   font-weight: ${ ({ active }) => active && 'bolder' };
   transition: 1s transform ${ ({ theme }) => theme.bezier };
@@ -60,8 +60,16 @@ const StyledFocusBox = styled(motion.div)`
   border-radius: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '8px' : '12px' } ;
 `;
 
-const PlantsCarousel = ({ plantCategories, setCurrentPlant, isTabletOrMobile, isBigScreen }) => {
-  const [activePlant, setActive] = useState(plantCategories[0]);
+const PlantsCarousel = (
+  {
+    plantCategories,
+    setCurrentPlant,
+    isTabletOrMobile,
+    isBigScreen,
+    currentCategory,
+  },
+) => {
+  const [activePlant, setActive] = useState(currentCategory);
   const currentIndex = plantCategories.indexOf(activePlant);
 
   return (
@@ -97,6 +105,7 @@ const mapStateToProps = state => ({
   plantCategories: getPlantCategories(state),
   isBigScreen: getIsBigScreen(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
+  currentCategory: getCurrentCategory(state),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
