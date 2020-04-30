@@ -18,6 +18,7 @@ const StyledWrapper = styled.div`
   align-items: center;
   text-align: center;
   background-color: ${ ({ theme }) => theme.greyLight };
+  margin-bottom: 20px;
   box-shadow: ${ ({ theme }) => theme.shadow };
   border-radius: 12px;
   
@@ -44,10 +45,10 @@ const StyledSmallCapsText = styled(SmallCapsText)`
 `;
 
 const StyledFocusBox = styled(motion.div)`
-  height: 10%;
+  height: 80%;
   width: 15%;
   position: absolute;
-  bottom: 20%;
+  bottom: 10%;
   margin: auto;
   left: ${ ({ shift }) => `${ ((shift * 2) + 1) * 2.5 }% ` };
   transform: translateX(${ ({ shift }) => shift * 100 }%);

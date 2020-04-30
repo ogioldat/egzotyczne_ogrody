@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchPlantsAction from 'redux/actions/plants/fetchPlants';
 import { bindActionCreators } from 'redux';
+import { setPlantDetails as setPlantDetailsAction } from 'redux/actions/plants/plantActions';
 import uniqid from 'uniqid';
 import { getPlants } from 'redux/reducers/plantsReducer';
 import PlantCard from 'components/molecules/PlantCard/PlantCard';
 import Heading from 'components/atoms/Heading/Heading';
 import Line from '../../atoms/Line/Line';
-import { setPlantDetails as setPlantDetailsAction } from 'redux/actions/plants/plantActions';
 import { getIsBigScreen, getIsDesktopOrLaptop, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 export const PLANTS_DICT = {
