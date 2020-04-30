@@ -15,6 +15,7 @@ import { getIsBigScreen, getIsDesktopOrLaptop, getIsTabletOrMobile } from '../..
 export const PLANTS_DICT = {
   bamboos: 'bambusy',
   bananas: 'bananowce',
+  grasses: 'trawy',
   waterPlants: 'wodne',
   others: 'inne'
 };
