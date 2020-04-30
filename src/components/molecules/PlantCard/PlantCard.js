@@ -49,13 +49,15 @@ const StyledBlock = styled.div`
     transform: translateY(100%);
 `;
 
-const StyledImage = styled.img`
+const StyledImage = styled.div`
   box-shadow: 0 10px 40px -10px #00000022;
   margin: auto;
   position: absolute;
   top: 40px;
   width: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '260px' : isBigScreen ? '300px' : '250px' };
   height: ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ? '260px' : isBigScreen ? '300px' : '250px' };
+  background: white url("${ ({ src }) => src }") center no-repeat;
+  background-size: cover;
   border-radius: 50%;
 `;
 
@@ -111,7 +113,7 @@ PlantCard.propTypes = {
   objKey: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   isTabletOrMobile: PropTypes.bool.isRequired,
-  isBigScreen: PropTypes.bool.isRequired
+  isBigScreen: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantCard);

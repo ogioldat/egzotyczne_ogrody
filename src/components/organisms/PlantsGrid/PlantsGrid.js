@@ -15,6 +15,8 @@ import { getIsBigScreen, getIsDesktopOrLaptop, getIsTabletOrMobile } from '../..
 export const PLANTS_DICT = {
   bamboos: 'bambusy',
   bananas: 'bananowce',
+  waterPlants: 'wodne',
+  others: 'inne'
 };
 
 const StyledWrapper = styled.div`

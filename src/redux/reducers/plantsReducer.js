@@ -10,6 +10,9 @@ const initialState = {
   plants: {
     bananas: {},
     bamboos: {},
+    grasses: {},
+    waterPlants: {},
+    others: {}
   },
   pending: false,
   error: null,

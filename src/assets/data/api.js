@@ -11,6 +11,18 @@ const endpoints = {
       category: 'bamboos',
       address: `${ apiAdress }wp/v2/bamboos`
     },
+    grasses: {
+      category: 'grasses',
+      address: `${ apiAdress }wp/v2/grasses`
+    },
+    waterPlants: {
+      category: 'waterPlants',
+      address: `${ apiAdress }wp/v2/water_plants`
+    },
+    others: {
+      category: 'others',
+      address: `${ apiAdress }wp/v2/others`
+    }
   },
 };
 
