@@ -11,6 +11,9 @@ import PlantCard from 'components/molecules/PlantCard/PlantCard';
 import Heading from 'components/atoms/Heading/Heading';
 import Line from '../../atoms/Line/Line';
 import { getIsBigScreen, getIsDesktopOrLaptop, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import { getError, getPending } from '../../../redux/reducers/plantsReducer';
+import MessageBox from '../../atoms/MessageBox/MessageBox';
+import { ClipLoader } from 'react-spinners';
 
 export const PLANTS_DICT = {
   bamboos: 'bambusy',
@@ -21,6 +24,7 @@ export const PLANTS_DICT = {
 };
 
 const StyledWrapper = styled.div`
+  position: relative;
   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '100%' } ;
 `;
 
@@ -33,7 +37,7 @@ const StyledGridWrapper = styled.div`
 `
   : css`
   display: grid;
-  grid-template-columns: repeat(${ ({ isBigScreen }) => isBigScreen 
+  grid-template-columns: repeat(${ ({ isBigScreen }) => isBigScreen
     ? '3, 400px' : '3, 300px' });
   grid-gap: 50px;
 `
@@ -41,6 +45,15 @@ const StyledGridWrapper = styled.div`
   
   justify-content: center;
   padding: 20px 0 100px 0;
+`;
+
+const StyledClipLoader = css`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 `;
 
 
@@ -52,6 +65,8 @@ const PlantsGrid = (
     category,
     setPlantDetails,
     plants,
+    pending,
+    error,
     isBigScreen,
   },
 ) => {
@@ -66,20 +81,32 @@ const PlantsGrid = (
     <StyledWrapper id={ category } isTabletOrMobile={ isTabletOrMobile }>
       <Heading type='menu'>{ PLANTS_DICT[category] }</Heading>
       <Line/>
-      <StyledGridWrapper isTabletOrMobile={ isTabletOrMobile } isBigScreen={ isBigScreen }>
+      <StyledGridWrapper
+        isTabletOrMobile={ isTabletOrMobile }
+        isBigScreen={ isBigScreen }>
+
+        <ClipLoader
+          css={ StyledClipLoader }
+          loading={ pending }/>
+
         {
-          Object.keys(currentPlants).map((key, index) => {
-            return (
-              <PlantCard
-                key={ uniqid() }
-                objKey={ key }
-                index={ index }
-                category={ category }
-                { ...currentPlants[key] }
-              />
-            );
-          })
+          error ?
+            <MessageBox>nie udało się załadować 😭</MessageBox>
+            : (
+              Object.keys(currentPlants).map((key, index) => {
+                return (
+                  <PlantCard
+                    key={ uniqid() }
+                    objKey={ key }
+                    index={ index }
+                    category={ category }
+                    { ...currentPlants[key] }
+                  />
+                );
+              })
+            )
         }
+
       </StyledGridWrapper>
     </StyledWrapper>
   );
@@ -96,6 +123,8 @@ const mapStateToProps = state => ({
   isDesktopOrLaptop: getIsDesktopOrLaptop(state),
   isBigScreen: getIsBigScreen(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
+  pending: getPending(state),
+  error: getError(state),
 });
 
 PlantsGrid.propTypes = {
