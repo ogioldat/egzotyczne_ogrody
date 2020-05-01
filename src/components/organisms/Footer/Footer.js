@@ -80,7 +80,7 @@ const Footer = ({ isTabletOrMobile }) => (
         isTabletOrMobile={ isTabletOrMobile }
         title='informacje'/>
 
-      <MenuBlock>
+      <MenuBlock footer>
         <Heading footer reversed type='menu'>rośliny</Heading>
         <PlantsList
           footer

@@ -12,7 +12,8 @@ import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 
 const StyledWrapper = styled.div`
-  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '4% 0 0 35%' : '15% auto' };
+  margin: ${ ({ isTabletOrMobile, footer }) => (isTabletOrMobile && !footer)
+  ? '4% 0 0 35%' : footer ? '6% auto' : '15% auto' };
 `;
 
 const StyledLink = styled(Link)`
@@ -32,7 +33,7 @@ const MenuBlock = (
     children = null,
   },
 ) => (
-  <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
+  <StyledWrapper isTabletOrMobile={ isTabletOrMobile } footer={ footer }>
     <Heading
       footer={ footer }
       isTabletOrMobile={ isTabletOrMobile }
