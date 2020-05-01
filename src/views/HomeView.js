@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import styled from 'styled-components';
-import HomeSection from 'components/organisms/HomeSection/HomeSection';
-import AboutUs from 'components/organisms/AboutUs/AboutUs';
-import OurPlants from 'components/organisms/OurPlants/OurPlants';
+import ClipLoader from 'react-spinners';
 import { connect } from 'react-redux';
-import Footer from 'components/organisms/Footer/Footer';
 import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
+
+const HomeSection = lazy(() => import('components/organisms/HomeSection/HomeSection'))
+const AboutUs = lazy(() => import('components/organisms/AboutUs/AboutUs'))
+const OurPlants = lazy(() => import('components/organisms/OurPlants/OurPlants'))
+const Footer = lazy(() => import('components/organisms/Footer/Footer'))
 
 
 const StyledWrapper = styled.div`
   position: relative;
-  padding: 0  ${({isTabletOrMobile, theme}) => isTabletOrMobile && theme.mobilePadding};
+  padding: 0  ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.mobilePadding };
 `;
 
 const HomeView = ({ isTabletOrMobile }) => (
   <>
-    <HomeSection/>
-    <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
-      <AboutUs/>
-      <OurPlants/>
-    </StyledWrapper>
-    <Footer/>
+    <Suspense fallback={<div>s</div>}>
+      <HomeSection/>
+      <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
+        <AboutUs/>
+        <OurPlants/>
+      </StyledWrapper>
+      <Footer/>
+    </Suspense>
   </>
 );
 
