@@ -37,7 +37,7 @@ const StyledWrapper = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   height: 100%;
-  min-height: ${({pending, error}) => (pending && error) && '100vh'};
+  min-height: ${({pending, error}) => (pending || error) && '100vh'};
   ${ ({ isModalVisible }) => isModalVisible && css`filter: brightness(10%)` }
 `;
 
@@ -62,7 +62,7 @@ const StyledTitleWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${ ({ pending, error }) => (pending && error) && '80vw' } ;
+  width: ${ ({ pending, error }) => (pending || error) && '80vw' } ;
 `;
 
 const ImageWrapper = styled(motion.div)`
