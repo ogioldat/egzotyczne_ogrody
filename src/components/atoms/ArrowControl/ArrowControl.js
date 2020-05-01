@@ -3,8 +3,8 @@ import styled from 'styled-components';
 const ArrowControl = styled.img`
   transform: rotate(${ ({ direction }) => direction === 'prev'
   ? '90deg' : direction === 'next' ? '-90deg' : 0 });
-  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '6vw' : '50px' };
-  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '6vw' : '50px' };
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '30px' : '50px' };
+  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '30px' : '50px' };
   background: none;
   filter: brightness(400%);
   cursor: pointer;

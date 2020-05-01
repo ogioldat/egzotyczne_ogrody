@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import arrow from 'assets/icons/arrow_icon.png';
 import ArrowControl from 'components/atoms/ArrowControl/ArrowControl';
 import close from 'assets/icons/close.png';
-import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import { getIsPortrait, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
   position: fixed !important;
@@ -36,9 +36,10 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledImage = styled.img`
-  ${ ({ isTabletOrMobile }) => isTabletOrMobile ?
+  ${ ({ isTabletOrMobile, isPortrait }) => isTabletOrMobile ?
   css`
-    width: 80vw;
+    width: ${ isPortrait && '80vw' };
+    height: ${ !isPortrait && '80vh' };
 `
   : css`
     height: 90vh;
@@ -49,12 +50,12 @@ const StyledImage = styled.img`
 const StyledX = styled.img`
   color: white;
   position: absolute;
-  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '6vw' : '32px' };
-  top: 50px;
+  width: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '30px' : '32px' };
+  top: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '1vw' : '50px' };
   padding: 5px;
   box-sizing: content-box;
   cursor:pointer;
-  right: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '5%' : '50px' };
+  right: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '1vw' : '50px' };
   transition: transform .5s ${ ({ theme }) => theme.bezier },
     opacity .5s ${ ({ theme }) => theme.bezier };
   
@@ -75,7 +76,7 @@ const StyledNextArrow = styled(ArrowControl)`
 `;
 
 
-const PhotoModal = ({ currentPhoto, changePhoto, toggleModal, isTabletOrMobile }) => (
+const PhotoModal = ({ currentPhoto, changePhoto, toggleModal, isTabletOrMobile, isPortrait }) => (
   <StyledWrapper>
     <StyledX
       isTabletOrMobile={ isTabletOrMobile }
@@ -87,6 +88,7 @@ const PhotoModal = ({ currentPhoto, changePhoto, toggleModal, isTabletOrMobile }
       src={ arrow }
       onClick={ () => changePhoto('prev') } direction='prev'/>
     <StyledImage
+      isPortrait={ isPortrait }
       isTabletOrMobile={ isTabletOrMobile }
       src={ currentPhoto }
       alt=""/>
@@ -101,6 +103,7 @@ const PhotoModal = ({ currentPhoto, changePhoto, toggleModal, isTabletOrMobile }
 
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
+  isPortrait: getIsPortrait(state),
 });
 
 export default connect(mapStateToProps)(PhotoModal);

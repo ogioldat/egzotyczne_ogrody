@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MenuView from 'views/MenuView';
@@ -10,6 +10,7 @@ import mobileBg from 'assets/images/mobileBg.png';
 import { AnimatePresence } from 'framer-motion';
 import MenuBar from 'components/molecules/MenuBar/MenuBar';
 import { getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
+import { getIsPortrait } from '../../../redux/reducers/mediaReducer';
 
 
 const StyledWrapper = styled.div`
@@ -29,7 +30,8 @@ const StyledCenterWrapper = styled.div`
 const StyledMobileBg = styled.img`
   position: absolute;
   width: 100vw;
-  bottom: -5%;
+  bottom: ${({isPortrait}) => isPortrait ? '-5%' : '-80%'};
+  z-index: -12;
 `;
 
 const StyledHeroImage = styled.img`
@@ -42,7 +44,7 @@ const StyledTitleWrapper = styled.div`
   margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '0 0 auto 0' : ' -10% 0 0 8%' };
 `;
 
-const HomeSection = ({ showMenu, isTabletOrMobile }) => (
+const HomeSection = ({ showMenu, isTabletOrMobile,isPortrait }) => (
   <StyledWrapper>
     <MenuBar showMenu={ showMenu } isTabletOrMobile={ isTabletOrMobile }/>
 
@@ -53,13 +55,13 @@ const HomeSection = ({ showMenu, isTabletOrMobile }) => (
     </AnimatePresence>
 
     <StyledCenterWrapper>
-      <StyledTitleWrapper isTabletOrMobile={ isTabletOrMobile }>
+      <StyledTitleWrapper isPortrait={ isPortrait } isTabletOrMobile={ isTabletOrMobile }>
         <HeroTitle/>
       </StyledTitleWrapper>
 
       {
         isTabletOrMobile ?
-          <StyledMobileBg src={ mobileBg }/>
+          <StyledMobileBg src={ mobileBg } isPortrait={ isPortrait }/>
           : <StyledHeroImage alt='' src={ heroImage }/>
 
       }
@@ -70,6 +72,7 @@ const HomeSection = ({ showMenu, isTabletOrMobile }) => (
 const mapStateToProps = state => ({
   showMenu: getShowMenu(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
+  isPortrait: getIsPortrait(state),
 });
 
 HomeSection.propTypes = {

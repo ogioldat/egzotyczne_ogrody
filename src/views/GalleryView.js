@@ -26,7 +26,7 @@ import { wrapperMotion } from 'assets/motion';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import PhotoModal from '../components/organisms/PhotoModal/PhotoModal';
-import { getIsBigScreen, getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
+import { getIsBigScreen, getIsPortrait, getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
 import MessageBox from '../components/atoms/MessageBox/MessageBox';
 
 const StyledWrapper = styled(motion.div)`
@@ -37,7 +37,7 @@ const StyledWrapper = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   height: 100%;
-  min-height: ${({pending, error}) => (pending || error) && '100vh'};
+  min-height: ${ ({ pending, error }) => (pending || error) && '100vh' };
   ${ ({ isModalVisible }) => isModalVisible && css`filter: brightness(10%)` }
 `;
 
@@ -102,14 +102,22 @@ const GalleryView = (
     isTabletOrMobile,
     setCurrentPhoto,
     isBigScreen,
+    isPortrait,
   },
 ) => {
   useEffect(() => {
     fetchPhotos();
   }, []);
 
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+
+  React.useEffect(() => {
+    forceUpdate();
+  }, [isPortrait]);
+
   return (
-    <StyledFlex isTabletOrMobile={ isTabletOrMobile } >
+    <StyledFlex isTabletOrMobile={ isTabletOrMobile }>
       <StyledWrapper
         pending={ pending }
         error={ error }
@@ -195,6 +203,7 @@ const mapStateToProps = state => ({
   currentPhoto: getCurrentPhoto(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
   isBigScreen: getIsBigScreen(state),
+  isPortrait: getIsPortrait(state),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

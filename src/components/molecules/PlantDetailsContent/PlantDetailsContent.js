@@ -10,7 +10,7 @@ import Heading from '../../atoms/Heading/Heading';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
 import Subtitle from '../../atoms/Subtitle/Subtitle';
 import { routes } from '../../../routes';
-import { getIsBigScreen, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
+import { getIsBigScreen, getIsPortrait, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 import ImagesGrid from '../ImagesGrid/ImagesGrid';
 
 const StyledContentWrapper = styled.div`
@@ -77,6 +77,7 @@ const PlantDetailsContent = (
     changePlant,
     pending,
     isBigScreen,
+    isPortrait
   },
 ) => {
 
@@ -104,7 +105,7 @@ const PlantDetailsContent = (
       }
 
       {
-        (!pending && isTabletOrMobile) && <ImagesGrid name={ name } images={ images } title={ title }/>
+        (!pending && isTabletOrMobile && isPortrait) && <ImagesGrid name={ name } images={ images } title={ title }/>
       }
 
       <StyledControls isTabletOrMobile={ isTabletOrMobile }>
@@ -134,6 +135,7 @@ const PlantDetailsContent = (
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
   isBigScreen: getIsBigScreen(state),
+  isPortrait: getIsPortrait(state)
 });
 
 const mapDispatchToProps = dispatch => ({
