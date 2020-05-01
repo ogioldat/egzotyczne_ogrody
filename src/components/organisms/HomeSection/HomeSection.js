@@ -7,12 +7,12 @@ import HeroTitle from 'components/molecules/HomeTitle/HeroTitle';
 import heroImage from 'assets/images/heroImage.jpg';
 import { getShowMenu } from 'redux/reducers/menuReducer';
 import mobileBg from 'assets/images/mobileBg.png';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import MenuBar from 'components/molecules/MenuBar/MenuBar';
 import { getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
 
 
-const StyledWrapper = styled(motion.div)`
+const StyledWrapper = styled.div`
   height: 100vh;
   position: relative;
   overflow-y: hidden;
@@ -39,7 +39,7 @@ const StyledHeroImage = styled.img`
 
 const StyledTitleWrapper = styled.div`
   display: flex;
-  margin: ${({isTabletOrMobile}) => isTabletOrMobile ? '0 0 auto 0' : ' -10% 0 0 8%'};
+  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '0 0 auto 0' : ' -10% 0 0 8%' };
 `;
 
 const HomeSection = ({ showMenu, isTabletOrMobile }) => (
@@ -53,7 +53,7 @@ const HomeSection = ({ showMenu, isTabletOrMobile }) => (
     </AnimatePresence>
 
     <StyledCenterWrapper>
-      <StyledTitleWrapper  isTabletOrMobile={ isTabletOrMobile }>
+      <StyledTitleWrapper isTabletOrMobile={ isTabletOrMobile }>
         <HeroTitle/>
       </StyledTitleWrapper>
 

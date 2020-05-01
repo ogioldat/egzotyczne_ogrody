@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Provider } from 'react-redux';
 import store from 'redux/store/store';
 import { routes } from 'routes';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import MainTemplate from 'templates/MainTemplate';
-import HomeView from 'views/HomeView';
 import GalleryView from 'views/GalleryView';
-import { AboutUsView, OrdersView,
-  ContactView, LocationView, PolicyView } from 'views/Subpages';
-import PlantDetailsView from './PlantDetailsView';
+import {
+  OrdersView,
+  ContactView, LocationView, PolicyView,
+} from 'views/Subpages';
+
+const HomeView = lazy(() => import('views/HomeView'));
+const PlantDetailsView = lazy(() => import('views/PlantDetailsView'));
+const AboutUsView = lazy(() => import('views/AboutUsView'));
 
 const Root = () => (
   <Provider store={ store }>
