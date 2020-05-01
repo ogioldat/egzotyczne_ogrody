@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useCallback} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { textMotion } from 'assets/motion';
 import { Link } from 'react-router-dom';
 import { changePlant as changePlantAction } from 'redux/actions/plants/plantActions';
-import { motion } from 'framer-motion';
 import Button from '../../atoms/Button/Button';
 import PlantsCarousel from '../PlantsCarousel/PlantsCarousels';
 import Heading from '../../atoms/Heading/Heading';
@@ -80,49 +78,58 @@ const PlantDetailsContent = (
     pending,
     isBigScreen,
   },
-) => (
-  <StyledContentWrapper isTabletOrMobile={ isTabletOrMobile }>
-    <Heading type='plantDetails'>{ title }</Heading>
-    <StyledSubtitle isBigScreen={ isBigScreen } isTabletOrMobile={ isTabletOrMobile }>{ fact }</StyledSubtitle>
-    {
-      isTabletOrMobile ?
-        <>
-          <StyledOverflowText>
-            <StyledParagraph>{ description }</StyledParagraph>
-          </StyledOverflowText>
-        </>
-        : !isBigScreen
-        ? <StyledParagraph>{ description }</StyledParagraph>
-        :
-         <Paragraph>{ description }</Paragraph>
-    }
+) => {
 
-    {
-      (!pending && isTabletOrMobile) && <ImagesGrid name={ name } images={ images } title={ title }/>
+  const scrolledBox = useCallback(node => {
+    if (node !== null) {
+      node.scrollTo(0, 0);
     }
+  }, null);
 
-    <StyledControls isTabletOrMobile={ isTabletOrMobile }>
-      <PlantsCarousel isTabletOrMobile={ isTabletOrMobile }/>
-      <StyledButtonWrapper isTabletOrMobile={ isTabletOrMobile }>
-        <StyledLink to={ routes.home }>
-          <StyledButton
+  return (
+    <StyledContentWrapper isTabletOrMobile={ isTabletOrMobile }>
+      <Heading type='plantDetails'>{ title }</Heading>
+      <StyledSubtitle isBigScreen={ isBigScreen } isTabletOrMobile={ isTabletOrMobile }>{ fact }</StyledSubtitle>
+      {
+        isTabletOrMobile ?
+          <>
+            <StyledOverflowText ref={ scrolledBox }>
+              <StyledParagraph>{ description }</StyledParagraph>
+            </StyledOverflowText>
+          </>
+          : !isBigScreen
+          ? <StyledParagraph>{ description }</StyledParagraph>
+          :
+          <Paragraph>{ description }</Paragraph>
+      }
+
+      {
+        (!pending && isTabletOrMobile) && <ImagesGrid name={ name } images={ images } title={ title }/>
+      }
+
+      <StyledControls isTabletOrMobile={ isTabletOrMobile }>
+        <PlantsCarousel isTabletOrMobile={ isTabletOrMobile }/>
+        <StyledButtonWrapper isTabletOrMobile={ isTabletOrMobile }>
+          <StyledLink to={ routes.home }>
+            <StyledButton
+              menu
+              isTabletOrMobile={ isTabletOrMobile }
+              secondary>strona główna</StyledButton>
+          </StyledLink>
+
+          <Button
             menu
             isTabletOrMobile={ isTabletOrMobile }
-            secondary>strona główna</StyledButton>
-        </StyledLink>
-
-        <Button
-          menu
-          isTabletOrMobile={ isTabletOrMobile }
-          secondary
-          onClick={ () => changePlant('next') }
-        >
-          następna roślina
-        </Button>
-      </StyledButtonWrapper>
-    </StyledControls>
-  </StyledContentWrapper>
-);
+            secondary
+            onClick={ () => changePlant('next') }
+          >
+            następna roślina
+          </Button>
+        </StyledButtonWrapper>
+      </StyledControls>
+    </StyledContentWrapper>
+  );
+};
 
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
