@@ -21,7 +21,7 @@ const Root = () => (
       <Route render={ ({ location }) => (
         <AnimatePresence exitBeforeEnter initial={ false }>
           <MainTemplate path={ location.pathname }>
-            <Suspense fallback={<div>loading</div>}>
+            <Suspense fallback={ <div> </div>}>
               <Switch location={ location }>
                 <Route exact path={ routes.home } component={ HomeView }/>
                 <Route exact path={ routes.root } render={ () => <Redirect to={ routes.home }/> }/>

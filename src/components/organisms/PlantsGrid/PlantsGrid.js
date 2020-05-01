@@ -56,6 +56,11 @@ const StyledClipLoader = css`
   margin: auto;
 `;
 
+const StyledMessageBox = styled(MessageBox)`
+position: absolute;
+right: 0;
+margin: auto;
+`
 
 const PlantsGrid = (
   {
@@ -91,7 +96,7 @@ const PlantsGrid = (
 
         {
           error ?
-            <MessageBox>nie udało się załadować 😭</MessageBox>
+            <StyledMessageBox>nie udało się załadować 😭</StyledMessageBox>
             : (
               Object.keys(currentPlants).map((key, index) => {
                 return (
