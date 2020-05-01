@@ -34,8 +34,6 @@ const StyledControlWrapper = styled.div`
   css`
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 ` : css`
     display: grid;
     grid-template-columns: repeat(3, 1fr);

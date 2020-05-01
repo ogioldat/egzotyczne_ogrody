@@ -49,8 +49,14 @@ const MainTemplate = (
   useEffect(() => {
     if (showMenu) {
       targetElement.style.overflowY = 'hidden';
+      if (isTabletOrMobile) {
+        targetElement.style.position = 'fixed';
+      }
     } else {
       targetElement.style.overflowY = 'visible';
+      if (isTabletOrMobile) {
+        targetElement.style.position = 'relative';
+      }
     }
 
   }, [showMenu]);

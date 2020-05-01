@@ -12,7 +12,7 @@ import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 
 const StyledWrapper = styled.div`
-  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '6% 0' : '15% auto' };
+  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '4% 0 0 35%' : '15% auto' };
 `;
 
 const StyledLink = styled(Link)`

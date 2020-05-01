@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import uniqid from 'uniqid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -55,7 +55,7 @@ const StyledTextGrid = styled.div`
    min-height: ${ ({ policy }) => policy && '55vh' };
    overflow-y: auto;
   
-  ${ ({ title, content, policy }) => {
+  ${ ({ title, content }) => {
   switch (title) {
     case 'lokalizacja': {
       return css`
@@ -133,48 +133,52 @@ const SubpageTemplate = (
     isTabletOrMobile,
     isBigScreen
   },
-) => (
-  <StyledFlexWrapper isTabletOrMobile={ isTabletOrMobile }>
-    <StyledWrapper
-      initial="initial"
-      animate="enter"
-      exit="exit"
-      variants={ wrapperMotion.variants }>
-      <Heading type='subpage'>{ title }</Heading>
-      <StyledTextGrid
-        isTabletOrMobile={ isTabletOrMobile }
-        title={ title }
-        content={ content }
-        policy={ policy }>
-        {
-          // eslint-disable-next-line react/prop-types
-          content.map(item => (
-            <StyledTextBox policy={ policy } key={ uniqid() }>
-              <Heading type='small'>{ item.headingText }</Heading>
-              <StyledP isBigScreen={isBigScreen} title={ title }>{
-                item.isLink
-                  ? <StyledA href={ item.paragraphText }>{ item.paragraphText.replace('https://', '') }</StyledA>
-                  : item.paragraphText
-              }</StyledP>
-            </StyledTextBox>
-          ))
-        }
-      </StyledTextGrid>
-      {
-        paymentImage && <StyledPaymentImage isTabletOrMobile={ isTabletOrMobile } src={ paymentImage }/>
-      }
+) => {
 
-      {
-        homeImage && <StyledHomeImage isTabletOrMobile={ isTabletOrMobile } src={ homeImage }/>
-      }
-      <LinkWrapper isTabletOrMobile={ isTabletOrMobile }>
-        <StyledLink to={ routes.home }>
-          <StyledBackButton secondary>strona główna</StyledBackButton>
-        </StyledLink>
-      </LinkWrapper>
-    </StyledWrapper>
-  </StyledFlexWrapper>
-);
+
+  return (
+    <StyledFlexWrapper  isTabletOrMobile={ isTabletOrMobile }>
+      <StyledWrapper
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        variants={ wrapperMotion.variants }>
+        <Heading type='subpage'>{ title }</Heading>
+        <StyledTextGrid
+          isTabletOrMobile={ isTabletOrMobile }
+          title={ title }
+          content={ content }
+          policy={ policy }>
+          {
+            // eslint-disable-next-line react/prop-types
+            content.map(item => (
+              <StyledTextBox policy={ policy } key={ uniqid() }>
+                <Heading type='small'>{ item.headingText }</Heading>
+                <StyledP isBigScreen={isBigScreen} title={ title }>{
+                  item.isLink
+                    ? <StyledA href={ item.paragraphText }>{ item.paragraphText.replace('https://', '') }</StyledA>
+                    : item.paragraphText
+                }</StyledP>
+              </StyledTextBox>
+            ))
+          }
+        </StyledTextGrid>
+        {
+          paymentImage && <StyledPaymentImage isTabletOrMobile={ isTabletOrMobile } src={ paymentImage }/>
+        }
+
+        {
+          homeImage && <StyledHomeImage isTabletOrMobile={ isTabletOrMobile } src={ homeImage }/>
+        }
+        <LinkWrapper isTabletOrMobile={ isTabletOrMobile }>
+          <StyledLink to={ routes.home }>
+            <StyledBackButton secondary>strona główna</StyledBackButton>
+          </StyledLink>
+        </LinkWrapper>
+      </StyledWrapper>
+    </StyledFlexWrapper>
+  );
+}
 
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
