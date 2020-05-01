@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { routes } from '../routes';
 import GlobalStyle from 'theme/GlobalStyles';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -17,6 +16,7 @@ import {
 } from 'redux/actions/mediaActions';
 import { getShowMenu } from '../redux/reducers/menuReducer';
 import mediaQueries from '../mediaQueries';
+import { routes } from '../routes';
 
 const MainTemplate = (
   {
@@ -49,14 +49,8 @@ const MainTemplate = (
   useEffect(() => {
     if (showMenu) {
       targetElement.style.overflowY = 'hidden';
-      // if (isDesktopOrLaptop) {
-      //   targetElement.style.position = 'fixed';
-      // }
     } else {
       targetElement.style.overflowY = 'visible';
-      // if (isDesktopOrLaptop) {
-      //   targetElement.style.position = 'relative';
-      // }
     }
 
   }, [showMenu]);
@@ -68,9 +62,6 @@ const MainTemplate = (
       window.scrollTo(0, 0);
     }
 
-    // targetElement.style.overflowY = 'hidden';
-
-
     if (isTabletOrMobile) {
       if (pathname === (routes.gallery || routes.plantDetails)) {
         targetElement.style.overflow = 'hidden';
@@ -78,7 +69,6 @@ const MainTemplate = (
         targetElement.style.overflow = 'visible';
       }
     }
-
   }, [pathname]);
 
 

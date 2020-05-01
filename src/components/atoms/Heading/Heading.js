@@ -20,7 +20,7 @@ const StyledHeading = styled.h1`
 
            margin: 50px 0 10px 0;
            font-size: ${ isTabletOrMobile
-        ? `calc(3.125vw + ${ theme.fontSize.xl })` : theme.fontSize.heading };
+        ? `calc(3.125vw + ${ theme.fontSize.l })` : theme.fontSize.heading };
            `;
 
     case 'menu':
@@ -56,7 +56,7 @@ const StyledHeading = styled.h1`
 }
 };
   font-size: ${ ({ footer, isTabletOrMobile, theme }) =>
-  (footer && isTabletOrMobile) && theme.fontSize.s } 
+  (footer && isTabletOrMobile) && theme.fontSize.xs } 
 `;
 
 const StyledRect = styled.div`
