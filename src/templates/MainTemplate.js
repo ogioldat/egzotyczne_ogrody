@@ -45,6 +45,7 @@ const MainTemplate = (
 
   const body = document.querySelector('body');
   const [targetElement] = useState(body);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (showMenu) {
@@ -61,8 +62,6 @@ const MainTemplate = (
 
   }, [showMenu]);
 
-  const { pathname } = useLocation();
-
   useEffect(() => {
     if (pathname !== routes.home) {
       window.scrollTo(0, 0);
@@ -74,6 +73,10 @@ const MainTemplate = (
       } else {
         targetElement.style.overflow = 'visible';
       }
+    }
+
+    if(pathname === routes.gallery){
+      targetElement.style.position = '';
     }
   }, [pathname]);
 

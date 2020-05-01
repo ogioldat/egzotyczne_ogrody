@@ -38,7 +38,6 @@ const StyledList = styled.ul`
   z-index: 100;
   right: 0;
   margin: 0;
-  // top: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? 0 : '10px' };
   
   li {
     padding: 0;

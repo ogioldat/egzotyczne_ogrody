@@ -13,12 +13,12 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledP = styled(Paragraph)`
-   font-size: ${({theme}) => theme.fontSize.m};
+   font-size: ${({theme, isTabletOrMobile}) =>isTabletOrMobile ? theme.fontSize.s : theme.fontSize.m};
 `;
 
 const ParagraphCard = ({ children, isTabletOrMobile }) => (
   <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
-    <StyledP>
+    <StyledP  isTabletOrMobile={ isTabletOrMobile }>
       {
         children
       }
