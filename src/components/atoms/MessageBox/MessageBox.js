@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Subtitle from '../Subtitle/Subtitle';
 
 const StyledMessageBox = styled.div`
   text-align: justify;

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import uniqid from 'uniqid';
 import { bindActionCreators } from 'redux';
 import fetchPhotosAction from 'redux/actions/gallery/fetchPhotos';
 import {
@@ -28,6 +27,7 @@ import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import PhotoModal from '../components/organisms/PhotoModal/PhotoModal';
 import { getIsBigScreen, getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
+import MessageBox from '../components/atoms/MessageBox/MessageBox';
 
 const StyledWrapper = styled(motion.div)`
   position: relative;
@@ -80,6 +80,15 @@ const StyledOverflowWrapper = styled.div`
   overflow-y: ${ ({ isTabletOrMobile }) => isTabletOrMobile && 'scroll' };
 `;
 
+const StyledClipLoader = css`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+`;
+
 const GalleryView = (
   {
     fetchPhotos,
@@ -129,13 +138,15 @@ const GalleryView = (
         }
 
         {
-          error && <div>Nie udało się pobrać zdjęć 😭</div>
+          error && <MessageBox>nie udało się załadować 😭</MessageBox>
         }
 
         <StyledOverflowWrapper isTabletOrMobile={ isTabletOrMobile }>
           {
             pending ?
-              <ClipLoader loading={ pending }/>
+              <ClipLoader
+                css={ StyledClipLoader }
+                loading={ pending }/>
               :
               <MasonryLayout id="masonry-layout" sizes={ [
                 {

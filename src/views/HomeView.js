@@ -1,11 +1,11 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
-const HomeSection = lazy(() => import('components/organisms/HomeSection/HomeSection'))
-const AboutUs = lazy(() => import('components/organisms/AboutUs/AboutUs'))
-const OurPlants = lazy(() => import('components/organisms/OurPlants/OurPlants'))
-const Footer = lazy(() => import('components/organisms/Footer/Footer'))
+import HomeSection from '../components/organisms/HomeSection/HomeSection';
+import AboutUs from '../components/organisms/AboutUs/AboutUs';
+import OurPlants from '../components/organisms/OurPlants/OurPlants';
+import Footer from '../components/organisms/Footer/Footer';
 
 
 const StyledWrapper = styled.div`
@@ -15,14 +15,12 @@ const StyledWrapper = styled.div`
 
 const HomeView = ({ isTabletOrMobile }) => (
   <>
-    <Suspense fallback={<div>s</div>}>
-      <HomeSection/>
-      <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
-        <AboutUs/>
-        <OurPlants/>
-      </StyledWrapper>
-      <Footer/>
-    </Suspense>
+    <HomeSection/>
+    <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
+      <AboutUs/>
+      <OurPlants/>
+    </StyledWrapper>
+    <Footer/>
   </>
 );
 
