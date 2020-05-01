@@ -13,14 +13,13 @@ const StyledHeading = styled.h1`
   margin: 0;
 
   
-  ${ ({ type, theme, isTabletOrMobile, len }) => {
+  ${ ({ type, theme, isTabletOrMobile, longString }) => {
   switch (type) {
     default:
       return css`
-
            margin: 50px 0 10px 0;
            font-size: ${ isTabletOrMobile
-        ? `calc(3.125vw + ${ theme.fontSize.l })` : theme.fontSize.heading };
+           ? `calc(3.125vw + ${ theme.fontSize.l })` : theme.fontSize.heading };
            `;
 
     case 'menu':
@@ -33,8 +32,10 @@ const StyledHeading = styled.h1`
 
     case 'plantDetails':
       return css`
-           font-size: ${ isTabletOrMobile 
-        ? theme.fontSize.s : len > 20 ? theme.fontSize.plantDetailsLong : theme.fontSize.plantDetails }; 
+           font-size: ${ (isTabletOrMobile && !longString)
+        ? theme.fontSize.s : (longString && isTabletOrMobile )
+          ? theme.fontSize.plantDetailsLongMobile : (longString && !isTabletOrMobile )
+              ? theme.fontSize.plantDetailsLong : theme.fontSize.plantDetails }; 
            align-self: center;
            margin-bottom: 0;
            `;
@@ -73,7 +74,7 @@ const StyledRect = styled.div`
 
 const Heading = ({ children, type, reversed, card, isTabletOrMobile, footer }) => (
   <StyledHeading
-    len={typeof children === 'string' && children.length}
+    longString={typeof children === 'string' && children.length > 15}
     footer={ footer }
     isTabletOrMobile={ isTabletOrMobile }
     type={ type }
