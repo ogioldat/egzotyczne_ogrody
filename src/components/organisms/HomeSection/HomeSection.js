@@ -37,6 +37,7 @@ const StyledMobileBg = styled.img`
 
 const StyledHeroImage = styled.img`
   height: 100%;
+  user-select: none;
 `;
 
 

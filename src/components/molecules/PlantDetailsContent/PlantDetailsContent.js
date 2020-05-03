@@ -156,6 +156,8 @@ const mapDispatchToProps = dispatch => ({
 
 PlantDetailsContent.propTypes = {
   isTabletOrMobile: PropTypes.bool.isRequired,
+  isBigScreen: PropTypes.bool.isRequired,
+  isPortrait: PropTypes.bool.isRequired,
   fact: PropTypes.string,
   title: PropTypes.string,
   name: PropTypes.string,

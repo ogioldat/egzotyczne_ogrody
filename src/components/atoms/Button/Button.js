@@ -8,6 +8,7 @@ const ButtonWrapper = styled(motion.button)`
   display: ${ ({ showMenu, hideOnMobile }) => showMenu || hideOnMobile ? 'none' : 'block' };
   position: relative;
   text-decoration: none;
+  user-select: none;
   background: none;
   border: none;
   margin: ${ ({ menuOption, isTabletOrMobile, footer, menu }) => ((footer || menu) && isTabletOrMobile)

@@ -117,6 +117,7 @@ PlantsCarousel.propTypes = {
   plantCategories: PropTypes.arrayOf(PropTypes.string).isRequired,
   setCurrentPlant: PropTypes.func.isRequired,
   isTabletOrMobile: PropTypes.bool.isRequired,
+  isBigScreen: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantsCarousel);

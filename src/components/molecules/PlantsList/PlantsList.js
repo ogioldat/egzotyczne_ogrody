@@ -48,7 +48,7 @@ const PlantsList = (
   </>
 );
 
-const MapStateToProps = state => ({
+const mapStateToProps = state => ({
   plants: getPlants(state),
   isTabletOrMobile: getIsTabletOrMobile(state),
 });
@@ -72,4 +72,4 @@ PlantsList.defaultProps = {
   menu: false,
 };
 
-export default connect(MapStateToProps, mapDispatchToProps)(PlantsList);
+export default connect(mapStateToProps, mapDispatchToProps)(PlantsList);

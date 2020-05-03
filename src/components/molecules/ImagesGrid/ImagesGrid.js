@@ -113,6 +113,7 @@ ImagesGrid.propTypes = {
   setCurrentPlantPhoto: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
   isTabletOrMobile: PropTypes.bool.isRequired,
+  isBigScreen: PropTypes.bool.isRequired,
   name: PropTypes.string,
   images: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string,

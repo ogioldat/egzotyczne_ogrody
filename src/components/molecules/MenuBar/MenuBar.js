@@ -13,6 +13,7 @@ import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 const StyledMenuBar = styled.div`
   margin: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile && theme.mobilePadding };
   box-sizing: content-box;
+  user-select: none;
   position: relative;
   height: 60px;
   display: flex;
@@ -24,6 +25,7 @@ const StyledMenuBar = styled.div`
 
 const StyledLogo = styled.img`
   height: 100%;
+  user-select: none;
   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '60vw' };
   box-sizing: content-box;
 `;

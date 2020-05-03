@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 
 const StyledTitleWrapper = styled.div`
   position: relative;
+  user-select: none;
   width: ${ ({ isTabletOrMobile }) => isTabletOrMobile && '100vw' };
   padding: ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.mobilePadding };
 `;
