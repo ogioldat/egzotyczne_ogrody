@@ -40,7 +40,8 @@ const StyledSmallCapsText = styled(SmallCapsText)`
   transition: 1s transform ${ ({ theme }) => theme.bezier };
   
   &:hover {
-    transform: scale(.95);
+    transform: scale(.92);
+    font-weight: bolder;
   }
 `;
 

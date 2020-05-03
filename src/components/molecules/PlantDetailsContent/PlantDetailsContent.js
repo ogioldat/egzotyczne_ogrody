@@ -25,16 +25,8 @@ const StyledContentWrapper = styled.div`
 `;
 
 const StyledControls = styled.div`
-  //display: flex;
-  //position: absolute;
-  //flex-direction: column;
-  //align-items: center;
   margin-top: auto;
-  left: 50%;
   width: 100%;
-  // padding: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '0 140px' };
-  bottom: 0;
-  //transform: translate(-50%, 0);
 `;
 
 const StyledButton = styled(Button)`
