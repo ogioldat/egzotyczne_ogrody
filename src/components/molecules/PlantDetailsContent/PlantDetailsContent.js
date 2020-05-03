@@ -126,17 +126,16 @@ const PlantDetailsContent = (
                     isTabletOrMobile={ isTabletOrMobile }
                     secondary>strona główna</StyledButton>
                 </StyledLink>
-
-                <Button
-                  menu
-                  isTabletOrMobile={ isTabletOrMobile }
-                  secondary
-                  onClick={ () => changePlant('next') }>
-                  następna roślina
-                </Button>
               </>
             )
           }
+          <Button
+            menu
+            isTabletOrMobile={ isTabletOrMobile }
+            secondary
+            onClick={ () => changePlant('next') }>
+            następna roślina
+          </Button>
 
 
         </StyledButtonWrapper>
