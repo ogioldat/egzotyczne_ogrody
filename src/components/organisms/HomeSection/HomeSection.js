@@ -31,7 +31,7 @@ const StyledCenterWrapper = styled.div`
 const StyledMobileBg = styled.img`
   position: absolute;
   width: 100vw;
-  bottom: ${ ({ isPortrait }) => isPortrait ? '-5%' : '-80%' };
+  bottom: ${ ({ isPortrait }) => isPortrait ? '-80%' : '-10vh' };
   z-index: -12;
 `;
 
