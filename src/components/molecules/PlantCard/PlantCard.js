@@ -39,7 +39,7 @@ const StyledBlock = styled.div`
     bottom: 0;
     width: 100%;
     padding: 10px 0;
-    font-size: ${ ({ theme }) => theme.fontSize.xs };
+    font-size: ${ ({ theme }) => theme.fontSize.xxs };
     font-weight: bold;
     color: white;
     text-align: center;

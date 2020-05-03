@@ -49,7 +49,7 @@ const StyledHeading = styled.h1`
 
     case 'small':
       return css`
-          font-size: ${isTabletOrMobile ? theme.fontSize.xs : theme.fontSize.m };
+          font-size: ${isTabletOrMobile ? theme.fontSize.xxs : theme.fontSize.m };
           top: ${ ({ card }) => card && '80%' };
           margin-bottom: 10px;
           `;
