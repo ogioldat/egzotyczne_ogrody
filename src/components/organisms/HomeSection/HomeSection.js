@@ -14,14 +14,15 @@ import { getIsPortrait } from '../../../redux/reducers/mediaReducer';
 
 
 const StyledWrapper = styled.div`
-  height: 100vh;
+  height: ${({isPortrait, isTabletOrMobile}) => !isPortrait && isTabletOrMobile ? '120vh' : '100vh'};
   position: relative;
   overflow-y: hidden;
 `;
 
 const StyledCenterWrapper = styled.div`
   display: flex;
-  position: relative;
+  position: ${({isPortrait, isTabletOrMobile}) => (!isPortrait && isTabletOrMobile) && 'absolute'};
+  top: 20%;
   height: calc(100vh - 60px);
   justify-content: space-between;
   align-items: center; 
@@ -30,7 +31,7 @@ const StyledCenterWrapper = styled.div`
 const StyledMobileBg = styled.img`
   position: absolute;
   width: 100vw;
-  bottom: ${({isPortrait}) => isPortrait ? '-5%' : '-80%'};
+  bottom: ${ ({ isPortrait }) => isPortrait ? '-5%' : '-80%' };
   z-index: -12;
 `;
 
@@ -44,8 +45,8 @@ const StyledTitleWrapper = styled.div`
   margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '0 0 auto 0' : ' -10% 0 0 8%' };
 `;
 
-const HomeSection = ({ showMenu, isTabletOrMobile,isPortrait }) => (
-  <StyledWrapper>
+const HomeSection = ({ showMenu, isTabletOrMobile, isPortrait }) => (
+  <StyledWrapper isPortrait={ isPortrait } isTabletOrMobile={ isTabletOrMobile }>
     <MenuBar showMenu={ showMenu } isTabletOrMobile={ isTabletOrMobile }/>
 
     <AnimatePresence>
@@ -54,14 +55,14 @@ const HomeSection = ({ showMenu, isTabletOrMobile,isPortrait }) => (
       }
     </AnimatePresence>
 
-    <StyledCenterWrapper>
+    <StyledCenterWrapper isPortrait={ isPortrait } isTabletOrMobile={ isTabletOrMobile }>
       <StyledTitleWrapper isPortrait={ isPortrait } isTabletOrMobile={ isTabletOrMobile }>
         <HeroTitle/>
       </StyledTitleWrapper>
 
       {
-        isTabletOrMobile ?
-          <StyledMobileBg src={ mobileBg } isPortrait={ isPortrait }/>
+       (isTabletOrMobile && isPortrait) ?
+          <StyledMobileBg src={ mobileBg }/>
           : <StyledHeroImage alt='' src={ heroImage }/>
 
       }

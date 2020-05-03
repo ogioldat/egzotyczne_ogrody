@@ -1,4 +1,4 @@
-import React, { useCallback} from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -25,15 +25,16 @@ const StyledContentWrapper = styled.div`
 `;
 
 const StyledControls = styled.div`
-  display: flex;
-  position: absolute;
-  flex-direction: column;
-  align-items: center;
+  //display: flex;
+  //position: absolute;
+  //flex-direction: column;
+  //align-items: center;
+  margin-top: auto;
   left: 50%;
   width: 100%;
-  padding: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '0 140px' };
+  // padding: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '0 140px' };
   bottom: 0;
-  transform: translate(-50%, 0);
+  //transform: translate(-50%, 0);
 `;
 
 const StyledButton = styled(Button)`
@@ -47,6 +48,8 @@ const StyledButtonWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
+  align-self: flex-start;
+  margin-bottom: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '20px' } ;
   text-decoration: none;
 `;
 
@@ -77,7 +80,7 @@ const PlantDetailsContent = (
     changePlant,
     pending,
     isBigScreen,
-    isPortrait
+    isPortrait,
   },
 ) => {
 
@@ -89,6 +92,17 @@ const PlantDetailsContent = (
 
   return (
     <StyledContentWrapper isTabletOrMobile={ isTabletOrMobile }>
+      {
+        !isTabletOrMobile && (
+          <StyledLink to={ routes.home } isTabletOrMobile={ isTabletOrMobile }>
+            <StyledButton
+              menu
+              isTabletOrMobile={ isTabletOrMobile }
+              secondary>strona główna</StyledButton>
+          </StyledLink>
+        )
+      }
+
       <Heading type='plantDetails'>{ title }</Heading>
       <StyledSubtitle isBigScreen={ isBigScreen } isTabletOrMobile={ isTabletOrMobile }>{ fact }</StyledSubtitle>
       {
@@ -111,21 +125,28 @@ const PlantDetailsContent = (
       <StyledControls isTabletOrMobile={ isTabletOrMobile }>
         <PlantsCarousel isTabletOrMobile={ isTabletOrMobile }/>
         <StyledButtonWrapper isTabletOrMobile={ isTabletOrMobile }>
-          <StyledLink to={ routes.home }>
-            <StyledButton
-              menu
-              isTabletOrMobile={ isTabletOrMobile }
-              secondary>strona główna</StyledButton>
-          </StyledLink>
+          {
+            isTabletOrMobile && (
+              <>
+                <StyledLink to={ routes.home } isTabletOrMobile={ isTabletOrMobile }>
+                  <StyledButton
+                    menu
+                    isTabletOrMobile={ isTabletOrMobile }
+                    secondary>strona główna</StyledButton>
+                </StyledLink>
 
-          <Button
-            menu
-            isTabletOrMobile={ isTabletOrMobile }
-            secondary
-            onClick={ () => changePlant('next') }
-          >
-            następna roślina
-          </Button>
+                <Button
+                  menu
+                  isTabletOrMobile={ isTabletOrMobile }
+                  secondary
+                  onClick={ () => changePlant('next') }>
+                  następna roślina
+                </Button>
+              </>
+            )
+          }
+
+
         </StyledButtonWrapper>
       </StyledControls>
     </StyledContentWrapper>
@@ -135,7 +156,7 @@ const PlantDetailsContent = (
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
   isBigScreen: getIsBigScreen(state),
-  isPortrait: getIsPortrait(state)
+  isPortrait: getIsPortrait(state),
 });
 
 const mapDispatchToProps = dispatch => ({

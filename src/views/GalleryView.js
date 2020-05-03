@@ -156,7 +156,7 @@ const GalleryView = (
                 css={ StyledClipLoader }
                 loading={ pending }/>
               :
-              <MasonryLayout id="masonry-layout" sizes={ [
+              <MasonryLayout  id="masonry-layout" sizes={ [
                 {
                   columns: isTabletOrMobile ? 2 : 3,
                   gutter: isTabletOrMobile ? 6 : isBigScreen ? 10 : 20,
