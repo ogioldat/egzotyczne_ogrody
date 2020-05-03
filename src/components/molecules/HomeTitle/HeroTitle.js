@@ -35,9 +35,6 @@ const HeroTitle = ({ isTabletOrMobile }) => (
       Egzotyczne Ogrody
     </HeroHeading>
     <StyledParagraph isTabletOrMobile={ isTabletOrMobile }>
-      Tu trzeba dodać tekst Tu trzeba dodać tekst
-      Tu trzeba dodać tekst Tu trzeba dodać tekst
-      Tu trzeba dodać tekst
     </StyledParagraph>
     <StyledAnchorLink
       as='a'
