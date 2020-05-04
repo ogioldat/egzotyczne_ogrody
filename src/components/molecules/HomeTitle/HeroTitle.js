@@ -21,7 +21,7 @@ const StyledParagraph = styled(Paragraph)`
 
 const StyledAnchorLink = styled(AnchorLink)`
   position: absolute;
-  right: 25%;
+  right: 0;
   text-decoration: none;
   ${ ({ isTabletOrMobile }) => isTabletOrMobile && css`
     position: absolute;
@@ -35,6 +35,7 @@ const HeroTitle = ({ isTabletOrMobile }) => (
       Egzotyczne Ogrody
     </HeroHeading>
     <StyledParagraph isTabletOrMobile={ isTabletOrMobile }>
+
     </StyledParagraph>
     <StyledAnchorLink
       as='a'
