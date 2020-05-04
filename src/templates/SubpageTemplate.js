@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import uniqid from 'uniqid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -24,7 +24,6 @@ const StyledFlexWrapper = styled.div`
 `;
 
 const StyledWrapper = styled(motion.div)`
-  padding: 2% 6%;
   position: relative;
   height: 85%;
   width: 90%;
@@ -55,22 +54,22 @@ const StyledTextGrid = styled.div`
    min-height: ${ ({ policy }) => policy && '55vh' };
    overflow-y: auto;
   
-  ${ ({ title, content }) => {
+  ${ ({ title, content, isTabletOrMobile }) => {
   switch (title) {
     case 'lokalizacja': {
       return css`
           grid-template-rows: repeat(${ content.length }, 1fr);
       `;
     }
-    
+
     case 'polityka prywatności': {
       return css`
           height: 40vh;
-          padding: 0 5px 50px 0;
+          padding: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '0 5px 50px 0' };
           overflow-y: scroll;
           display: flex;
           flex-direction: column;
-       `
+       `;
     }
 
     default: {
@@ -99,24 +98,24 @@ const StyledPaymentImage = styled.img`
 
 const StyledHomeImage = styled.img`
   height: 70%;
-  ${({isTabletOrMobile}) => isTabletOrMobile ? 
+  ${ ({ isTabletOrMobile }) => isTabletOrMobile ?
   css`
     position: relative;
     width: 100%;
-` 
+`
   : css` 
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
     margin: auto;
-`}
+` }
   
 `;
 
 const StyledP = styled(Paragraph)`
-   font-size: ${ ({ title, theme, isBigScreen }) => title === 'polityka prywatności' 
-  ? theme.fontSize.xs : isBigScreen ? theme.fontSize.s : theme.fontSize.xs};
+   font-size: ${ ({ title, theme, isBigScreen }) => title === 'polityka prywatności'
+  ? theme.fontSize.xs : isBigScreen ? theme.fontSize.s : theme.fontSize.xs };
 `;
 
 const StyledA = styled.a`
@@ -131,19 +130,19 @@ const SubpageTemplate = (
     homeImage,
     policy,
     isTabletOrMobile,
-    isBigScreen
+    isBigScreen,
   },
 ) => {
 
 
   return (
-    <StyledFlexWrapper  isTabletOrMobile={ isTabletOrMobile }>
+    <StyledFlexWrapper isTabletOrMobile={ isTabletOrMobile }>
       <StyledWrapper
         initial="initial"
         animate="enter"
         exit="exit"
         variants={ wrapperMotion.variants }>
-        <Heading type='subpage'>{ title }</Heading>
+        <Heading type={ isTabletOrMobile ? 'menu' : 'subpage' }>{ title }</Heading>
         <StyledTextGrid
           isTabletOrMobile={ isTabletOrMobile }
           title={ title }
@@ -154,7 +153,7 @@ const SubpageTemplate = (
             content.map(item => (
               <StyledTextBox policy={ policy } key={ uniqid() }>
                 <Heading type='subpage-small'>{ item.headingText }</Heading>
-                <StyledP isBigScreen={isBigScreen} title={ title }>{
+                <StyledP isBigScreen={ isBigScreen } title={ title }>{
                   item.isLink
                     ? <StyledA href={ item.paragraphText }>{ item.paragraphText.replace('https://', '') }</StyledA>
                     : item.paragraphText
@@ -178,11 +177,11 @@ const SubpageTemplate = (
       </StyledWrapper>
     </StyledFlexWrapper>
   );
-}
+};
 
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
-  isBigScreen: getIsBigScreen(state)
+  isBigScreen: getIsBigScreen(state),
 });
 
 SubpageTemplate.propTypes = {

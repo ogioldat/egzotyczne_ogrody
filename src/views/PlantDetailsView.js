@@ -16,7 +16,7 @@ import {
   changePlantPhoto as changePlantPhotoAction,
 } from '../redux/actions/plants/plantActions';
 import { getPending, getCurrentPlantPhoto, getShowModal } from '../redux/reducers/plantsReducer';
-import { getIsPortrait, getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
+import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
 import PlantDetailsContent from '../components/molecules/PlantDetailsContent/PlantDetailsContent';
 import PhotoModal from '../components/organisms/PhotoModal/PhotoModal';
 import ImagesGrid from '../components/molecules/ImagesGrid/ImagesGrid';
