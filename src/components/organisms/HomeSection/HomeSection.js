@@ -9,19 +9,20 @@ import { getShowMenu } from 'redux/reducers/menuReducer';
 import mobileBg from 'assets/images/mobileBg.png';
 import { AnimatePresence } from 'framer-motion';
 import MenuBar from 'components/molecules/MenuBar/MenuBar';
+import CXMenuSocials from '../../atoms/CXMenuSocials/CXMenuSocials';
 import { getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
 import { getIsPortrait } from '../../../redux/reducers/mediaReducer';
 
 
 const StyledWrapper = styled.div`
-  height: ${({isPortrait, isTabletOrMobile}) => !isPortrait && isTabletOrMobile ? '120vh' : '100vh'};
+  height: ${ ({ isPortrait, isTabletOrMobile }) => !isPortrait && isTabletOrMobile ? '120vh' : '100vh' };
   position: relative;
   overflow-y: hidden;
 `;
 
 const StyledCenterWrapper = styled.div`
   display: flex;
-  position: ${({isPortrait, isTabletOrMobile}) => (!isPortrait && isTabletOrMobile) && 'absolute'};
+  position: ${ ({ isPortrait, isTabletOrMobile }) => (!isPortrait && isTabletOrMobile) && 'absolute' };
   top: 20%;
   height: calc(100vh - 60px);
   justify-content: space-between;
@@ -42,9 +43,22 @@ const StyledHeroImage = styled.img`
 
 
 const StyledTitleWrapper = styled.div`
+  ${ ({ isTabletOrMobile }) => isTabletOrMobile ?
+  css`
+    margin: 0 0 auto 0;
+` :
+  css`
+    height: 60%;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+`
+};
+
   display: flex;
-  margin: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '0 0 auto 0' : ' -10% 0 0 8%' };
+  position:relative;
 `;
+
 
 const HomeSection = ({ showMenu, isTabletOrMobile, isPortrait }) => (
   <StyledWrapper isPortrait={ isPortrait } isTabletOrMobile={ isTabletOrMobile }>
@@ -59,14 +73,16 @@ const HomeSection = ({ showMenu, isTabletOrMobile, isPortrait }) => (
     <StyledCenterWrapper isPortrait={ isPortrait } isTabletOrMobile={ isTabletOrMobile }>
       <StyledTitleWrapper isPortrait={ isPortrait } isTabletOrMobile={ isTabletOrMobile }>
         <HeroTitle/>
+        <CXMenuSocials lines={ false } isTabletOrMobile={ isTabletOrMobile }/>
       </StyledTitleWrapper>
 
       {
-       (isTabletOrMobile && isPortrait) ?
+        (isTabletOrMobile && isPortrait) ?
           <StyledMobileBg src={ mobileBg }/>
           : <StyledHeroImage alt='' src={ heroImage }/>
 
       }
+
     </StyledCenterWrapper>
   </StyledWrapper>
 );

@@ -35,10 +35,10 @@ const StyledIcon = styled.img`
   &:hover { opacity: 1}
 `;
 
-const CXMenuSocials = ({ isTabletOrMobile }) => (
+const CXMenuSocials = ({ isTabletOrMobile, lines = true }) => (
   <StyledWrapper>
     {
-      !isTabletOrMobile && <StyledLine/>
+      (!isTabletOrMobile && lines) && <StyledLine/>
     }
     <div>
       <a href="https://www.facebook.com/piotrogiolda/">
@@ -61,13 +61,18 @@ const CXMenuSocials = ({ isTabletOrMobile }) => (
       </a>
     </div>
     {
-      !isTabletOrMobile && <StyledLine/>
+      (!isTabletOrMobile && lines) && <StyledLine/>
     }
   </StyledWrapper>
 );
 
 CXMenuSocials.propTypes = {
+  lines: PropTypes.bool,
   isTabletOrMobile: PropTypes.bool.isRequired
+};
+
+CXMenuSocials.defaultProps = {
+  lines: true
 };
 
 export default CXMenuSocials;
