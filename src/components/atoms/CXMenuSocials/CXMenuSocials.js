@@ -13,7 +13,7 @@ const StyledWrapper = styled.div`
   left: 0;
   right: 0;
   flex-direction: row;
-  z-index: 10222;
+  z-index: 1;
   align-items: center;
 `;
 

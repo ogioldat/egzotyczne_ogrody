@@ -73,7 +73,9 @@ const HomeSection = ({ showMenu, isTabletOrMobile, isPortrait }) => (
     <StyledCenterWrapper isPortrait={ isPortrait } isTabletOrMobile={ isTabletOrMobile }>
       <StyledTitleWrapper isPortrait={ isPortrait } isTabletOrMobile={ isTabletOrMobile }>
         <HeroTitle/>
-        <CXMenuSocials lines={ false } isTabletOrMobile={ isTabletOrMobile }/>
+        {
+          !isTabletOrMobile && <CXMenuSocials lines={ false } isTabletOrMobile={ isTabletOrMobile }/>
+        }
       </StyledTitleWrapper>
 
       {
