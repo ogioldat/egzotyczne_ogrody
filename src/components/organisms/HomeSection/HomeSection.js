@@ -38,7 +38,6 @@ const StyledMobileBg = styled.img`
 
 const StyledHeroImage = styled.img`
   height: 100%;
-  max-width: 699px;
   user-select: none;
 `;
 
@@ -50,7 +49,7 @@ const StyledTitleWrapper = styled.div`
 ` :
   css`
     height: 60%;
-    width: 100%;
+    min-width: 60%;
     justify-content: center;
     align-items: flex-start;
 `

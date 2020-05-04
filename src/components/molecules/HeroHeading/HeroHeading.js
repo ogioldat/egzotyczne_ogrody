@@ -21,7 +21,7 @@ const StyledHeroHeading = styled.h1`
 const StyledRect = styled.div`
   position: absolute;
   width: ${ ({ len }) => `${ len * 10 }%` };
-  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '12vh' : '130px' };
+  height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '12vh' : 'calc(10rem + 3.125vh)' };
   bottom: -20px;
   box-shadow: ${ ({ theme }) => theme.shadow };
   z-index: -1;
