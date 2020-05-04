@@ -52,7 +52,7 @@ const StyledUnderline = styled.div`
   width: 100%;
   height: 4px;
   opacity: 0;
-  background-color: ${ ({ theme }) => theme.greenDense };
+  background-color: ${ ({ theme }) => theme.greenLight };
   transform: translateX(-10px);
 `;
 
