@@ -38,7 +38,7 @@ const StyledMobileBg = styled.img`
 
 const StyledHeroImage = styled.img`
   height: 100%;
-  min-width: 699px;
+  max-width: 699px;
   user-select: none;
 `;
 

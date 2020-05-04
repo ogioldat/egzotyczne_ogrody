@@ -53,6 +53,13 @@ const StyledHeading = styled.h1`
           top: ${ ({ card }) => card && '80%' };
           margin-bottom: 10px;
           `;
+
+    case 'subpage-small':
+      return css`
+          font-size: ${isTabletOrMobile ? theme.fontSize.s : theme.fontSize.m };
+          top: ${ ({ card }) => card && '80%' };
+          margin-bottom: 10px;
+          `;
   }
 }
 };

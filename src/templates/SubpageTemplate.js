@@ -153,7 +153,7 @@ const SubpageTemplate = (
             // eslint-disable-next-line react/prop-types
             content.map(item => (
               <StyledTextBox policy={ policy } key={ uniqid() }>
-                <Heading type='small'>{ item.headingText }</Heading>
+                <Heading type='subpage-small'>{ item.headingText }</Heading>
                 <StyledP isBigScreen={isBigScreen} title={ title }>{
                   item.isLink
                     ? <StyledA href={ item.paragraphText }>{ item.paragraphText.replace('https://', '') }</StyledA>
