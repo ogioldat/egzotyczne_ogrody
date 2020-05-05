@@ -42,7 +42,7 @@ const StyledIcon = styled.img`
 
 const Socials = () => (
   <StyledWrapper>
-    <StyledHref href='https://www.facebook.com/piotrogiolda/'>
+    <StyledHref href='https://www.facebook.com/piotrogiolda'>
       <StyledIcon src={fb} alt=""/>
     </StyledHref>
     <StyledHref href='mailto:biuro@egzotyczneogrody.pl'>

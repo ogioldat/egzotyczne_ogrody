@@ -41,19 +41,19 @@ const CXMenuSocials = ({ isTabletOrMobile, lines = true }) => (
       (!isTabletOrMobile && lines) && <StyledLine/>
     }
     <div>
-      <a href="https://www.facebook.com/piotrogiolda/">
+      <a href="https://www.facebook.com/piotrogiolda">
         <StyledIcon
           isTabletOrMobile={ isTabletOrMobile }
           src={ fb }
           alt='fb'/>
       </a>
-      <a href="google.com">
+      <a href="https://m.me/piotrogiolda">
         <StyledIcon
           isTabletOrMobile={ isTabletOrMobile }
           src={ messenger }
           alt='ig'/>
       </a>
-      <a href="google.com">
+      <a href="mailto:biuro@egzotyczneogrody.pl">
         <StyledIcon
           isTabletOrMobile={ isTabletOrMobile }
           src={ mail }
