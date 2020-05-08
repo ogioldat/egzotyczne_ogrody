@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Subtitle from '../../atoms/Subtitle/Subtitle';
 import Button from '../../atoms/Button/Button';
+import { connect } from 'react-redux';
+import { getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 
 const StyledWrapper = styled.div`
-  height: 80px;
+  height: 7%;
   margin: auto;
   width: 97vw;
   border-radius: 12px;
@@ -22,23 +24,35 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledSubtitle = styled(Subtitle)`
-  //color: white;
   margin: 0;
-  // color: ${ ({ theme }) => theme.grey };
-  font-size: ${({theme}) => theme.fontSize.s};
+  color: ${ ({ theme }) => theme.inactive };
+  font-size: ${ ({ theme, isTabletOrMobile }) => isTabletOrMobile ? theme.fontSize.xxs : theme.fontSize.s };
 `;
 
 const StyledOK = styled(Button)`
   background-color: ${ ({ theme }) => theme.greyLight };
   padding: 10px 20px;
   border-radius: 12px;
-`
+`;
 
-const CookieAlert = () => (
-  <StyledWrapper>
-    <StyledSubtitle>ta strona używa plików cookies</StyledSubtitle>
-    <StyledOK secondary>OK</StyledOK>
-  </StyledWrapper>
-);
+const CookieAlert = ({isTabletOrMobile, accept}) => {
+  const setLocalStorage = () => {
+    window.localStorage.setItem('cookie-alert', 'accepted')
+  }
 
-export default CookieAlert;
+  return (
+    <StyledWrapper>
+      <StyledSubtitle isTabletOrMobile={isTabletOrMobile}>strona używa plików cookies 🍪</StyledSubtitle>
+      <StyledOK onClick={() => {
+        accept(true);
+        setLocalStorage();
+      }} secondary>OK</StyledOK>
+    </StyledWrapper>
+  )
+};
+
+const mapStateToProps = state => ({
+  isTabletOrMobile: getIsTabletOrMobile(state)
+})
+
+export default connect(mapStateToProps)(CookieAlert);

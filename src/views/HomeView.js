@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
@@ -13,17 +13,31 @@ const StyledWrapper = styled.div`
   padding: 0  ${ ({ isTabletOrMobile, theme }) => isTabletOrMobile && theme.mobilePadding };
 `;
 
-const HomeView = ({ isTabletOrMobile }) => (
-  <>
-    <HomeSection/>
-    <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
-      <AboutUs/>
-      <OurPlants/>
-    </StyledWrapper>
-    <Footer/>
-    <CookieAlert/>
-  </>
-);
+const HomeView = ({ isTabletOrMobile }) => {
+  const [accepted, setAccepted] = useState(false)
+
+  useEffect(() => {
+    const cookieAlert = !!window.localStorage.getItem('cookie-alert');
+
+    if(cookieAlert){
+      setAccepted(true)
+    }
+  }, [])
+
+  return (
+    <>
+      <HomeSection/>
+      <StyledWrapper isTabletOrMobile={ isTabletOrMobile }>
+        <AboutUs/>
+        <OurPlants/>
+      </StyledWrapper>
+      <Footer/>
+      {
+        !accepted && <CookieAlert accept={setAccepted}/>
+      }
+    </>
+  );
+};
 
 const mapStateToProps = state => ({
   isTabletOrMobile: getIsTabletOrMobile(state),
