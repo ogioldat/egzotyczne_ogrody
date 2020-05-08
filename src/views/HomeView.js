@@ -6,7 +6,7 @@ import HomeSection from '../components/organisms/HomeSection/HomeSection';
 import AboutUs from '../components/organisms/AboutUs/AboutUs';
 import OurPlants from '../components/organisms/OurPlants/OurPlants';
 import Footer from '../components/organisms/Footer/Footer';
-
+import CookieAlert from '../components/molecules/CookieAlert/CookieAlert';
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -21,6 +21,7 @@ const HomeView = ({ isTabletOrMobile }) => (
       <OurPlants/>
     </StyledWrapper>
     <Footer/>
+    <CookieAlert/>
   </>
 );
 

@@ -4,4 +4,4 @@ import PlantCard from './PlantCard';
 
 
 storiesOf('molecules/PlantCard', module)
-  .add('PlantCard', () => <PlantCard/>);
+  .add('PlantCard', () => <PlantCard title={'PHYLLOSTACHYS  AURESULCATA'}/>);
