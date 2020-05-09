@@ -125,7 +125,6 @@ const mapStateToProps = state => ({
 PlantsGrid.propTypes = {
   isTabletOrMobile: PropTypes.bool.isRequired,
   isBigScreen: PropTypes.bool.isRequired,
-  fetchPlants: PropTypes.func.isRequired,
   endpoint: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   setPlantDetails: PropTypes.func.isRequired,
