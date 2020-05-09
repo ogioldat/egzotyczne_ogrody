@@ -1,6 +1,5 @@
 export const routes = {
-    root: '/',
-    home: '/home',
+    home: '/',
     aboutUs: '/about_us',
     plantDetails:'/plant_details',
     orders:'/orders',

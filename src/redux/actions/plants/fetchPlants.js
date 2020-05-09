@@ -22,7 +22,8 @@ function fetchPlants(endpoint, category) {
           const {
             name,
             miniature_image,
-            title, fact,
+            title,
+            fact,
             image_1,
             image_2,
             image_3,

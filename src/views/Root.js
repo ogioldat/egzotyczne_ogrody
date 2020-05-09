@@ -17,14 +17,13 @@ const PolicyView = lazy(() => import('views/Subpages/PolicyView'));
 
 const Root = () => (
   <Provider store={ store }>
-    <Router basename={'eo'}>
+    <Router>
       <Route render={ ({ location }) => (
         <AnimatePresence exitBeforeEnter initial={ false }>
           <MainTemplate path={ location.pathname }>
             <Suspense fallback={ <div> </div>}>
               <Switch location={ location }>
                 <Route exact path={ routes.home } component={ HomeView }/>
-                <Route exact path={ routes.root } render={ () => <Redirect to={ routes.home }/> }/>
                 <Route path={ routes.plantDetails } component={ PlantDetailsView }/>
                 <Route path={ routes.aboutUs } component={ AboutUsView }/>
                 <Route path={ routes.orders } component={ OrdersView }/>
