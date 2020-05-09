@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import fetchPlantsAction from 'redux/actions/plants/fetchPlants';
 import { bindActionCreators } from 'redux';
 import { setPlantDetails as setPlantDetailsAction } from 'redux/actions/plants/plantActions';
 import uniqid from 'uniqid';
@@ -59,7 +58,6 @@ const StyledClipLoader = css`
 const PlantsGrid = (
   {
     isTabletOrMobile,
-    fetchPlants,
     endpoint,
     category,
     setPlantDetails,
@@ -71,7 +69,6 @@ const PlantsGrid = (
 ) => {
   useEffect(() => {
     setPlantDetails(false);
-    fetchPlants(endpoint, category);
   }, [endpoint, category]);
 
   const currentPlants = plants[category] || {};
@@ -114,7 +111,6 @@ const PlantsGrid = (
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   setPlantDetails: setPlantDetailsAction,
-  fetchPlants: fetchPlantsAction,
 }, dispatch);
 
 const mapStateToProps = state => ({

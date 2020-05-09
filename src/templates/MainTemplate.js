@@ -14,6 +14,7 @@ import {
   setTabletOrMobileDevice as setTabletOrMobileDeviceAction,
   setPortrait as setPortraitAction,
 } from 'redux/actions/mediaActions';
+import {fetchPlants as fetchPlantsAction} from '../redux/actions/plants/fetchPlants';
 import { getShowMenu } from '../redux/reducers/menuReducer';
 import mediaQueries from '../mediaQueries';
 import { routes } from '../routes';
@@ -27,6 +28,7 @@ const MainTemplate = (
     setTabletOrMobile,
     setTabletOrMobileDevice,
     setPortrait,
+    fetchPlants
   },
 ) => {
   const isDesktopOrLaptop = useMediaQuery(mediaQueries.isDesktopOrLaptop);
@@ -34,6 +36,10 @@ const MainTemplate = (
   const isTabletOrMobile = useMediaQuery(mediaQueries.isTabletOrMobile);
   const isTabletOrMobileDevice = useMediaQuery(mediaQueries.isTabletOrMobileDevice);
   const isPortrait = useMediaQuery(mediaQueries.isPortrait);
+
+  useEffect(() => {
+    fetchPlants()
+  }, [])
 
   useEffect(() => {
     setIsDesktopOrLaptop(isDesktopOrLaptop);
@@ -80,7 +86,6 @@ const MainTemplate = (
     }
   }, [pathname]);
 
-
   return (
     <>
       <GlobalStyle/>
@@ -101,6 +106,7 @@ MainTemplate.propTypes = {
   setTabletOrMobile: PropTypes.func.isRequired,
   setTabletOrMobileDevice: PropTypes.func.isRequired,
   setPortrait: PropTypes.func.isRequired,
+  fetchPlants: PropTypes.func.isRequired,
 };
 
 
@@ -110,6 +116,7 @@ const mapDispatchToProps = dispatch => ({
   setTabletOrMobile: bool => dispatch(setTabletOrMobileAction(bool)),
   setTabletOrMobileDevice: bool => dispatch(setTabletOrMobileDeviceAction(bool)),
   setPortrait: bool => dispatch(setPortraitAction(bool)),
+  fetchPlants: () => dispatch(fetchPlantsAction()),
 });
 
 const mapStateToProps = state => ({

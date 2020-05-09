@@ -1,59 +1,34 @@
-import axios from 'axios';
 import { fetchPlantsPending, fetchPlantsSuccess, fetchPlantsFailure } from './plantActions';
+import firebase from 'config/firebase';
+import getUrl from 'helpers/getUrl';
 
-function fetchPlants(endpoint, category) {
+const storage = firebase.storage();
+
+export function fetchPlants() {
   return dispatch => {
     dispatch(fetchPlantsPending());
 
-    axios
-      .get(endpoint, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(res => {
-        if (res.error) {
-          throw(res.error);
-        }
+    const plantsRef = storage.ref('plants');
 
-        const parsedPlantsData = { plants: {} };
-
-        res.data.forEach(resObj => {
-          const {
-            name,
-            miniature_image,
-            title,
-            fact,
-            image_1,
-            image_2,
-            image_3,
-            image_4,
-            image_5,
-            description,
-          } = resObj.acf;
-
-          const properties = {
-            name,
-            miniatureImage: miniature_image.url,
-            title,
-            fact,
-            images: [image_1, image_2, image_3, image_4, image_5].map(image => image.url).filter(image => image),
-            description,
-          };
-
-          parsedPlantsData.plants[name] = properties;
-          parsedPlantsData.category = parsedPlantsData.category || category;
-        });
+    console.log('executed')
+    // plantsRef.listAll()
+    //   .then(snapshot => {
+    //     snapshot.prefixes.forEach(plantType => {
+    //       const plantTypeName = plantType.name;
+    //
+    //       plantType.listAll()
+    //         .then(snapshot => {
+    //           snapshot.items.forEach(image =>{
+    //             console.log(image)
+    //           })
+    //         })
+    //
+    //     })
+    //   })
 
 
-        dispatch(fetchPlantsSuccess(parsedPlantsData));
 
-        return parsedPlantsData;
-      })
-      .catch(err => {
-        dispatch(fetchPlantsFailure(err));
-      });
+
   };
 }
 
-export default fetchPlants;

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDetailsPlant, getPlantDetailsEmpty, getPlants } from 'redux/reducers/plantsReducer';
-import fetchPlantsAction from 'redux/actions/plants/fetchPlants';
 import endpoints from 'assets/data/api';
 import { motion } from 'framer-motion';
 import { wrapperMotion } from 'assets/motion';
@@ -40,7 +39,6 @@ const PlantDetailsView = (
     pending,
     setCurrentPlant,
     plantDetailsEmpty,
-    fetchPlants,
     setPlantDetails,
     isTabletOrMobile,
     currentPlantPhoto,
@@ -67,11 +65,6 @@ const PlantDetailsView = (
       .every(el => el === false);
 
     if (arePlantsEmpty) {
-      Object.keys(endpoints.plants).forEach(key => {
-        const { address, category } = endpoints.plants[key];
-        fetchPlants(address, category);
-      });
-
       setPlantDetails(true);
     }
   }, [plants]);
@@ -127,7 +120,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchPlants: fetchPlantsAction,
   setPlantDetails: setPlantDetailsAction,
   setPlantDetailsEmpty: setPlantDetailsEmptyAction,
   toggleModal: toggleModalAction,
@@ -149,7 +141,6 @@ PlantDetailsView.propTypes = {
   pending: PropTypes.bool.isRequired,
   setCurrentPlant: PropTypes.func.isRequired,
   plantDetailsEmpty: PropTypes.bool,
-  fetchPlants: PropTypes.func.isRequired,
   setPlantDetails: PropTypes.func.isRequired,
   isTabletOrMobile: PropTypes.bool.isRequired,
   currentPlantPhoto: PropTypes.string,
