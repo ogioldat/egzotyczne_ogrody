@@ -1,27 +1,27 @@
-const apiAdress = 'http://192.168.0.159/wordpress/wp-json/';
+const apiAddress = 'http://my.domain';
 
 const endpoints = {
-  galleryImages: `${ apiAdress }wp/v2/gallery?per_page=100`,
+  galleryImages: `${ apiAddress }gallery?per_page=100`,
   plants: {
     bananas: {
       category: 'bananas',
-      address: `${ apiAdress }wp/v2/bananas`
+      address: `${ apiAddress }bananas`
     },
     bamboos: {
       category: 'bamboos',
-      address: `${ apiAdress }wp/v2/bamboos`
+      address: `${ apiAddress }bamboos`
     },
     grasses: {
       category: 'grasses',
-      address: `${ apiAdress }wp/v2/grasses`
+      address: `${ apiAddress }grasses`
     },
     waterPlants: {
       category: 'waterPlants',
-      address: `${ apiAdress }wp/v2/water_plants`
+      address: `${ apiAddress }water_plants`
     },
     others: {
       category: 'others',
-      address: `${ apiAdress }wp/v2/others`
+      address: `${ apiAddress }others`
     }
   },
 };

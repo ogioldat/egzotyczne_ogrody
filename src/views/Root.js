@@ -17,7 +17,7 @@ const PolicyView = lazy(() => import('views/Subpages/PolicyView'));
 
 const Root = () => (
   <Provider store={ store }>
-    <Router basename={'eo'}>
+    <Router>
       <Route render={ ({ location }) => (
         <AnimatePresence exitBeforeEnter initial={ false }>
           <MainTemplate path={ location.pathname }>

@@ -7,9 +7,9 @@ function fetchPlants(endpoint, category) {
 
     axios
       .get(endpoint, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   'Access-Control-Allow-Origin': '*',
+        // },
       })
       .then(res => {
         if (res.error) {
@@ -22,12 +22,14 @@ function fetchPlants(endpoint, category) {
           const {
             name,
             miniature_image,
-            title, fact,
+            title,
+            fact,
             image_1,
             image_2,
             image_3,
             image_4,
             image_5,
+            image_6,
             description,
           } = resObj.acf;
 
@@ -36,7 +38,7 @@ function fetchPlants(endpoint, category) {
             miniatureImage: miniature_image.url,
             title,
             fact,
-            images: [image_1, image_2, image_3, image_4, image_5].map(image => image.url).filter(image => image),
+            images: [image_1, image_2, image_3, image_4, image_5, image_6].map(image => image.url).filter(image => image),
             description,
           };
 
