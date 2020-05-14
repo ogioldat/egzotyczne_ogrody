@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled, {css} from 'styled-components';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
 
@@ -54,9 +54,15 @@ const StyledShader = styled.div`
 const ShowMore = ({ text }) => {
   const [isExpanded, expand] = useState(false);
 
+  const scrolledBox = useCallback(node => {
+    if (node !== null) {
+      node.scrollTo(0, 0);
+    }
+  }, null);
+
   return (
     <StyledWrapper isExpanded={ isExpanded }>
-      <OverflowBox isExpanded={ isExpanded }>
+      <OverflowBox isExpanded={ isExpanded } ref={ scrolledBox }>
         <Paragraph>
           {
             text
