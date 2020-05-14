@@ -1,4 +1,4 @@
-const apiAddress = 'http://my.domain';
+const apiAddress = 'https://api.egzotyczneogrody.pl/index.php/wp-json/wp/v2/';
 
 const endpoints = {
   galleryImages: `${ apiAddress }gallery?per_page=100`,
