@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
 
 const StyledWrapper = styled.div`
-  position: relative;
-  height: 15vh;
-  overflow: hidden;
+  padding: 0 0 50px 0;
+  z-index: 100;
+  transition: .5s ${ ({ theme }) => theme.bezier };
+  background-color: ${ ({ theme }) => theme.greyLight };
+  
+  ${({isExpanded}) => isExpanded ? css`
+      position: absolute;
+      height: 100%;
+      top: 0;
+` : css`
+      position: relative;
+      height: 15vh;
+`}
 `;
 
 const StyledReadMore = styled.div`
@@ -24,11 +34,19 @@ const StyledReadMore = styled.div`
   margin: 0 auto;
 `;
 
+const OverflowBox = styled.div`
+  overflow-y: scroll;
+  z-index: 1000;
+  height: ${ ({ isExpanded }) => !isExpanded && '15vh' };
+  max-height: 70vh;
+`;
+
 const StyledShader = styled.div`
   position: absolute;
   height: 100px;
   bottom: 0;
   width: 100%;
+  transform: ${ ({ isExpanded }) => isExpanded && 'translateY(-50px)' };
   background: linear-gradient(rgba(255,255,255,0), ${ ({ theme }) => theme.greyLight });
 `;
 
@@ -38,13 +56,20 @@ const ShowMore = ({ text }) => {
 
   return (
     <StyledWrapper isExpanded={ isExpanded }>
-      <Paragraph>
+      <OverflowBox isExpanded={ isExpanded }>
+        <Paragraph>
+          {
+            text
+          }
+        </Paragraph>
+      </OverflowBox>
+      <StyledShader isExpanded={ isExpanded }/>
+      <StyledReadMore
+        onClick={ () => expand(!isExpanded) }>
         {
-          text
+          isExpanded ? 'SCHOWAJ' : 'CZYTAJ WIĘCEJ'
         }
-      </Paragraph>
-      <StyledShader/>
-      <StyledReadMore>CZYTAJ WIĘCEJ</StyledReadMore>
+      </StyledReadMore>
     </StyledWrapper>
   );
 

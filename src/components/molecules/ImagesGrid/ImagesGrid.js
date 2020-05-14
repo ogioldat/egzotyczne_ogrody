@@ -14,6 +14,7 @@ import {
 } from 'redux/actions/plants/plantActions';
 
 const StyledImageGrid = styled(motion.div)`
+  z-index: 90;
   ${ ({ isTabletOrMobile, isBigScreen }) => isTabletOrMobile ?
   css`
     display: flex;
@@ -36,10 +37,6 @@ const StyledImageGrid = styled(motion.div)`
     css`
     display: flex;
     flex-direction: column;
-    //display: grid;
-    //grid-template-columns: repeat(1, 350px);
-    //grid-template-rows: repeat(-1, 200px);
-    //grid-gap: 20px;
     overflow-y: scroll;
     width: 100%;
     height: 70%;
