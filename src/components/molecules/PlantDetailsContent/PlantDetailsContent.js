@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ShowMore from 'components/molecules/ShowMore/ShowMore';
 import { changePlant as changePlantAction } from 'redux/actions/plants/plantActions';
 import Button from '../../atoms/Button/Button';
 import PlantsCarousel from '../PlantsCarousel/PlantsCarousels';
@@ -12,6 +13,8 @@ import Subtitle from '../../atoms/Subtitle/Subtitle';
 import { routes } from '../../../routes';
 import { getIsBigScreen, getIsPortrait, getIsTabletOrMobile } from '../../../redux/reducers/mediaReducer';
 import ImagesGrid from '../ImagesGrid/ImagesGrid';
+
+;
 
 const StyledContentWrapper = styled.div`
   height: 100%;
@@ -50,13 +53,6 @@ const StyledSubtitle = styled(Subtitle)`
   ? theme.fontSize.xxs : !isBigScreen && theme.fontSize.s };
 `;
 
-const StyledOverflowText = styled.div`
-  height: 20vh;
-  overflow-y: scroll;
-  position: relative;
-  padding-bottom: 50px;
-`;
-
 const StyledParagraph = styled(Paragraph)`
   font-size: ${ ({ theme }) => theme.fontSize.xs };
 `;
@@ -76,11 +72,6 @@ const PlantDetailsContent = (
   },
 ) => {
 
-  const scrolledBox = useCallback(node => {
-    if (node !== null) {
-      node.scrollTo(0, 0);
-    }
-  }, null);
 
   return (
     <StyledContentWrapper isTabletOrMobile={ isTabletOrMobile }>
@@ -100,9 +91,7 @@ const PlantDetailsContent = (
       {
         isTabletOrMobile ?
           <>
-            <StyledOverflowText ref={ scrolledBox }>
-              <StyledParagraph>{ description }</StyledParagraph>
-            </StyledOverflowText>
+              <ShowMore text={ description }/>
           </>
           : !isBigScreen
           ? <StyledParagraph>{ description }</StyledParagraph>

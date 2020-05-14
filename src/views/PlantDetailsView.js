@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -8,6 +8,10 @@ import endpoints from 'assets/data/api';
 import { motion } from 'framer-motion';
 import { wrapperMotion } from 'assets/motion';
 import styled from 'styled-components';
+import { getIsTabletOrMobile } from 'redux/reducers/mediaReducer';
+import PhotoModal from 'components/organisms/PhotoModal/PhotoModal';
+import ImagesGrid from 'components/molecules/ImagesGrid/ImagesGrid';
+import { getPending, getCurrentPlantPhoto, getShowModal } from '../redux/reducers/plantsReducer';
 import {
   setCurrentPlant as setCurrentPlantAction,
   setPlantDetails as setPlantDetailsAction,
@@ -15,11 +19,8 @@ import {
   toggleModal as toggleModalAction,
   changePlantPhoto as changePlantPhotoAction,
 } from '../redux/actions/plants/plantActions';
-import { getPending, getCurrentPlantPhoto, getShowModal } from '../redux/reducers/plantsReducer';
-import { getIsTabletOrMobile } from '../redux/reducers/mediaReducer';
-import PlantDetailsContent from '../components/molecules/PlantDetailsContent/PlantDetailsContent';
-import PhotoModal from '../components/organisms/PhotoModal/PhotoModal';
-import ImagesGrid from '../components/molecules/ImagesGrid/ImagesGrid';
+
+const PlantDetailsContent = lazy(() => import('components/molecules/PlantDetailsContent/PlantDetailsContent'));
 
 const StyledWrapper = styled(motion.div)`
   height: 100%;
@@ -92,7 +93,6 @@ const PlantDetailsView = (
       isTabletOrMobile={ isTabletOrMobile }
       initial="initial"
       animate="enter"
-      exit="exit"
       variants={ wrapperMotion.variants }>
       {
         showModal && <PhotoModal
@@ -101,14 +101,17 @@ const PlantDetailsView = (
           currentPhoto={ currentPlantPhoto }
         />
       }
-      <PlantDetailsContent
-        name={ name }
-        images={ images }
-        pending={ pending }
-        fact={ fact }
-        title={ title }
-        description={ description }
-      />
+      <Suspense fallback={<div> </div>}>
+        <PlantDetailsContent
+          name={ name }
+          images={ images }
+          pending={ pending }
+          fact={ fact }
+          title={ title }
+          description={ description }
+        />
+      </Suspense>
+
       {
         (!pending && !isTabletOrMobile) && <ImagesGrid name={ name } images={ images } title={ title }/>
       }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import uniqid from 'uniqid';
 
 const StyledWrapper = styled.div`
-    line-height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '1vw' : '50px' };
+    line-height: ${ ({ isTabletOrMobile }) => isTabletOrMobile ? '1vw' : '2vh' };
     display: inline-flex;
     flex-direction: column;  
 `;

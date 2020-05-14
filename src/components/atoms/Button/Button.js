@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
 
-
-const ButtonWrapper = styled(motion.button)`
+const ButtonWrapper = styled.button`
   display: ${ ({ showMenu, hideOnMobile }) => showMenu || hideOnMobile ? 'none' : 'block' };
   position: relative;
   text-decoration: none;

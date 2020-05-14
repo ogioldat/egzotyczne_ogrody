@@ -65,7 +65,7 @@ const StyledTextGrid = styled.div`
     case 'polityka prywatności': {
       return css`
           height: 40vh;
-          padding: ${ ({ isTabletOrMobile }) => !isTabletOrMobile && '0 5px 50px 0' };
+          padding: ${ !isTabletOrMobile && '0 5px 50px 0' };
           overflow-y: scroll;
           display: flex;
           flex-direction: column;
