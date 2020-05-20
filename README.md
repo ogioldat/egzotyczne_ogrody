@@ -1,12 +1,14 @@
-## Egzotyczne Ogrody 🌴
+# Egzotyczne Ogrody 🌴
 
-Website of Egzotyczne Ogrody company
+Website created for Egzotyczne Ogrody company
+
 
 ### Official link 🔗
 ```
 Website is now in production! 🎉
 ```
 * [egzotyczneogrody.pl](https://egzotyczneogrody.pl/home)
+
 
 ### Built With 🔧
 
