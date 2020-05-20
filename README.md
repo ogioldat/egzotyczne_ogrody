@@ -1,15 +1,14 @@
-# Egzotyczne Ogrody 🌴
+## Egzotyczne Ogrody 🌴
 
 Website of Egzotyczne Ogrody company
 
-## Official link 🔗
-
+### Official link 🔗
+```
 Website is now in production! 🎉
 ```
-[egzotyczneogrody.pl](https://egzotyczneogrody.pl/home)
-```
+* [egzotyczneogrody.pl](https://egzotyczneogrody.pl/home)
 
-## Built With 🔧
+### Built With 🔧
 
 * [React](https://reactjs.org/) - The front-end user interface framework used
 * [Redux](https://redux.js.org/) - State Container for JS Apps
